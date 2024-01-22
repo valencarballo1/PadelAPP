@@ -1,0 +1,327 @@
+﻿
+@{
+    ViewBag.Title = "Reserva";
+}
+
+<div class="card row card-reserva">
+    <div class="card-header">
+        <h2 class="text-center">RESERVAR</h2>
+    </div>
+    <div class="card-body row d-flex justify-content-around align-items-center">
+        <div class="col-md-6 col-sm-12 col-12 d-flex justify-content-center align-items-center">
+            <div class="p-1">
+                <div class="card-title text-center">
+                    CANCHA 1
+                </div>
+                <div class="form-group">
+                    <label for="fecha">Selecciona una fecha:</label>
+                    <input type="text" class="form-control" id="fecha" name="fecha" readonly data-id="1">
+                </div>
+
+
+                <label for="duracion">Duración de la reserva:</label>
+                <label class="form-check">
+                    <input class="form-check-input duracionCheckbox" type="radio" name="radios" id="duracion60" value="60">
+                    <span class="form-check-label">60 Minutos</span>
+                </label>
+
+                <label class="form-check">
+                    <input class="form-check-input duracionCheckbox" type="radio" name="radios" id="duracion90" value="90">
+                    <span class="form-check-label">90 Minutos</span>
+                </label>
+
+                <div class="form-group">
+                    <label for="horario">Selecciona un horario:</label>
+                    <select class="form-control" id="horario" name="horario"></select>
+                </div>
+                <div class="d-flex justify-content-center m-2">
+                    <button class="btn btn-success" onclick="ReservarCancha(1)">RESERVAR</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-12 col-12 d-flex justify-content-center align-items-center">
+            <div class="p-1">
+                <div class="card-title text-center">
+                    CANCHA 2
+                </div>
+                <div class="form-group">
+                    <label for="fecha2">Selecciona una fecha:</label>
+                    <input type="text" class="form-control" id="fecha2" name="fecha2" readonly data-id="2">
+                </div>
+
+
+                <label for="duracion">Duración de la reserva:</label>
+                <label class="form-check">
+                    <input class="form-check-input duracionCheckbox2" type="radio" name="radios" id="duracion60" value="60">
+                    <span class="form-check-label">60 Minutos</span>
+                </label>
+
+                <label class="form-check">
+                    <input class="form-check-input duracionCheckbox2" type="radio" name="radios" id="duracion90" value="90">
+                    <span class="form-check-label">90 Minutos</span>
+                </label>
+
+                <div class="form-group">
+                    <label for="horario">Selecciona un horario:</label>
+                    <select class="form-control" id="horario2" name="horario"></select>
+                </div>
+                <div class="d-flex justify-content-center m-2">
+                    <button class="btn btn-success" onclick="ReservarCancha(2)">RESERVAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let datosDeHorario;
+    let fechaUsuario;
+    let duracion = 0;
+    let idCancha = 0;
+    let fechaSeleccionada;
+    let fechaFormateada;
+
+    $(document).ready(function () {
+        $('#fecha').datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'es',
+            autoclose: true,
+            startDate: new Date(), // Establece la fecha mínima como la fecha actual
+            todayHighlight: true // Resalta la fecha actual
+        }); 
+
+        $('#fecha2').datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'es',
+            autoclose: true,
+            startDate: new Date(), // Establece la fecha mínima como la fecha actual
+            todayHighlight: true // Resalta la fecha actual
+        }); 
+
+        $('#fecha').on('changeDate', function (e) {
+            $('#fecha2').val("");
+            $('#horario2').empty();
+            $('.duracionCheckbox2:checked').prop('checked', false);
+
+
+            $('#horario').empty();
+            $('.duracionCheckbox:checked').prop('checked', false);
+            fechaSeleccionada = e.date;
+            let dia = fechaSeleccionada.getDate();
+            let mes = fechaSeleccionada.getMonth() + 1;
+            let anio = fechaSeleccionada.getFullYear();
+            fechaFormateada = mes + '/' + dia + '/' + anio;
+            idCancha = this.getAttribute('data-id');
+            fechaUsuario = fechaFormateada;
+
+
+            $.ajax({
+                url: '@Url.Action("Load", "Horario")',
+                type: 'GET',
+                data: {
+                    idCancha: idCancha,
+                    fechaSeleccionada: fechaFormateada
+                },
+                success: function (data) {
+                    fechaUsuario = fechaFormateada;
+                    datosDeHorario = data;
+                },
+                error: function (error) {
+                    console.error('Error al obtener horarios:', error);
+                }
+            });
+
+            $('.duracionCheckbox').on('change', function () {
+                $('#horario').empty();
+                duracion = parseInt($('.duracionCheckbox:checked').val());
+                let horaInicio = 8;
+                let horaFin = 24;
+                for (let hora = horaInicio; hora < horaFin; hora++) {
+                    for (let minuto = 0; minuto < 60; minuto += duracion) {
+                        let horaFormato = ('0' + hora).slice(-2);
+                        let minutoFormato = ('0' + minuto).slice(-2);
+                        let tiempo = horaFormato + ':' + minutoFormato;
+                        $('#horario').append('<option class="text-light bg-success" value="' + tiempo + '">' + tiempo + '</option>');
+                        if (duracion === 90) {
+                            minuto += 30;
+                            minutoFormato = ('0' + minuto).slice(-2);
+                            tiempo = horaFormato + ':' + minutoFormato;
+                            $('#horario').append('<option class="text-light bg-success" value="' + tiempo + '">' + tiempo + '</option>');
+                        }
+                    }
+                }
+
+                if (datosDeHorario != null && datosDeHorario.length > 0) {
+                    deshabilitarHorarios(datosDeHorario, idCancha);
+                }
+            });
+        });
+
+        $('#fecha2').on('changeDate', function (e) {
+
+            $('#fecha').val("");
+            $('#horario').empty();
+            $('.duracionCheckbox:checked').prop('checked', false);
+
+            $('#horario2').empty();
+            fechaSeleccionada = e.date;
+            let dia = fechaSeleccionada.getDate();
+            let mes = fechaSeleccionada.getMonth() + 1;
+            let anio = fechaSeleccionada.getFullYear();
+            fechaFormateada = mes + '/' + dia + '/' + anio;
+            fechaUsuario = fechaFormateada;
+
+            idCancha = this.getAttribute('data-id');
+            $('.duracionCheckbox2:checked').prop('checked', false);
+
+            $.ajax({
+                url: '@Url.Action("Load", "Horario")',
+                type: 'GET',
+                data: {
+                    idCancha: idCancha,
+                    fechaSeleccionada: fechaFormateada
+                },
+
+                success: function (data) {
+                    fechaUsuario = fechaFormateada;
+                    datosDeHorario = data;
+                },
+                error: function (error) {
+                    console.error('Error al obtener horarios:', error);
+                }
+            });
+
+            $('.duracionCheckbox2').on('change', function () {
+                $('#horario2').empty();
+                duracion = parseInt($('.duracionCheckbox2:checked').val());
+                let horaInicio = 8;
+                let horaFin = 24;
+
+                for (let hora = horaInicio; hora < horaFin; hora++) {
+                    for (let minuto = 0; minuto < 60; minuto += duracion) {
+                        let horaFormato = ('0' + hora).slice(-2);
+                        let minutoFormato = ('0' + minuto).slice(-2);
+                        let tiempo = horaFormato + ':' + minutoFormato;
+                        $('#horario2').append('<option class="text-light bg-success" value="' + tiempo + '">' + tiempo + '</option>');
+
+                        if (duracion === 90) {
+                            minuto += 30;
+                            minutoFormato = ('0' + minuto).slice(-2);
+                            tiempo = horaFormato + ':' + minutoFormato;
+                            $('#horario2').append('<option class="text-light bg-success" value="' + tiempo + '">' + tiempo + '</option>');
+                        }
+                    }
+                }
+                if (datosDeHorario != null && datosDeHorario.length > 0) {
+                    deshabilitarHorarios(datosDeHorario, idCancha);
+                }
+            });
+        });
+    });
+
+    function deshabilitarHorarios(horariosReservados, idCancha) {
+
+        let fechasFormateadas = horariosReservados.map(function (fechaString) {
+                   let timestamp = parseInt(fechaString.HorarioDesde.match(/\((\d+)\)/)[1]);
+                   let fecha = new Date(timestamp);
+                   let dia = fecha.getDate();
+                   let mes = fecha.getMonth() + 1;
+                   let anio = fecha.getFullYear();
+                   return mes + '/' + dia + '/' + anio;
+        });
+
+               let selectElement;
+               if (idCancha > 1) {
+                   selectElement = document.getElementById("horario" + idCancha);
+               } else {
+                   selectElement = document.getElementById("horario");
+               }
+
+               if (fechasFormateadas.length == 0) {
+                   fechasFormateadas = fechaUsuario;
+               } else {
+                   fechasFormateadas = fechasFormateadas[0];
+               }
+
+               console.log(fechasFormateadas);
+
+               for (let i = 0; i < selectElement.options.length; i++) {
+
+                   let horarioOption = selectElement.options[i].value;
+
+                   let horarioOptionDate = new Date(`${fechasFormateadas} ${horarioOption}`);
+
+                   let isDisabled = horariosReservados.some(function (horario) {
+                       let horarioDesde = parseInt(horario.HorarioDesde.match(/\((\d+)\)/)[1]);
+                       let horarioHasta = parseInt(horario.HorarioHasta.match(/\((\d+)\)/)[1]);
+                       let horarioDesdeDate = new Date(horarioDesde);
+                       let horarioHastaDate = new Date(horarioHasta);
+
+
+                       return (horarioOptionDate >= horarioDesdeDate && horarioOptionDate < horarioHastaDate) ||
+                           (horarioOptionDate >= horarioDesdeDate - 90 * 60 * 1000 && horarioOptionDate < horarioHastaDate);
+
+
+                   });
+                   let itemSeleccionado = selectElement.options[i];
+
+                   itemSeleccionado.disabled = isDisabled;
+
+                   if (isDisabled) {
+                       itemSeleccionado.classList.remove('text-light', 'bg-success');
+                       itemSeleccionado.classList.add('text-light', 'bg-danger');
+                   }
+               }
+    }
+
+
+
+    function ReservarCancha(idCancha) {
+        let horarioDeReserva;
+        if (idCancha > 1) {
+            horarioDeReserva = $('#horario' + idCancha).val();
+        } else {
+            horarioDeReserva = $('#horario').val();
+        }
+
+        let partesFecha = fechaUsuario.split('/');
+
+        let fechaFormateada = partesFecha[1].padStart(2, '0') + '/' + partesFecha[0].padStart(2, '0') + '/' + partesFecha[2];
+
+        $.ajax({
+            url: '@Url.Action("Reservar", "Reservas")',
+            type: 'POST',
+            data: {
+                idCancha: idCancha,
+                fechaSeleccionada: fechaFormateada,
+                horarioDeReserva: horarioDeReserva,
+                duracion: duracion
+            },
+            success: function (data) {
+                if (data == true) {
+                    Swal.fire({
+                        title: "Reserva confirmada!",
+                        text: "Tu reserva se completo con exito!",
+                        icon: "success",
+                        showConfirmButton: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });;
+                } else {
+                    Swal.fire({
+                        title: "Error en la reserva!",
+                        text: "No se completar la reserva con exito!",
+                        icon: "error"
+                    });
+                }
+            },
+            error: function (error) {
+                console.error('Error al guardar reserva:', error);
+            }
+        });
+    }
+</script>
+

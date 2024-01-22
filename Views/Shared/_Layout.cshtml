@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary">
+        <div class="container">
+            @Html.ActionLink("PADEL APP", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Reservar", "Reserva", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    <li class="nav-item">
+                        <a class="nav-link colorAItems" id="perfilUsuario" href="#">
+                            <i class="bi bi-person-vcard-fill" style="display: none;"></i>
+                            <span id="iniciarSesionText">Iniciar Sesión</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        let usuarioId;
+        const perfilUsuario = document.getElementById('perfilUsuario');
+        const iconoPerfil = perfilUsuario.querySelector(".bi-person-vcard-fill");
+        const iniciarSesionText = document.getElementById("iniciarSesionText");
+
+        $(document).ready(function () {
+            usuarioId = getCookieValue("UsuarioSesion")
+
+            if (usuarioId != null) {
+                parseInt(usuarioId);
+            }
+
+            console.log(usuarioId);
+
+            if (usuarioId !== null && usuarioId !== "") {
+                iconoPerfil.style.display = "inline";
+                iniciarSesionText.style.display = "none";
+                perfilUsuario.href = "@Url.Action("Perfil", "Usuario")" + "?Id=" + usuarioId;
+            } else {
+                iconoPerfil.style.display = "none";
+                iniciarSesionText.style.display = "inline";
+                perfilUsuario.href = "@Url.Action("InicioSesion", "Usuario")"
+            }
+        }); //Termina el ready
+
+        function getCookieValue(cookieName) {
+            var name = cookieName + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieArray = decodedCookie.split(';');
+
+            for (var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i].trim();
+                if (cookie.indexOf(name) === 0) {
+                    var cookieValue = cookie.substring(name.length, cookie.length);
+                    var keyValueArray = cookieValue.split('=');
+
+                    if (keyValueArray.length > 1) {
+                        return keyValueArray[1];
+                    }
+                }
+            }
+            return null;
+        }
+
+
+
+
+    </script>
+</body>
+</html>

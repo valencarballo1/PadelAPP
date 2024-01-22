@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "TurnosReservados";
+}
+
+<div class="row">
+    <div class="card col-md-12 m-2">
+        <div class="card-header text-center">
+            <h5>Ver turnos reservados</h5>
+        </div>
+        <div class="card-body row align-items-center">
+            <div class="table-responsive">
+                <table class="table table-vcenter">
+                    <thead>
+                        <tr>
+                            <th>Cancha Nro</th>
+                            <th>Horario Desde</th>
+                            <th>Horario Hasta</th>
+                            <th>Usuario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let usuId = 0;
+    $(document).ready(function () {
+
+        $.ajax({
+            url: '@Url.Action("GetReservas", "Reservas")',
+            type: 'GET',
+            data: {},
+            success: function (data) {
+                llenarTabla(data);
+            },
+            error: function (error) {
+                console.error('Error al obtener horarios:', error);
+            }
+        });
+
+    });
+
+    const formatearFecha = (fecha) => {
+        const match = fecha.match(/\d+/);
+        const milisegundos = match ? parseInt(match[0], 10) : 0;
+        const fechaSeleccionada = new Date(milisegundos);
+
+        let dia = fechaSeleccionada.getDate();
+        let mes = fechaSeleccionada.getMonth() + 1;
+        let anio = fechaSeleccionada.getFullYear();
+        let hora = fechaSeleccionada.getHours();
+        let minutos = fechaSeleccionada.getMinutes();
+
+        if (mes < 10) {
+            mes = "0" + mes;
+        }
+
+        return fechaFormateada = dia + '/' + mes + '/' + anio + " " + hora + ":" + minutos;
+    }
+
+    const llenarTabla = (data) => {
+        console.log(data);
+        const tbody = document.querySelector('.table tbody');
+        tbody.innerHTML = '';
+
+        data.forEach((item) => {
+            const row = document.createElement('tr');
+
+            const columnas = [
+                item.CanchaNumero,
+                formatearFecha(item.HorarioDesde),
+                formatearFecha(item.HorarioHasta),
+                ++usuId,
+                "<button class='btn btn-danger'>Dar de Baja</button>"
+            ];
+
+            columnas.forEach((columna) => {
+                const cell = document.createElement('td');
+                cell.innerHTML = columna;  // Utiliza innerHTML para interpretar el HTML
+                row.appendChild(cell);
+            });
+
+            tbody.appendChild(row);
+        });
+    }
+</script>

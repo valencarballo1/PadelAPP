@@ -1,0 +1,277 @@
+﻿
+@{
+    ViewBag.Title = "Registro";
+}
+
+<style>
+    .perfil-img {
+        width: 200px; /* Ajusta según sea necesario */
+        height: 200px; /* Ajusta según sea necesario */
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #fff; /* Ajusta según sea necesario */
+    }
+</style>
+
+<div class="card row d-flex">
+    <div class="card-header">
+        <h5 class="text-center">REGISTRO</h5>
+    </div>
+
+    <form class="card-body row" id="formularioRegistro" enctype="multipart/form-data" action="@Url.Action("Registrarme", "Usuario")" method="POST">
+        <div class="col-md-6 g-3 align-items-center">
+            <div class="col-auto">
+                <label for="nombre" class="col-form-label">Nombre</label>
+            </div>
+            <div class="col-auto input-group">
+                <span class="input-group-text">
+                    <i class="fa fa-tennis-ball"></i>
+                </span>
+                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre">
+            </div>
+        </div>
+
+        <div class="col-md-6 g-3 align-items-center">
+            <div class="col-auto">
+                <label for="apellido" class="col-form-label">Apellido</label>
+            </div>
+            <div class="col-auto input-group">
+                <span class="input-group-text">
+                    <i class="fa fa-tennis-ball"></i>
+                </span>
+                <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Apellido">
+            </div>
+        </div>
+
+        <div class="col-md-6 g-3 align-items-center">
+            <div class="col-auto">
+                <label for="celular" class="col-form-label">Número celular</label>
+            </div>
+            <div class="col-auto input-group">
+                <span class="input-group-text">
+                    <i class="bi bi-phone"></i>
+                </span>
+                <input type="tel" id="celular" name="celular" class="form-control" placeholder="1199999999">
+                <div class="m-2">
+                    <i id="mensajeError" class="text-danger"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row col-md-6 g-3 align-items-center d-flex justify-content-center">
+            <div class="col-md-12">
+                <label for="vistaPrevia">Foto de perfil:</label>
+                <img src="#" alt="Vista Previa" class="perfil-img d-none" id="vistaPrevia">
+            </div>
+            <div class="col-md-12">
+                <input type="file" name="fotoPerfil" class="btn btn-sm btn-success form-control-file" id="fotoPerfil">
+            </div>
+        </div>
+
+        <div class="col-md-6 g-3 align-items-center">
+            <div class="col-auto">
+                <label for="usuario" class="col-form-label">Usuario</label>
+            </div>
+            <div class="col-auto input-group">
+                <span class="input-group-text">
+                    <i class="bi bi-person"></i>
+                </span>
+                <input type="text" id="usuario" name="usuario" class="form-control">
+            </div>
+            <div class="m-2">
+                <i id="mensajeErrorUsuario" class="text-danger"></i>
+            </div>
+        </div>
+
+        <div class="col-md-6 g-3 align-items-center">
+            <div class="col-auto">
+                <label for="contrasena" class="col-form-label">Contraseña</label>
+            </div>
+            <div class="col-auto">
+                <div class="input-group">
+                    <input type="password" id="contrasena" name="contrasena" class="form-control">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="mostrarContrasena">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 g-3 align-items-center">
+            <button type="submit" class="btn btn-success" id="crearUsuario">Crear</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    let nombreInput = document.getElementById('nombre');
+    let apellidoInput = document.getElementById('apellido');
+    let usuarioNombre = document.getElementById('usuario');
+    const crearUsuario = document.getElementById('crearUsuario');
+    const celular = document.getElementById('celular');
+    let fotoAdjunta;
+    let nombreIngresado = false;
+    let apellidoIngresado = false;
+    let usuarioExiste = false;
+
+    $(document).ready(function () {
+
+    });
+
+    document.getElementById('fotoPerfil').addEventListener('change', function (e) {
+        let vistaPrevia = document.getElementById('vistaPrevia');
+        vistaPrevia.classList.remove('d-none');
+
+
+        let archivo = e.target.files[0];
+        let lector = new FileReader();
+        fotoAdjunta = archivo;
+        console.log(fotoAdjunta);
+
+        lector.onload = function (e) {
+            vistaPrevia.src = e.target.result;
+        };
+
+        lector.readAsDataURL(archivo);
+    });
+
+
+
+    nombre.addEventListener('blur', () => {
+        if (nombre.value.length > 0) {
+            nombreIngresado = true;
+            nombreInput = nombre.value;
+        }
+    });
+
+    apellido.addEventListener('blur', () => {
+        if (apellido.value.length > 0) {
+            apellidoIngresado = true;
+            apellidoInput = apellido.value;
+        }
+
+
+    });
+
+    apellido.addEventListener('focusout', () => {
+        if (nombreIngresado == true && apellidoIngresado == true) {
+            UsuarioGenerico(nombreInput, apellidoInput);
+        } else {
+            usuarioNombre.value = "";
+        }
+    });
+
+    celular.addEventListener('input', function () {
+        const celularInput = this.value;
+        const mensajeError = document.getElementById('mensajeError');
+
+        // Validar la longitud del número de celular
+        if (celularInput.length !== 10) {
+            mensajeError.classList.remove('text-success');
+            mensajeError.classList.add('text-danger', 'bi', 'bi-x-circle-fill');
+            mensajeError.textContent = 'Num. Invalido'; // Limpiar el mensaje de error si es válido
+
+
+        } else {
+            mensajeError.classList.remove('text-danger');
+            mensajeError.classList.remove('bi', 'bi-x-circle-fill');
+            mensajeError.classList.add('text-success', 'bi', 'bi-check-circle-fill');
+            mensajeError.textContent = 'OK'; // Limpiar el mensaje de error si es válido
+        }
+    });
+
+    const UsuarioGenerico = (nombre, apellido) => {
+        usuarioNombre.value = nombre + '.' + apellido;
+        const inputEvent = new Event('input', { bubbles: true });
+        usuarioNombre.dispatchEvent(inputEvent);
+    }
+
+    usuarioNombre.addEventListener('input', function () {
+        const mensajeError = document.getElementById('mensajeErrorUsuario');
+
+        $.ajax({
+            url: '@Url.Action("GetByUsuarioNombre", "Usuario")',
+            type: 'GET',
+            data: {
+                usuarioNombre: usuarioNombre.value
+            },
+            success: function (data) {
+                if (data == true) {
+                    usuarioExiste = true;
+                }
+
+            },
+            error: function (error) {
+                console.error('Error al obtener horarios:', error);
+            }
+        });
+
+        if (usuarioExiste) {
+            mensajeError.classList.remove('text-success');
+            mensajeError.classList.add('text-danger', 'bi', 'bi-x-circle-fill');
+            mensajeError.textContent = 'Usuario Existente';
+        } else {
+            mensajeError.classList.remove('text-danger');
+            mensajeError.classList.remove('bi', 'bi-x-circle-fill');
+            mensajeError.classList.add('text-success', 'bi', 'bi-check-circle-fill');
+            mensajeError.textContent = 'Disponible';
+        }
+    });
+
+    document.getElementById('mostrarContrasena').addEventListener('click', function () {
+        const contrasenaInput = document.getElementById('contrasena');
+        const iconoOjo = this.querySelector('i');
+
+        // Alterna entre tipo 'password' y 'text'
+        if (contrasenaInput.type === 'password') {
+            contrasenaInput.type = 'text';
+            iconoOjo.classList.remove('bi-eye');
+            iconoOjo.classList.add('bi-eye-slash');
+        } else {
+            contrasenaInput.type = 'password';
+            iconoOjo.classList.remove('bi-eye-slash');
+            iconoOjo.classList.add('bi-eye');
+        }
+    });
+
+    $("#formularioRegistro").submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: $(this).attr("action"),
+            type: $(this).attr("method"),
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response > 0) {
+                    Swal.fire({
+                        title: "Registro confirmado!",
+                        text: "Tu usuario esta activo. Puedes reservar y crear partidos!",
+                        icon: "success",
+                        showConfirmButton: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location = "@Url.Action("Index", "Home")";
+                        }
+
+                    });
+
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                swal("Hubo un error en la carga", {
+                    icon: "error",
+                });
+            }
+
+
+        });
+    });
+</script>
+
+

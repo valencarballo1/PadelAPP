@@ -1,0 +1,252 @@
+﻿
+@{
+    ViewBag.Title = "CrearPartido";
+}
+
+<div class="card">
+    <div class="card-header">
+        Crea tu partido
+    </div>
+    <div class="card-body">
+        <div class="col-md-6 col-sm-12 col-12 d-flex justify-content-center align-items-center">
+            <div class="p-1">
+                <div class="card-title text-center">
+                    CANCHA 1
+                </div>
+                <div class="form-group">
+                    <label for="fecha">Selecciona una fecha:</label>
+                    <input type="text" class="form-control" id="fecha" name="fecha" readonly data-id="1">
+                </div>
+
+
+                <label for="duracion">Duración de la reserva:</label>
+                <label class="form-check">
+                    <input class="form-check-input duracionCheckbox" type="radio" name="radios" id="duracion60" value="60">
+                    <span class="form-check-label">60 Minutos</span>
+                </label>
+
+                <label class="form-check">
+                    <input class="form-check-input duracionCheckbox" type="radio" name="radios" id="duracion90" value="90">
+                    <span class="form-check-label">90 Minutos</span>
+                </label>
+
+                <div class="form-group">
+                    <label for="horario">Selecciona un horario:</label>
+                    <select class="form-control" id="horario" name="horario"></select>
+                </div>
+
+                <div class="form-group d-flex justify-content-center row">
+                    <label for="jugadoresRestantes">Cantidad de jugadores restantes:</label>
+                    <label class="form-check col-md-3 col-3">
+                        <input class="form-check-input" type="radio" name="jugadoresRestantes" value="1">
+                        <span class="form-check-label">1</span>
+                    </label>
+                    <label class="form-check col-md-3 col-3">
+                        <input class="form-check-input" type="radio" name="jugadoresRestantes" value="2">
+                        <span class="form-check-label">2</span>
+                    </label>
+                    <label class="form-check col-md-3 col-3">
+                        <input class="form-check-input" type="radio" name="jugadoresRestantes" value="3">
+                        <span class="form-check-label">3</span>
+                    </label>
+                </div>
+
+                <div class="d-flex justify-content-center m-2">
+                    <button class="btn btn-success" onclick="CrearPartido(1)">Crear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let datosDeHorario;
+    let fechaUsuario;
+    let duracion = 0;
+    let idCancha = 0;
+    let fechaSeleccionada;
+    let fechaFormateada;
+    let jugadoresRestantes;
+    let cantidadJugadores;
+
+
+    $(document).ready(function () {
+
+        $('#fecha').datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'es',
+            autoclose: true,
+            startDate: new Date(), // Establece la fecha mínima como la fecha actual
+            todayHighlight: true // Resalta la fecha actual
+        });
+
+        $('#fecha').on('changeDate', function (e) {
+            //$('#fecha2').val("");
+            //$('#horario2').empty();
+            //$('.duracionCheckbox2:checked').prop('checked', false);
+            $('#horario').empty();
+            $('.duracionCheckbox:checked').prop('checked', false);
+            fechaSeleccionada = e.date;
+            let dia = fechaSeleccionada.getDate();
+            let mes = fechaSeleccionada.getMonth() + 1;
+            let anio = fechaSeleccionada.getFullYear();
+            fechaFormateada = mes + '/' + dia + '/' + anio;
+            idCancha = this.getAttribute('data-id');
+            fechaUsuario = fechaFormateada;
+
+            $.ajax({
+                url: '@Url.Action("Load", "Horario")',
+                type: 'GET',
+                data: {
+                    idCancha: idCancha,
+                    fechaSeleccionada: fechaFormateada
+                },
+                success: function (data) {
+                    fechaUsuario = fechaFormateada;
+                    datosDeHorario = data;
+                },
+                error: function (error) {
+                    console.error('Error al obtener horarios:', error);
+                }
+            });
+
+            $('.duracionCheckbox').on('change', function () {
+                $('#horario').empty();
+                duracion = parseInt($('.duracionCheckbox:checked').val());
+                let horaInicio = 8;
+                let horaFin = 24;
+                for (let hora = horaInicio; hora < horaFin; hora++) {
+                    for (let minuto = 0; minuto < 60; minuto += duracion) {
+                        let horaFormato = ('0' + hora).slice(-2);
+                        let minutoFormato = ('0' + minuto).slice(-2);
+                        let tiempo = horaFormato + ':' + minutoFormato;
+                        $('#horario').append('<option class="text-light bg-success" value="' + tiempo + '">' + tiempo + '</option>');
+                        if (duracion === 90) {
+                            minuto += 30;
+                            minutoFormato = ('0' + minuto).slice(-2);
+                            tiempo = horaFormato + ':' + minutoFormato;
+                            $('#horario').append('<option class="text-light bg-success" value="' + tiempo + '">' + tiempo + '</option>');
+                        }
+                    }
+                }
+                if (datosDeHorario != null && datosDeHorario.length > 0) {
+                    deshabilitarHorarios(datosDeHorario, idCancha);
+                }
+            });
+        });
+
+
+    });//fin del ready
+
+    function deshabilitarHorarios(horariosReservados, idCancha) {
+
+        let fechasFormateadas = horariosReservados.map(function (fechaString) {
+            let timestamp = parseInt(fechaString.HorarioDesde.match(/\((\d+)\)/)[1]);
+            let fecha = new Date(timestamp);
+            let dia = fecha.getDate();
+            let mes = fecha.getMonth() + 1;
+            let anio = fecha.getFullYear();
+            return mes + '/' + dia + '/' + anio;
+        });
+
+        let selectElement;
+        if (idCancha > 1) {
+            selectElement = document.getElementById("horario" + idCancha);
+        } else {
+            selectElement = document.getElementById("horario");
+        }
+
+        if (fechasFormateadas.length == 0) {
+            fechasFormateadas = fechaUsuario;
+        } else {
+            fechasFormateadas = fechasFormateadas[0];
+        }
+
+        console.log(fechasFormateadas);
+
+        for (let i = 0; i < selectElement.options.length; i++) {
+
+            let horarioOption = selectElement.options[i].value;
+
+            let horarioOptionDate = new Date(`${fechasFormateadas} ${horarioOption}`);
+
+            let isDisabled = horariosReservados.some(function (horario) {
+                let horarioDesde = parseInt(horario.HorarioDesde.match(/\((\d+)\)/)[1]);
+                let horarioHasta = parseInt(horario.HorarioHasta.match(/\((\d+)\)/)[1]);
+                let horarioDesdeDate = new Date(horarioDesde);
+                let horarioHastaDate = new Date(horarioHasta);
+
+
+                return (horarioOptionDate >= horarioDesdeDate && horarioOptionDate < horarioHastaDate) ||
+                    (horarioOptionDate >= horarioDesdeDate - 90 * 60 * 1000 && horarioOptionDate < horarioHastaDate);
+
+
+            });
+            let itemSeleccionado = selectElement.options[i];
+
+            itemSeleccionado.disabled = isDisabled;
+
+            if (isDisabled) {
+                itemSeleccionado.classList.remove('text-light', 'bg-success');
+                itemSeleccionado.classList.add('text-light', 'bg-danger');
+            }
+        }
+    }
+
+    jugadoresRestantes = document.querySelectorAll('input[name="jugadoresRestantes"]');
+
+    jugadoresRestantes.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            cantidadJugadores = this.value;
+            console.log(cantidadJugadores);
+        });
+    });
+
+    function CrearPartido(idCancha) {
+        let horarioDeReserva;
+        if (idCancha > 1) {
+            horarioDeReserva = $('#horario' + idCancha).val();
+        } else {
+            horarioDeReserva = $('#horario').val();
+        }
+
+        let partesFecha = fechaUsuario.split('/');
+        let fechaFormateada = partesFecha[1].padStart(2, '0') + '/' + partesFecha[0].padStart(2, '0') + '/' + partesFecha[2];
+        $.ajax({
+            url: '@Url.Action("CrearPartido", "Reservas")',
+            type: 'POST',
+            data: {
+                idUsuario: usuarioId,
+                idCancha: idCancha,
+                fechaSeleccionada: fechaFormateada,
+                horarioDeReserva: horarioDeReserva,
+                duracion: duracion,
+                jugadoresRestantes: cantidadJugadores
+            },
+            success: function (data) {
+                if (data == true) {
+                    Swal.fire({
+                        title: "Partido Creado!",
+                        text: "Tu partido fue creado con exito!",
+                        icon: "success",
+                        showConfirmButton: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Error en la creacion!",
+                        text: "No se pudo completar la creacion con exito!",
+                        icon: "error"
+                    });
+                }
+            },
+            error: function (error) {
+                console.error('Error al obtener horarios:', error);
+            }
+        });
+    }
+
+</script>

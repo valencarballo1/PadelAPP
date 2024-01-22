@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ad9796db22f64b68a2fd4adaf3d651d2" Name="Diagram1">
+        <EntityTypeShape EntityType="PadelAPPModel.CanchasReservadas" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PadelAPPModel.Horarios" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <AssociationConnector Association="PadelAPPModel.FK__CanchasRe__IdHor__5165187F" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PadelAPPModel.Canchas" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="PadelAPPModel.FK__CanchasRe__IdCan__5070F446" />
+        <EntityTypeShape EntityType="PadelAPPModel.Perfil" Width="1.5" PointX="5.75" PointY="3.25" />
+        <EntityTypeShape EntityType="PadelAPPModel.Usuario" Width="1.5" PointX="3.375" PointY="4.25" />
+        <AssociationConnector Association="PadelAPPModel.FK__Perfil__IdUsuari__70DDC3D8" />
+        <EntityTypeShape EntityType="PadelAPPModel.PartidosCreadosUsuarios" Width="1.5" PointX="9.125" PointY="0.75" />
+        <AssociationConnector Association="PadelAPPModel.FK__PartidosC__IdCan__02FC7413" />
+        <AssociationConnector Association="PadelAPPModel.FK__PartidosC__IdJug__03F0984C" />
+        <AssociationConnector Association="PadelAPPModel.FK__PartidosC__IdJug__04E4BC85" />
+        <AssociationConnector Association="PadelAPPModel.FK__PartidosC__IdJug__05D8E0BE" />
+        <AssociationConnector Association="PadelAPPModel.FK__PartidosC__IdJug__06CD04F7" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
