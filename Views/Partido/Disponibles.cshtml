@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Disponibles";
+}
+
+<div class="card">
+    <div class="card-header">
+        Partidos disponibles para unirse
+    </div>
+
+    <div class="card-body">
+        <div class="container">
+            <h2>Partidos Disponibles</h2>
+            <div id="partidos-container" class="row"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+  // Simula una solicitud AJAX
+  // En tu aplicación, deberías realizar una solicitud AJAX real a tu servidor
+  // y manejar la respuesta de la manera adecuada.
+  const partidosDisponibles = [
+    { HorarioDesde: "12:00 PM", HorarioHasta: "2:00 PM", CantidadDeJugadores: 2, UsuarioNombre: "Organizador1" },
+    { HorarioDesde: "3:00 PM", HorarioHasta: "5:00 PM", CantidadDeJugadores: 1, UsuarioNombre: "Organizador2" },
+    // ... más objetos de partidos
+  ];
+
+  // Obtén el contenedor de partidos
+  const partidosContainer = document.getElementById('partidos-container');
+
+  // Función para crear una tarjeta
+  function crearTarjeta(partido) {
+    const card = document.createElement('div');
+    card.classList.add('card', 'col-md-4');
+
+    card.innerHTML = `
+      <div class="card-body">
+        <h5 class="card-title">Horario: ${partido.HorarioDesde} - ${partido.HorarioHasta}</h5>
+        <p class="card-text">Jugadores: ${partido.CantidadDeJugadores}</p>
+        <p class="card-text">Organizador: ${partido.UsuarioNombre}</p>
+        <a href="#" class="btn btn-primary">Unirme al Partido</a>
+      </div>
+    `;
+
+    return card;
+  }
+
+  // Manejar la respuesta de la solicitud AJAX
+  // En este ejemplo, se utiliza un setTimeout para simular una solicitud asíncrona
+  setTimeout(() => {
+    partidosDisponibles.forEach(partido => {
+      const card = crearTarjeta(partido);
+      partidosContainer.appendChild(card);
+    });
+  }, 1000); // Simulando una respuesta después de 1 segundo (puedes ajustar esto)
+
+</script>
+

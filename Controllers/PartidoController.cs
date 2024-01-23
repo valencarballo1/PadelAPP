@@ -80,6 +80,16 @@ namespace ReservaPadel.Controllers
             return View(partido);
         }
 
+        public ActionResult Crear()
+        {
+            return View();
+        }
+
+        public ActionResult Disponibles()
+        {
+            return View();
+        }
+
         public JsonResult Unirse(int idPartido, int idUsuario, int posicionJugador)
         {
             bool seUnio = _PartidoBusiness.Unirse(idPartido, idUsuario, posicionJugador);
