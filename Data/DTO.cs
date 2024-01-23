@@ -33,5 +33,24 @@ namespace Data
             public string Celular {  get; set; }
             public string FotoPerfil { get; set; }
         }
+
+        public class PartidoDTO
+        {
+            public int Id { get; set; }
+            public int CanchaNumero { get; set; }
+            public DateTime HorarioDesde { get; set; }
+            public DateTime HorarioHasta { get; set; }
+            public string UsuarioJ1 { get; set; }
+            public string UsuarioJ2 { get; set; }
+            public string UsuarioJ3 { get; set; }
+            public string UsuarioJ4 { get; set; }
+            public string FotoPerfil1 { get; set; }
+            public string FotoPerfil2 { get; set; }
+            public string FotoPerfil3 { get; set; }
+            public string FotoPerfil4 { get; set; }
+
+
+
+        }
     }
 }

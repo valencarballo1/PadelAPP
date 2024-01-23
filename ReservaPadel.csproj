@@ -123,6 +123,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
+    <Compile Include="Controllers\PartidoController.cs" />
     <Compile Include="Controllers\ReservasController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -190,6 +191,7 @@
     <Content Include="Views\Usuario\Perfil.cshtml" />
     <Content Include="Views\Usuario\InicioSesion.cshtml" />
     <Content Include="Views\Home\CrearPartido.cshtml" />
+    <Content Include="Views\Partido\Ver.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
