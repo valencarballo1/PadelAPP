@@ -19,7 +19,45 @@ namespace Business
         }
         public PartidoDTO Get(int idPartido)
         {
-            return _PartidoRepository.Get(idPartido);
+            return _PartidoRepository.GetDTO(idPartido);
+        }
+
+        public bool Unirse(int idPartido, int idUsuario, int posicionJugador)
+        {
+            bool seUnio = false;
+            PartidosCreadosUsuarios partido = _PartidoRepository.Get(idPartido);
+
+            if(posicionJugador == 2)
+            {
+                if(partido.IdJugador2 == null)
+                {
+                    partido.IdJugador2 = idUsuario;
+                    _PartidoRepository.Save(partido);
+                    seUnio = true;
+                }
+            }
+
+            if (posicionJugador == 3)
+            {
+                if (partido.IdJugador2 == null)
+                {
+                    partido.IdJugador2 = idUsuario;
+                    _PartidoRepository.Save(partido);
+                    seUnio = true;
+                }
+            }
+
+            if (posicionJugador == 4)
+            {
+                if (partido.IdJugador3 == null)
+                {
+                    partido.IdJugador3 = idUsuario;
+                    _PartidoRepository.Save(partido);
+                    seUnio = true;
+                }
+            }
+
+            return seUnio;
         }
     }
 }

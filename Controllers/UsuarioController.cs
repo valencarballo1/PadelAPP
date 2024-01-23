@@ -51,6 +51,11 @@ namespace ReservaPadel.Controllers
             {
                 id = _UsuarioBusiness.Registrarme(nombre, apellido, celular, usuario, contrasena);
             }
+
+            if(id > 0)
+            {
+                this.LogIn(usuario, contrasena);
+            }
             return Json(id);
         }
 
