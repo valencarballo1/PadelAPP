@@ -18,24 +18,31 @@
 </div>
 
 <script>
-  // Simula una solicitud AJAX
-  // En tu aplicación, deberías realizar una solicitud AJAX real a tu servidor
-  // y manejar la respuesta de la manera adecuada.
-  const partidosDisponibles = [
-    { HorarioDesde: "12:00 PM", HorarioHasta: "2:00 PM", CantidadDeJugadores: 2, UsuarioNombre: "Organizador1" },
-    { HorarioDesde: "3:00 PM", HorarioHasta: "5:00 PM", CantidadDeJugadores: 1, UsuarioNombre: "Organizador2" },
-    // ... más objetos de partidos
-  ];
+    let partidosDisponibles;
 
-  // Obtén el contenedor de partidos
-  const partidosContainer = document.getElementById('partidos-container');
+    $(document).ready(function () {
+           $.ajax({
+               url: '@Url.Action("GetDetallesPartidos", "Partido")',
+               type: 'GET',
+               data: {},
+               success: function (data) {
+                   partidosDisponibles = data;
+                   console.log(partidosDisponibles);
+               },
+               error: function (error) {
+                   console.error('Error al obtener horarios:', error);
+               }
+           });
+    });
 
-  // Función para crear una tarjeta
-  function crearTarjeta(partido) {
-    const card = document.createElement('div');
-    card.classList.add('card', 'col-md-4');
+    const partidosContainer = document.getElementById('partidos-container');
 
-    card.innerHTML = `
+    // Función para crear una tarjeta
+    function crearTarjeta(partido) {
+        const card = document.createElement('div');
+        card.classList.add('card', 'col-md-4');
+
+        card.innerHTML = `
       <div class="card-body">
         <h5 class="card-title">Horario: ${partido.HorarioDesde} - ${partido.HorarioHasta}</h5>
         <p class="card-text">Jugadores: ${partido.CantidadDeJugadores}</p>
@@ -44,17 +51,15 @@
       </div>
     `;
 
-    return card;
-  }
+        return card;
+    }
 
-  // Manejar la respuesta de la solicitud AJAX
-  // En este ejemplo, se utiliza un setTimeout para simular una solicitud asíncrona
-  setTimeout(() => {
-    partidosDisponibles.forEach(partido => {
-      const card = crearTarjeta(partido);
-      partidosContainer.appendChild(card);
-    });
-  }, 1000); // Simulando una respuesta después de 1 segundo (puedes ajustar esto)
+    setTimeout(() => {
+        partidosDisponibles.forEach(partido => {
+            const card = crearTarjeta(partido);
+            partidosContainer.appendChild(card);
+        });
+    }, 1000);
 
 </script>
 

@@ -96,5 +96,11 @@ namespace ReservaPadel.Controllers
 
             return Json(seUnio);
         }
+
+        public JsonResult GetDetallesPartidos()
+        {
+            List<DetallePartidoDTO> detalles = _PartidoBusiness.GetDetallePartidos();
+            return Json(detalles, JsonRequestBehavior.AllowGet);
+        }
     }
 }

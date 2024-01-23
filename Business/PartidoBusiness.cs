@@ -59,5 +59,10 @@ namespace Business
 
             return seUnio;
         }
+
+        public List<DetallePartidoDTO> GetDetallePartidos()
+        {
+            return _PartidoRepository.GetDetallePartido();
+        }
     }
 }

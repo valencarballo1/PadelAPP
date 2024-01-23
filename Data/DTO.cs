@@ -30,7 +30,7 @@ namespace Data
             public string NombreUsuario { get; set; }
             public string Nombre { get; set; }
             public string Apellido { get; set; }
-            public string Celular {  get; set; }
+            public string Celular { get; set; }
             public string FotoPerfil { get; set; }
         }
 
@@ -49,8 +49,15 @@ namespace Data
             public string FotoPerfil3 { get; set; }
             public string FotoPerfil4 { get; set; }
 
+        }
 
-
+        public class DetallePartidoDTO
+        {
+            public int Id { get; set; }
+            public int CanchaNumero { get; set; }
+            public DateTime HorarioDesde { get; set; }
+            public DateTime HorarioHasta { get; set; }
+            public int CantidadJugadores { get; set; }
         }
     }
 }

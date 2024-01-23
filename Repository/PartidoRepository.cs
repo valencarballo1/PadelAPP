@@ -1,5 +1,6 @@
 ﻿using Data;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.IO;
@@ -82,6 +83,27 @@ namespace Repository
             {
                 db.PartidosCreadosUsuarios.AddOrUpdate(partido);
                 db.SaveChanges();
+            }
+        }
+
+        public List<DetallePartidoDTO> GetDetallePartido()
+        {
+            using (PadelAPPEntities db = new PadelAPPEntities())
+            {
+                List<PartidosCreadosUsuarios> partidosEncontrado = db.PartidosCreadosUsuarios.Include("CanchasReservadas").ToList();
+
+                List<DetallePartidoDTO> detalles = partidosEncontrado.Select(h => new DetallePartidoDTO
+                {
+                    Id = h.Id,
+                    HorarioDesde = h.CanchasReservadas.Horarios.HorarioDesde.Value,
+                    HorarioHasta = h.CanchasReservadas.Horarios.HorarioHasta.Value,
+                    CanchaNumero = h.CanchasReservadas.IdCancha.Value,
+                    CantidadJugadores = 1
+                })
+                .OrderBy(r => r.HorarioDesde)
+                .ToList();
+
+                return detalles;
             }
         }
     }
