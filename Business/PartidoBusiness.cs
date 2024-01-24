@@ -39,9 +39,9 @@ namespace Business
 
             if (posicionJugador == 3)
             {
-                if (partido.IdJugador2 == null)
+                if (partido.IdJugador3 == null)
                 {
-                    partido.IdJugador2 = idUsuario;
+                    partido.IdJugador3 = idUsuario;
                     _PartidoRepository.Save(partido);
                     seUnio = true;
                 }
@@ -49,9 +49,9 @@ namespace Business
 
             if (posicionJugador == 4)
             {
-                if (partido.IdJugador3 == null)
+                if (partido.IdJugador4 == null)
                 {
-                    partido.IdJugador3 = idUsuario;
+                    partido.IdJugador4 = idUsuario;
                     _PartidoRepository.Save(partido);
                     seUnio = true;
                 }

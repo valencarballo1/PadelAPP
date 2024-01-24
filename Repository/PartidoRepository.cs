@@ -98,7 +98,8 @@ namespace Repository
                     HorarioDesde = h.CanchasReservadas.Horarios.HorarioDesde.Value,
                     HorarioHasta = h.CanchasReservadas.Horarios.HorarioHasta.Value,
                     CanchaNumero = h.CanchasReservadas.IdCancha.Value,
-                    CantidadJugadores = 1
+                    CantidadJugadores = 1,
+                    UsuarioOrganizador = h.Usuario.NombreUsuario
                 })
                 .OrderBy(r => r.HorarioDesde)
                 .ToList();

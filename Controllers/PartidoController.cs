@@ -34,24 +34,29 @@ namespace ReservaPadel.Controllers
                 nombreArchivo = partido.FotoPerfil1;
                 rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
                 partido.FotoPerfil1 = rutaCompleta;
-            }else if(partido.UsuarioJ1 == partido.UsuarioJ2)
-            {
-                partido.UsuarioJ2 = "Invitado de " + partido.UsuarioJ1;
             }
 
-            if (!partido.UsuarioJ2.IsEmpty())
+            if (!partido.UsuarioJ2.IsEmpty() && partido.UsuarioJ2 != partido.UsuarioJ1)
             {
                 nombreArchivo = partido.FotoPerfil2;
                 rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
                 partido.FotoPerfil2 = rutaCompleta;
-            }else if(partido.UsuarioJ2 == "")
+            }
+            else if (partido.UsuarioJ2 == "")
             {
                 nombreArchivo = "AgregarAPartido.jpeg";
                 rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
                 partido.FotoPerfil2 = rutaCompleta;
             }
+            else if (partido.UsuarioJ1 == partido.UsuarioJ2)
+            {
+                partido.UsuarioJ2 = "Invitado de " + partido.UsuarioJ1;
+                nombreArchivo = partido.FotoPerfil2;
+                rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                partido.FotoPerfil2 = rutaCompleta;
+            }
 
-            if (!partido.UsuarioJ3.IsEmpty())
+            if (!partido.UsuarioJ3.IsEmpty() && partido.UsuarioJ3 != partido.UsuarioJ1 && partido.UsuarioJ3 != partido.UsuarioJ2)
             {
                 nombreArchivo = partido.FotoPerfil3;
                 rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
@@ -63,6 +68,21 @@ namespace ReservaPadel.Controllers
                 rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
                 partido.FotoPerfil3 = rutaCompleta;
             }
+            else if (partido.UsuarioJ3 == partido.UsuarioJ1)
+            {
+                partido.UsuarioJ3 = "Invitado de: " + partido.UsuarioJ1;
+                nombreArchivo = partido.FotoPerfil1;
+                rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                partido.FotoPerfil3 = rutaCompleta;
+            }
+            else if (partido.UsuarioJ3 == partido.UsuarioJ2)
+            {
+                partido.UsuarioJ3 = "Invitado de: " + partido.UsuarioJ2;
+                nombreArchivo = partido.FotoPerfil2;
+                rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                partido.FotoPerfil3 = rutaCompleta;
+            }
+
 
             if (!partido.UsuarioJ4.IsEmpty())
             {

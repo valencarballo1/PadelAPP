@@ -5,13 +5,12 @@
 
 <div class="card">
     <div class="card-header">
-        Partidos disponibles para unirse
+        <h2 class="text-center">Partidos disponibles para unirse</h2>
     </div>
 
     <div class="card-body">
         <div class="container">
-            <h2>Partidos Disponibles</h2>
-            <div id="partidos-container" class="row"></div>
+            <div id="partidos-container" class="row justify-content-center"></div>
         </div>
     </div>
 
@@ -21,6 +20,7 @@
     let partidosDisponibles;
 
     $(document).ready(function () {
+                   enEspera();
            $.ajax({
                url: '@Url.Action("GetDetallesPartidos", "Partido")',
                type: 'GET',
@@ -28,6 +28,11 @@
                success: function (data) {
                    partidosDisponibles = data;
                    console.log(partidosDisponibles);
+                   partidosDisponibles.forEach(partido => {
+                       const card = crearTarjeta(partido);
+                       partidosContainer.appendChild(card);
+                   });
+                   enEspera("chau");
                },
                error: function (error) {
                    console.error('Error al obtener horarios:', error);
@@ -40,26 +45,36 @@
     // Función para crear una tarjeta
     function crearTarjeta(partido) {
         const card = document.createElement('div');
-        card.classList.add('card', 'col-md-4');
+        card.classList.add('card', 'col-md-3', 'col-5' ,'m-2',);
+
+        const fechaPartido = formatearFecha(partido.HorarioDesde);
+        const fechaDesde = formatearHora(partido.HorarioDesde);
+        const fechaHasta = formatearHora(partido.HorarioHasta);
 
         card.innerHTML = `
       <div class="card-body">
-        <h5 class="card-title">Horario: ${partido.HorarioDesde} - ${partido.HorarioHasta}</h5>
+        <h5 class="card-title text-center">Fecha: ${fechaPartido}</h5>
+        <h5 class="card-title text-center">Horario: ${fechaDesde} - ${fechaHasta}</h5>
         <p class="card-text">Jugadores: ${partido.CantidadDeJugadores}</p>
-        <p class="card-text">Organizador: ${partido.UsuarioNombre}</p>
-        <a href="#" class="btn btn-primary">Unirme al Partido</a>
+        <p class="card-text">Organizador: ${partido.UsuarioOrganizador}</p>
+        <a href="@Url.Action("Ver", "Partido")?idPartido=${partido.Id}" class="btn btn-primary">Unirme al Partido</a>
       </div>
     `;
 
         return card;
     }
 
-    setTimeout(() => {
-        partidosDisponibles.forEach(partido => {
-            const card = crearTarjeta(partido);
-            partidosContainer.appendChild(card);
-        });
-    }, 1000);
+    function formatearFecha(fechaString) {
+        var fecha = new Date(parseInt(fechaString.substr(6)));
+        var opciones = { year: 'numeric', month: '2-digit', day: '2-digit'};
+        return fecha.toLocaleString('es-ES', opciones);
+    }
+
+    function formatearHora(fechaString) {
+        var fecha = new Date(parseInt(fechaString.substr(6)));
+        var opciones = { hour: '2-digit', minute: '2-digit' };
+        return fecha.toLocaleString('es-ES', opciones);
+    }
 
 </script>
 

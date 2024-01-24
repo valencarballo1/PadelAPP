@@ -50,6 +50,8 @@
 
         inicioSesion.addEventListener('click', () => {
 
+            enEspera();
+
             if (usuarioNombre.value.length == 0) {
                 Swal.fire({
                     title: "Error",
@@ -79,6 +81,7 @@
                     },
                     success: function (response) {
                         console.log(response);
+                        enEspera("chau");
                         if (response != null) {
                             Swal.fire({
                                 title: "Bienvenido " + response.Nombre,

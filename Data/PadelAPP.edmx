@@ -20,6 +20,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdCancha" Type="int" />
           <Property Name="IdHorario" Type="int" />
+          <Property Name="IdUsuario" Type="int" />
         </EntityType>
         <EntityType Name="Horarios">
           <Key>
@@ -156,6 +157,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CanchasReservadas_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CanchasReservadas">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PadelAPPModelStoreContainer">
           <EntitySet Name="Canchas" EntityType="Self.Canchas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CanchasReservadas" EntityType="Self.CanchasReservadas" Schema="dbo" store:Type="Tables" />
@@ -195,6 +208,10 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Perfil" EntitySet="Perfil" />
           </AssociationSet>
+          <AssociationSet Name="FK_CanchasReservadas_Usuario" Association="Self.FK_CanchasReservadas_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -210,6 +227,8 @@
           <NavigationProperty Name="Horarios" Relationship="Self.FK__CanchasRe__IdHor__5165187F" FromRole="CanchasReservadas" ToRole="Horarios" />
           <NavigationProperty Name="Canchas" Relationship="PadelAPPModel.FK__CanchasRe__IdCan__5070F446" FromRole="CanchasReservadas" ToRole="Canchas" />
           <NavigationProperty Name="PartidosCreadosUsuarios" Relationship="PadelAPPModel.FK__PartidosC__IdCan__02FC7413" FromRole="CanchasReservadas" ToRole="PartidosCreadosUsuarios" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <NavigationProperty Name="Usuario" Relationship="PadelAPPModel.FK_CanchasReservadas_Usuario" FromRole="CanchasReservadas" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Horarios">
           <Key>
@@ -272,6 +291,10 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
           </AssociationSet>
+          <AssociationSet Name="FK_CanchasReservadas_Usuario" Association="PadelAPPModel.FK_CanchasReservadas_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Canchas">
           <Key>
@@ -318,6 +341,7 @@
           <NavigationProperty Name="PartidosCreadosUsuarios1" Relationship="PadelAPPModel.FK__PartidosC__IdJug__04E4BC85" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
           <NavigationProperty Name="PartidosCreadosUsuarios2" Relationship="PadelAPPModel.FK__PartidosC__IdJug__05D8E0BE" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
           <NavigationProperty Name="PartidosCreadosUsuarios3" Relationship="PadelAPPModel.FK__PartidosC__IdJug__06CD04F7" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
+          <NavigationProperty Name="CanchasReservadas" Relationship="PadelAPPModel.FK_CanchasReservadas_Usuario" FromRole="Usuario" ToRole="CanchasReservadas" />
         </EntityType>
         <Association Name="FK__Perfil__IdUsuari__70DDC3D8">
           <End Type="PadelAPPModel.Usuario" Role="Usuario" Multiplicity="0..1" />
@@ -407,6 +431,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CanchasReservadas_Usuario">
+          <End Type="PadelAPPModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="PadelAPPModel.CanchasReservadas" Role="CanchasReservadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CanchasReservadas">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -416,6 +452,7 @@
           <EntitySetMapping Name="CanchasReservadas">
             <EntityTypeMapping TypeName="PadelAPPModel.CanchasReservadas">
               <MappingFragment StoreEntitySet="CanchasReservadas">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdCancha" ColumnName="IdCancha" />
                 <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />

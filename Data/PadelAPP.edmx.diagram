@@ -19,6 +19,7 @@
         <AssociationConnector Association="PadelAPPModel.FK__PartidosC__IdJug__04E4BC85" />
         <AssociationConnector Association="PadelAPPModel.FK__PartidosC__IdJug__05D8E0BE" />
         <AssociationConnector Association="PadelAPPModel.FK__PartidosC__IdJug__06CD04F7" />
+        <AssociationConnector Association="PadelAPPModel.FK_CanchasReservadas_Usuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

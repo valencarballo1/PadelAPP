@@ -58,6 +58,7 @@ namespace Data
             public DateTime HorarioDesde { get; set; }
             public DateTime HorarioHasta { get; set; }
             public int CantidadJugadores { get; set; }
+            public string UsuarioOrganizador { get; set; }
         }
     }
 }

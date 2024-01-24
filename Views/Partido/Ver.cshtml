@@ -5,14 +5,13 @@
 
 <div class="card">
     <div class="card-header d-flex justify-content-center row">
-        <div class="text-center col-md-6">
-            <h5>
-                Partido
-            </h5>
-        </div>
         <div class="col-md-12 text-center">
-            <h5>
-                @Model.HorarioDesde - @Model.HorarioHasta
+            <h4 id="titulo">
+            </h4>
+        </div>
+
+        <div class="col-md-12 text-center">
+            <h5 id="tituloHora">
             </h5>
         </div>
     </div>
@@ -88,6 +87,11 @@
 
 <script>
     const idPartido = @Model.Id;
+    const titulo = document.getElementById('titulo');
+    const tituloHorario = document.getElementById('tituloHora');
+    const fechaTitulo = formatearFecha("@Model.HorarioDesde");
+    const horarioTituloDesde = formatearHorario("@Model.HorarioDesde");
+    const horarioTituloHasta = formatearHorario("@Model.HorarioHasta");
 
     function unirse(posicionJugador) {
         if (usuarioId == null) {
@@ -141,6 +145,46 @@
                 }
             });
         }
+    }
+
+    titulo.innerHTML = fechaTitulo;
+    tituloHorario.innerHTML = horarioTituloDesde + " - " + horarioTituloHasta;
+
+
+    function formatearFecha(fechaString) {
+        const partes = fechaString.split(" ");
+
+        const fechaComponentes = partes[0].split("/");
+        const dia = parseInt(fechaComponentes[0], 10);
+        const mes = parseInt(fechaComponentes[1], 10) - 1;
+        const año = parseInt(fechaComponentes[2], 10);
+
+        const horaComponentes = partes[1].split(":");
+        const horas = parseInt(horaComponentes[0], 10);
+        const minutos = parseInt(horaComponentes[1], 10);
+
+        const fecha = new Date(año, mes, dia, horas, minutos);
+
+        const opciones = { year: 'numeric', month: '2-digit', day: '2-digit'};
+        return fecha.toLocaleString('es-ES', opciones);
+    }
+
+    function formatearHorario(fechaString) {
+        const partes = fechaString.split(" ");
+
+        const fechaComponentes = partes[0].split("/");
+        const dia = parseInt(fechaComponentes[0], 10);
+        const mes = parseInt(fechaComponentes[1], 10) - 1;
+        const año = parseInt(fechaComponentes[2], 10);
+
+        const horaComponentes = partes[1].split(":");
+        const horas = parseInt(horaComponentes[0], 10);
+        const minutos = parseInt(horaComponentes[1], 10);
+
+        const fecha = new Date(año, mes, dia, horas, minutos);
+
+        const opciones = { hour: '2-digit', minute: '2-digit' };
+        return fecha.toLocaleString('es-ES', opciones);
     }
 
 

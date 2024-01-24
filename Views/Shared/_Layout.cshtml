@@ -98,6 +98,37 @@
             return null;
         }
 
+        function enEspera(modo = "on", titulo = "Procesando...", texto = "Aguarde un instante") {
+            if (modo == "on") {
+                Swal.fire({
+                    title: titulo,
+                    html: texto,
+                    allowOutsideClick: false,
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    showDenyButton: false
+                });
+                Swal.showLoading();
+            } else {
+                Swal.close();
+            }
+        }
+
+        function modalAwait(modo = "show") {
+
+            if (modo == "show") {
+
+                $("#espera_contenedor").css("top", window.scrollY)
+
+                $("#espera_contenedor").css("visibility", "visible")
+
+            } else {
+
+                $("#espera_contenedor").css("visibility", "hidden")
+
+            }
+
+        }
 
 
 
