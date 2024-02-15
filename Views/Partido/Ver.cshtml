@@ -19,14 +19,16 @@
     <div class="card-body">
         <div class="row">
             <!-- Jugador 1 -->
-            <div class="col-md-6">
+            <div class="col-md-6 col-6">
                 <div class="text-center">
                     <img src="@Model.FotoPerfil1" alt="Imagen Jugador 1" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
-                    <h4>@Model.UsuarioJ1</h4>
+                    <div class="col-12">
+                        <h6 class="text-dark">@Model.UsuarioJ1</h6>
+                    </div>
                 </div>
             </div>
             <!-- Jugador 2 -->
-            <div class="col-md-6">
+            <div class="col-md-6 col-6">
                 <div class="text-center">
                     <img src="@Model.FotoPerfil2" alt="Imagen Jugador 2" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
                     @if (Model.UsuarioJ2 == "")
@@ -37,7 +39,9 @@
                     }
                     else
                     {
-                        <h4>@Model.UsuarioJ2</h4>
+                        <div class="col-12">
+                            <h6 class="text-dark">@Model.UsuarioJ2</h6>
+                        </div>
                     }
                 </div>
             </div>
@@ -49,7 +53,7 @@
 
         <div class="row mt-4">
             <!-- Jugador 3 -->
-            <div class="col-md-6">
+            <div class="col-md-6 col-6">
                 <div class="text-center">
                     <img src="@Model.FotoPerfil3" alt="Imagen Jugador 3" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
                     @if (Model.UsuarioJ3 == "")
@@ -60,13 +64,15 @@
                     }
                     else
                     {
-                        <h4>@Model.UsuarioJ3</h4>
+                        <div class="col-12">
+                            <h6 class="text-dark">@Model.UsuarioJ3</h6>
+                        </div>
                     }
                 </div>
             </div>
 
             <!-- Jugador 4 -->
-            <div class="col-md-6">
+            <div class="col-md-6 col-6">
                 <div class="text-center">
                     <img src="@Model.FotoPerfil4" alt="Imagen Jugador 4" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
                     @if (Model.UsuarioJ4 == "")
@@ -77,7 +83,9 @@
                     }
                     else
                     {
-                        <h4>@Model.UsuarioJ4</h4>
+                        <div class="col-12">
+                            <h6 class="text-dark">@Model.UsuarioJ4</h6>
+                        </div>
                     }
                 </div>
             </div>

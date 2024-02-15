@@ -18,6 +18,7 @@ namespace ReservaPadel.Controllers
         }
         public JsonResult Reservar(int idCancha, DateTime fechaSeleccionada ,string horarioDeReserva, int duracion, int idUsuario)
         {
+            /*comentario*/
             bool reservo = _ReservasBusiness.Reservar(idCancha, fechaSeleccionada, horarioDeReserva, duracion, idUsuario);
             return Json(reservo);
         }

@@ -89,7 +89,7 @@
             autoclose: true,
             startDate: new Date(), // Establece la fecha mínima como la fecha actual
             todayHighlight: true // Resalta la fecha actual
-        }); 
+        });
 
         $('#fecha2').datepicker({
             format: 'dd/mm/yyyy',
@@ -97,7 +97,7 @@
             autoclose: true,
             startDate: new Date(), // Establece la fecha mínima como la fecha actual
             todayHighlight: true // Resalta la fecha actual
-        }); 
+        });
 
         $('#fecha').on('changeDate', function (e) {
             $('#fecha2').val("");
@@ -278,6 +278,7 @@
 
 
     function ReservarCancha(idCancha) {
+        enEspera();
         let horarioDeReserva;
         if (idCancha > 1) {
             horarioDeReserva = $('#horario' + idCancha).val();
@@ -308,6 +309,7 @@
                 idUsuario: usuarioId
             },
             success: function (data) {
+                enEspera("chau");
                 if (data == true) {
                     Swal.fire({
                         title: "Reserva confirmada!",
@@ -328,6 +330,7 @@
                 }
             },
             error: function (error) {
+                enEspera("chau");
                 console.error('Error al guardar reserva:', error);
             }
         });

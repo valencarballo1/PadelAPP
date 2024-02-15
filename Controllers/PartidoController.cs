@@ -44,7 +44,7 @@ namespace ReservaPadel.Controllers
             }
             else if (partido.UsuarioJ2 == "")
             {
-                nombreArchivo = "AgregarAPartido.jpeg";
+                nombreArchivo = "AgregarAPartido.png";
                 rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
                 partido.FotoPerfil2 = rutaCompleta;
             }
@@ -64,7 +64,7 @@ namespace ReservaPadel.Controllers
             }
             else if (partido.UsuarioJ3 == "")
             {
-                nombreArchivo = "AgregarAPartido.jpeg";
+                nombreArchivo = "AgregarAPartido.png";
                 rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
                 partido.FotoPerfil3 = rutaCompleta;
             }
@@ -92,7 +92,7 @@ namespace ReservaPadel.Controllers
             }
             else if (partido.UsuarioJ4 == "")
             {
-                nombreArchivo = "AgregarAPartido.jpeg";
+                nombreArchivo = "AgregarAPartido.png";
                 rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
                 partido.FotoPerfil4 = rutaCompleta;
             }
