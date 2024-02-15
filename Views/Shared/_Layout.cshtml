@@ -20,28 +20,50 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary">
-        <div class="container">
-            @Html.ActionLink("PADEL APP", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Reservar", "Reserva", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+    <div class="container-fluid bgNav">
+        <nav class="navbar navbar-expand-lg">
+            <div class="justify-content-start">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item nav-tabs">
+                        <a class="nav-link" href="@Url.Action("Index", "Home")">
+                            <i class="bi bi-house-door-fill">
+                            </i>
+                            HOME
+                        </a>
+                    </li>
+                    <li class="nav-item nav-tabs">
+                        <a class="nav-link" href="@Url.Action("Reserva", "Home")">
+                            <i class="bi bi-calendar2-plus">
+                            </i>
+                            RESERVAR
+                        </a>
+                    </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item nav-tabs">
+                        <a class="nav-link" href="@Url.Action("Crear", "Partido")">
+                            <i class="fa fa-tennis-ball">
+                            </i>
+                            Crear Partido
+                        </a>
+                    </li>
+
+                    <li class="nav-item nav-tabs">
                         <a class="nav-link colorAItems" id="perfilUsuario" href="#">
-                            <i class="bi bi-person-vcard-fill" style="display: none;"></i>
-                            <span id="iniciarSesionText">Iniciar Sesión</span>
+                            <i class="bi bi-person-vcard-fill" style="display: none;">Ver Perfil</i>
+                            <span id="iniciarSesionText"><i class="bi bi-box-arrow-right"></i>Iniciar Sesión</span>
                         </a>
                     </li>
                 </ul>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
+
+
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -58,6 +80,7 @@
         const perfilUsuario = document.getElementById('perfilUsuario');
         const iconoPerfil = perfilUsuario.querySelector(".bi-person-vcard-fill");
         const iniciarSesionText = document.getElementById("iniciarSesionText");
+        const divParaUsuario = document.getElementById("divParaUsuario");
 
         $(document).ready(function () {
             usuarioId = getCookieValue("UsuarioSesion")
@@ -76,6 +99,10 @@
                 iconoPerfil.style.display = "none";
                 iniciarSesionText.style.display = "inline";
                 perfilUsuario.href = "@Url.Action("InicioSesion", "Usuario")"
+            }
+
+            if (usuarioId != null) {
+                divParaUsuario.style.display = "inline";
             }
         }); //Termina el ready
 

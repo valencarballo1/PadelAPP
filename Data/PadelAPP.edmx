@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PadelAPPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="PadelAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Canchas">
           <Key>
             <PropertyRef Name="Id" />
@@ -47,10 +47,10 @@
             <PropertyRef Name="IdPerfil" />
           </Key>
           <Property Name="IdPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="255" />
-          <Property Name="Apellido" Type="varchar" MaxLength="255" />
+          <Property Name="Nombre" Type="varchar" MaxLength="150" />
+          <Property Name="Apellido" Type="varchar" MaxLength="150" />
           <Property Name="Celular" Type="varchar" MaxLength="20" />
-          <Property Name="FotoPerfil" Type="varchar" MaxLength="255" />
+          <Property Name="FotoPerfil" Type="varchar" MaxLength="200" />
           <Property Name="IdUsuario" Type="int" />
         </EntityType>
         <EntityType Name="Usuario">
@@ -58,10 +58,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NombreUsuario" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Contrasena" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="NombreUsuario" Type="varchar" MaxLength="150" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="150" />
         </EntityType>
-        <Association Name="FK__CanchasRe__IdCan__5070F446">
+        <Association Name="FK__CanchasRe__IdCan__403A8C7D">
           <End Role="Canchas" Type="Self.Canchas" Multiplicity="0..1" />
           <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -73,7 +73,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CanchasRe__IdHor__5165187F">
+        <Association Name="FK__CanchasRe__IdHor__412EB0B6">
           <End Role="Horarios" Type="Self.Horarios" Multiplicity="0..1" />
           <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -85,7 +85,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PartidosC__IdCan__02FC7413">
+        <Association Name="FK__CanchasRe__IdUsu__4222D4EF">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CanchasReservadas">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartidosC__IdCan__44FF419A">
           <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="0..1" />
           <End Role="PartidosCreadosUsuarios" Type="Self.PartidosCreadosUsuarios" Multiplicity="*" />
           <ReferentialConstraint>
@@ -97,7 +109,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PartidosC__IdJug__03F0984C">
+        <Association Name="FK__PartidosC__IdJug__45F365D3">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="PartidosCreadosUsuarios" Type="Self.PartidosCreadosUsuarios" Multiplicity="*" />
           <ReferentialConstraint>
@@ -109,7 +121,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PartidosC__IdJug__04E4BC85">
+        <Association Name="FK__PartidosC__IdJug__46E78A0C">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="PartidosCreadosUsuarios" Type="Self.PartidosCreadosUsuarios" Multiplicity="*" />
           <ReferentialConstraint>
@@ -121,7 +133,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PartidosC__IdJug__05D8E0BE">
+        <Association Name="FK__PartidosC__IdJug__47DBAE45">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="PartidosCreadosUsuarios" Type="Self.PartidosCreadosUsuarios" Multiplicity="*" />
           <ReferentialConstraint>
@@ -133,7 +145,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PartidosC__IdJug__06CD04F7">
+        <Association Name="FK__PartidosC__IdJug__48CFD27E">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="PartidosCreadosUsuarios" Type="Self.PartidosCreadosUsuarios" Multiplicity="*" />
           <ReferentialConstraint>
@@ -145,7 +157,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Perfil__IdUsuari__70DDC3D8">
+        <Association Name="FK__Perfil__IdUsuari__3D5E1FD2">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="Perfil" Type="Self.Perfil" Multiplicity="*" />
           <ReferentialConstraint>
@@ -157,66 +169,64 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CanchasReservadas_Usuario">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CanchasReservadas">
-              <PropertyRef Name="IdUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="PadelAPPModelStoreContainer">
+        <EntityContainer Name="PadelAppModelStoreContainer">
           <EntitySet Name="Canchas" EntityType="Self.Canchas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CanchasReservadas" EntityType="Self.CanchasReservadas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Horarios" EntityType="Self.Horarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartidosCreadosUsuarios" EntityType="Self.PartidosCreadosUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CanchasRe__IdCan__5070F446" Association="Self.FK__CanchasRe__IdCan__5070F446">
+          <AssociationSet Name="FK__CanchasRe__IdCan__403A8C7D" Association="Self.FK__CanchasRe__IdCan__403A8C7D">
             <End Role="Canchas" EntitySet="Canchas" />
             <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
           </AssociationSet>
-          <AssociationSet Name="FK__CanchasRe__IdHor__5165187F" Association="Self.FK__CanchasRe__IdHor__5165187F">
+          <AssociationSet Name="FK__CanchasRe__IdHor__412EB0B6" Association="Self.FK__CanchasRe__IdHor__412EB0B6">
             <End Role="Horarios" EntitySet="Horarios" />
             <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
           </AssociationSet>
-          <AssociationSet Name="FK__PartidosC__IdCan__02FC7413" Association="Self.FK__PartidosC__IdCan__02FC7413">
+          <AssociationSet Name="FK__CanchasRe__IdUsu__4222D4EF" Association="Self.FK__CanchasRe__IdUsu__4222D4EF">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartidosC__IdCan__44FF419A" Association="Self.FK__PartidosC__IdCan__44FF419A">
             <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
             <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
           </AssociationSet>
-          <AssociationSet Name="FK__PartidosC__IdJug__03F0984C" Association="Self.FK__PartidosC__IdJug__03F0984C">
+          <AssociationSet Name="FK__PartidosC__IdJug__45F365D3" Association="Self.FK__PartidosC__IdJug__45F365D3">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
           </AssociationSet>
-          <AssociationSet Name="FK__PartidosC__IdJug__04E4BC85" Association="Self.FK__PartidosC__IdJug__04E4BC85">
+          <AssociationSet Name="FK__PartidosC__IdJug__46E78A0C" Association="Self.FK__PartidosC__IdJug__46E78A0C">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
           </AssociationSet>
-          <AssociationSet Name="FK__PartidosC__IdJug__05D8E0BE" Association="Self.FK__PartidosC__IdJug__05D8E0BE">
+          <AssociationSet Name="FK__PartidosC__IdJug__47DBAE45" Association="Self.FK__PartidosC__IdJug__47DBAE45">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
           </AssociationSet>
-          <AssociationSet Name="FK__PartidosC__IdJug__06CD04F7" Association="Self.FK__PartidosC__IdJug__06CD04F7">
+          <AssociationSet Name="FK__PartidosC__IdJug__48CFD27E" Association="Self.FK__PartidosC__IdJug__48CFD27E">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
           </AssociationSet>
-          <AssociationSet Name="FK__Perfil__IdUsuari__70DDC3D8" Association="Self.FK__Perfil__IdUsuari__70DDC3D8">
+          <AssociationSet Name="FK__Perfil__IdUsuari__3D5E1FD2" Association="Self.FK__Perfil__IdUsuari__3D5E1FD2">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Perfil" EntitySet="Perfil" />
           </AssociationSet>
-          <AssociationSet Name="FK_CanchasReservadas_Usuario" Association="Self.FK_CanchasReservadas_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PadelAPPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="PadelAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Canchas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroCancha" Type="Int32" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="CanchasReservadas" Relationship="Self.FK__CanchasRe__IdCan__403A8C7D" FromRole="Canchas" ToRole="CanchasReservadas" />
+        </EntityType>
         <EntityType Name="CanchasReservadas">
           <Key>
             <PropertyRef Name="Id" />
@@ -224,11 +234,11 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdCancha" Type="Int32" />
           <Property Name="IdHorario" Type="Int32" />
-          <NavigationProperty Name="Horarios" Relationship="Self.FK__CanchasRe__IdHor__5165187F" FromRole="CanchasReservadas" ToRole="Horarios" />
-          <NavigationProperty Name="Canchas" Relationship="PadelAPPModel.FK__CanchasRe__IdCan__5070F446" FromRole="CanchasReservadas" ToRole="Canchas" />
-          <NavigationProperty Name="PartidosCreadosUsuarios" Relationship="PadelAPPModel.FK__PartidosC__IdCan__02FC7413" FromRole="CanchasReservadas" ToRole="PartidosCreadosUsuarios" />
           <Property Name="IdUsuario" Type="Int32" />
-          <NavigationProperty Name="Usuario" Relationship="PadelAPPModel.FK_CanchasReservadas_Usuario" FromRole="CanchasReservadas" ToRole="Usuario" />
+          <NavigationProperty Name="Canchas" Relationship="Self.FK__CanchasRe__IdCan__403A8C7D" FromRole="CanchasReservadas" ToRole="Canchas" />
+          <NavigationProperty Name="Horarios" Relationship="Self.FK__CanchasRe__IdHor__412EB0B6" FromRole="CanchasReservadas" ToRole="Horarios" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__CanchasRe__IdUsu__4222D4EF" FromRole="CanchasReservadas" ToRole="Usuario" />
+          <NavigationProperty Name="PartidosCreadosUsuarios" Relationship="Self.FK__PartidosC__IdCan__44FF419A" FromRole="CanchasReservadas" ToRole="PartidosCreadosUsuarios" />
         </EntityType>
         <EntityType Name="Horarios">
           <Key>
@@ -238,9 +248,63 @@
           <Property Name="HorarioDesde" Type="DateTime" Precision="3" />
           <Property Name="HorarioHasta" Type="DateTime" Precision="3" />
           <Property Name="Duracion" Type="Int32" />
-          <NavigationProperty Name="CanchasReservadas" Relationship="Self.FK__CanchasRe__IdHor__5165187F" FromRole="Horarios" ToRole="CanchasReservadas" />
+          <NavigationProperty Name="CanchasReservadas" Relationship="Self.FK__CanchasRe__IdHor__412EB0B6" FromRole="Horarios" ToRole="CanchasReservadas" />
         </EntityType>
-        <Association Name="FK__CanchasRe__IdHor__5165187F">
+        <EntityType Name="PartidosCreadosUsuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCanchaReservada" Type="Int32" />
+          <Property Name="IdJugador1" Type="Int32" />
+          <Property Name="IdJugador2" Type="Int32" />
+          <Property Name="IdJugador3" Type="Int32" />
+          <Property Name="IdJugador4" Type="Int32" />
+          <NavigationProperty Name="CanchasReservadas" Relationship="Self.FK__PartidosC__IdCan__44FF419A" FromRole="PartidosCreadosUsuarios" ToRole="CanchasReservadas" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__PartidosC__IdJug__45F365D3" FromRole="PartidosCreadosUsuarios" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario1" Relationship="Self.FK__PartidosC__IdJug__46E78A0C" FromRole="PartidosCreadosUsuarios" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario2" Relationship="Self.FK__PartidosC__IdJug__47DBAE45" FromRole="PartidosCreadosUsuarios" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario3" Relationship="Self.FK__PartidosC__IdJug__48CFD27E" FromRole="PartidosCreadosUsuarios" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Celular" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FotoPerfil" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Perfil__IdUsuari__3D5E1FD2" FromRole="Perfil" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreUsuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CanchasReservadas" Relationship="Self.FK__CanchasRe__IdUsu__4222D4EF" FromRole="Usuario" ToRole="CanchasReservadas" />
+          <NavigationProperty Name="PartidosCreadosUsuarios" Relationship="Self.FK__PartidosC__IdJug__45F365D3" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
+          <NavigationProperty Name="PartidosCreadosUsuarios1" Relationship="Self.FK__PartidosC__IdJug__46E78A0C" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
+          <NavigationProperty Name="PartidosCreadosUsuarios2" Relationship="Self.FK__PartidosC__IdJug__47DBAE45" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
+          <NavigationProperty Name="PartidosCreadosUsuarios3" Relationship="Self.FK__PartidosC__IdJug__48CFD27E" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
+          <NavigationProperty Name="Perfil" Relationship="Self.FK__Perfil__IdUsuari__3D5E1FD2" FromRole="Usuario" ToRole="Perfil" />
+        </EntityType>
+        <Association Name="FK__CanchasRe__IdCan__403A8C7D">
+          <End Role="Canchas" Type="Self.Canchas" Multiplicity="0..1" />
+          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Canchas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CanchasReservadas">
+              <PropertyRef Name="IdCancha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CanchasRe__IdHor__412EB0B6">
           <End Role="Horarios" Type="Self.Horarios" Multiplicity="0..1" />
           <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -252,128 +316,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PadelAPPEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CanchasReservadas" EntityType="Self.CanchasReservadas" />
-          <EntitySet Name="Horarios" EntityType="Self.Horarios" />
-          <AssociationSet Name="FK__CanchasRe__IdHor__5165187F" Association="Self.FK__CanchasRe__IdHor__5165187F">
-            <End Role="Horarios" EntitySet="Horarios" />
-            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
-          </AssociationSet>
-          <EntitySet Name="Canchas" EntityType="PadelAPPModel.Canchas" />
-          <AssociationSet Name="FK__CanchasRe__IdCan__5070F446" Association="PadelAPPModel.FK__CanchasRe__IdCan__5070F446">
-            <End Role="Canchas" EntitySet="Canchas" />
-            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
-          </AssociationSet>
-          <EntitySet Name="Perfil" EntityType="PadelAPPModel.Perfil" />
-          <EntitySet Name="Usuario" EntityType="PadelAPPModel.Usuario" />
-          <AssociationSet Name="FK__Perfil__IdUsuari__70DDC3D8" Association="PadelAPPModel.FK__Perfil__IdUsuari__70DDC3D8">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Perfil" EntitySet="Perfil" />
-          </AssociationSet>
-          <EntitySet Name="PartidosCreadosUsuarios" EntityType="PadelAPPModel.PartidosCreadosUsuarios" />
-          <AssociationSet Name="FK__PartidosC__IdCan__02FC7413" Association="PadelAPPModel.FK__PartidosC__IdCan__02FC7413">
-            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
-            <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK__PartidosC__IdJug__03F0984C" Association="PadelAPPModel.FK__PartidosC__IdJug__03F0984C">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK__PartidosC__IdJug__04E4BC85" Association="PadelAPPModel.FK__PartidosC__IdJug__04E4BC85">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK__PartidosC__IdJug__05D8E0BE" Association="PadelAPPModel.FK__PartidosC__IdJug__05D8E0BE">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK__PartidosC__IdJug__06CD04F7" Association="PadelAPPModel.FK__PartidosC__IdJug__06CD04F7">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CanchasReservadas_Usuario" Association="PadelAPPModel.FK_CanchasReservadas_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Canchas">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NumeroCancha" Type="Int32" />
-          <Property Name="Estado" Type="Boolean" />
-          <NavigationProperty Name="CanchasReservadas" Relationship="PadelAPPModel.FK__CanchasRe__IdCan__5070F446" FromRole="Canchas" ToRole="CanchasReservadas" />
-        </EntityType>
-        <Association Name="FK__CanchasRe__IdCan__5070F446">
-          <End Type="PadelAPPModel.Canchas" Role="Canchas" Multiplicity="0..1" />
-          <End Type="PadelAPPModel.CanchasReservadas" Role="CanchasReservadas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Canchas">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CanchasReservadas">
-              <PropertyRef Name="IdCancha" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Perfil">
-          <Key>
-            <PropertyRef Name="IdPerfil" />
-          </Key>
-          <Property Name="IdPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Apellido" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Celular" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FotoPerfil" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="IdUsuario" Type="Int32" />
-          <NavigationProperty Name="Usuario" Relationship="PadelAPPModel.FK__Perfil__IdUsuari__70DDC3D8" FromRole="Perfil" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Usuario">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NombreUsuario" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Contrasena" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Perfil" Relationship="PadelAPPModel.FK__Perfil__IdUsuari__70DDC3D8" FromRole="Usuario" ToRole="Perfil" />
-          <NavigationProperty Name="PartidosCreadosUsuarios" Relationship="PadelAPPModel.FK__PartidosC__IdJug__03F0984C" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
-          <NavigationProperty Name="PartidosCreadosUsuarios1" Relationship="PadelAPPModel.FK__PartidosC__IdJug__04E4BC85" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
-          <NavigationProperty Name="PartidosCreadosUsuarios2" Relationship="PadelAPPModel.FK__PartidosC__IdJug__05D8E0BE" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
-          <NavigationProperty Name="PartidosCreadosUsuarios3" Relationship="PadelAPPModel.FK__PartidosC__IdJug__06CD04F7" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
-          <NavigationProperty Name="CanchasReservadas" Relationship="PadelAPPModel.FK_CanchasReservadas_Usuario" FromRole="Usuario" ToRole="CanchasReservadas" />
-        </EntityType>
-        <Association Name="FK__Perfil__IdUsuari__70DDC3D8">
-          <End Type="PadelAPPModel.Usuario" Role="Usuario" Multiplicity="0..1" />
-          <End Type="PadelAPPModel.Perfil" Role="Perfil" Multiplicity="*" />
+        <Association Name="FK__CanchasRe__IdUsu__4222D4EF">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Perfil">
+            <Dependent Role="CanchasReservadas">
               <PropertyRef Name="IdUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="PartidosCreadosUsuarios">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdCanchaReservada" Type="Int32" />
-          <Property Name="IdJugador1" Type="Int32" />
-          <Property Name="IdJugador2" Type="Int32" />
-          <Property Name="IdJugador3" Type="Int32" />
-          <Property Name="IdJugador4" Type="Int32" />
-          <NavigationProperty Name="CanchasReservadas" Relationship="PadelAPPModel.FK__PartidosC__IdCan__02FC7413" FromRole="PartidosCreadosUsuarios" ToRole="CanchasReservadas" />
-          <NavigationProperty Name="Usuario" Relationship="PadelAPPModel.FK__PartidosC__IdJug__03F0984C" FromRole="PartidosCreadosUsuarios" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario1" Relationship="PadelAPPModel.FK__PartidosC__IdJug__04E4BC85" FromRole="PartidosCreadosUsuarios" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario2" Relationship="PadelAPPModel.FK__PartidosC__IdJug__05D8E0BE" FromRole="PartidosCreadosUsuarios" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario3" Relationship="PadelAPPModel.FK__PartidosC__IdJug__06CD04F7" FromRole="PartidosCreadosUsuarios" ToRole="Usuario" />
-        </EntityType>
-        <Association Name="FK__PartidosC__IdCan__02FC7413">
-          <End Type="PadelAPPModel.CanchasReservadas" Role="CanchasReservadas" Multiplicity="0..1" />
-          <End Type="PadelAPPModel.PartidosCreadosUsuarios" Role="PartidosCreadosUsuarios" Multiplicity="*" />
+        <Association Name="FK__PartidosC__IdCan__44FF419A">
+          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="0..1" />
+          <End Role="PartidosCreadosUsuarios" Type="Self.PartidosCreadosUsuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CanchasReservadas">
               <PropertyRef Name="Id" />
@@ -383,9 +340,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PartidosC__IdJug__03F0984C">
-          <End Type="PadelAPPModel.Usuario" Role="Usuario" Multiplicity="0..1" />
-          <End Type="PadelAPPModel.PartidosCreadosUsuarios" Role="PartidosCreadosUsuarios" Multiplicity="*" />
+        <Association Name="FK__PartidosC__IdJug__45F365D3">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="PartidosCreadosUsuarios" Type="Self.PartidosCreadosUsuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Id" />
@@ -395,9 +352,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PartidosC__IdJug__04E4BC85">
-          <End Type="PadelAPPModel.Usuario" Role="Usuario" Multiplicity="0..1" />
-          <End Type="PadelAPPModel.PartidosCreadosUsuarios" Role="PartidosCreadosUsuarios" Multiplicity="*" />
+        <Association Name="FK__PartidosC__IdJug__46E78A0C">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="PartidosCreadosUsuarios" Type="Self.PartidosCreadosUsuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Id" />
@@ -407,9 +364,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PartidosC__IdJug__05D8E0BE">
-          <End Type="PadelAPPModel.Usuario" Role="Usuario" Multiplicity="0..1" />
-          <End Type="PadelAPPModel.PartidosCreadosUsuarios" Role="PartidosCreadosUsuarios" Multiplicity="*" />
+        <Association Name="FK__PartidosC__IdJug__47DBAE45">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="PartidosCreadosUsuarios" Type="Self.PartidosCreadosUsuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Id" />
@@ -419,9 +376,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PartidosC__IdJug__06CD04F7">
-          <End Type="PadelAPPModel.Usuario" Role="Usuario" Multiplicity="0..1" />
-          <End Type="PadelAPPModel.PartidosCreadosUsuarios" Role="PartidosCreadosUsuarios" Multiplicity="*" />
+        <Association Name="FK__PartidosC__IdJug__48CFD27E">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="PartidosCreadosUsuarios" Type="Self.PartidosCreadosUsuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Id" />
@@ -431,36 +388,89 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CanchasReservadas_Usuario">
-          <End Type="PadelAPPModel.Usuario" Role="Usuario" Multiplicity="0..1" />
-          <End Type="PadelAPPModel.CanchasReservadas" Role="CanchasReservadas" Multiplicity="*" />
+        <Association Name="FK__Perfil__IdUsuari__3D5E1FD2">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CanchasReservadas">
+            <Dependent Role="Perfil">
               <PropertyRef Name="IdUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="PadelAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Canchas" EntityType="Self.Canchas" />
+          <EntitySet Name="CanchasReservadas" EntityType="Self.CanchasReservadas" />
+          <EntitySet Name="Horarios" EntityType="Self.Horarios" />
+          <EntitySet Name="PartidosCreadosUsuarios" EntityType="Self.PartidosCreadosUsuarios" />
+          <EntitySet Name="Perfil" EntityType="Self.Perfil" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__CanchasRe__IdCan__403A8C7D" Association="Self.FK__CanchasRe__IdCan__403A8C7D">
+            <End Role="Canchas" EntitySet="Canchas" />
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CanchasRe__IdHor__412EB0B6" Association="Self.FK__CanchasRe__IdHor__412EB0B6">
+            <End Role="Horarios" EntitySet="Horarios" />
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CanchasRe__IdUsu__4222D4EF" Association="Self.FK__CanchasRe__IdUsu__4222D4EF">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartidosC__IdCan__44FF419A" Association="Self.FK__PartidosC__IdCan__44FF419A">
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+            <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartidosC__IdJug__45F365D3" Association="Self.FK__PartidosC__IdJug__45F365D3">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartidosC__IdJug__46E78A0C" Association="Self.FK__PartidosC__IdJug__46E78A0C">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartidosC__IdJug__47DBAE45" Association="Self.FK__PartidosC__IdJug__47DBAE45">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartidosC__IdJug__48CFD27E" Association="Self.FK__PartidosC__IdJug__48CFD27E">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Perfil__IdUsuari__3D5E1FD2" Association="Self.FK__Perfil__IdUsuari__3D5E1FD2">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Perfil" EntitySet="Perfil" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PadelAPPModelStoreContainer" CdmEntityContainer="PadelAPPEntities">
+        <EntityContainerMapping StorageEntityContainer="PadelAppModelStoreContainer" CdmEntityContainer="PadelAppEntities">
+          <EntitySetMapping Name="Canchas">
+            <EntityTypeMapping TypeName="PadelAppModel.Canchas">
+              <MappingFragment StoreEntitySet="Canchas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NumeroCancha" ColumnName="NumeroCancha" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CanchasReservadas">
-            <EntityTypeMapping TypeName="PadelAPPModel.CanchasReservadas">
+            <EntityTypeMapping TypeName="PadelAppModel.CanchasReservadas">
               <MappingFragment StoreEntitySet="CanchasReservadas">
-                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdCancha" ColumnName="IdCancha" />
                 <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Horarios">
-            <EntityTypeMapping TypeName="PadelAPPModel.Horarios">
+            <EntityTypeMapping TypeName="PadelAppModel.Horarios">
               <MappingFragment StoreEntitySet="Horarios">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="HorarioDesde" ColumnName="HorarioDesde" />
@@ -469,45 +479,36 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Canchas">
-            <EntityTypeMapping TypeName="PadelAPPModel.Canchas">
-              <MappingFragment StoreEntitySet="Canchas">
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="NumeroCancha" ColumnName="NumeroCancha" />
+          <EntitySetMapping Name="PartidosCreadosUsuarios">
+            <EntityTypeMapping TypeName="PadelAppModel.PartidosCreadosUsuarios">
+              <MappingFragment StoreEntitySet="PartidosCreadosUsuarios">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdCanchaReservada" ColumnName="IdCanchaReservada" />
+                <ScalarProperty Name="IdJugador1" ColumnName="IdJugador1" />
+                <ScalarProperty Name="IdJugador2" ColumnName="IdJugador2" />
+                <ScalarProperty Name="IdJugador3" ColumnName="IdJugador3" />
+                <ScalarProperty Name="IdJugador4" ColumnName="IdJugador4" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Perfil">
-            <EntityTypeMapping TypeName="PadelAPPModel.Perfil">
+            <EntityTypeMapping TypeName="PadelAppModel.Perfil">
               <MappingFragment StoreEntitySet="Perfil">
-                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-                <ScalarProperty Name="FotoPerfil" ColumnName="FotoPerfil" />
-                <ScalarProperty Name="Celular" ColumnName="Celular" />
-                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="FotoPerfil" ColumnName="FotoPerfil" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
-            <EntityTypeMapping TypeName="PadelAPPModel.Usuario">
+            <EntityTypeMapping TypeName="PadelAppModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PartidosCreadosUsuarios">
-            <EntityTypeMapping TypeName="PadelAPPModel.PartidosCreadosUsuarios">
-              <MappingFragment StoreEntitySet="PartidosCreadosUsuarios">
-                <ScalarProperty Name="IdJugador4" ColumnName="IdJugador4" />
-                <ScalarProperty Name="IdJugador3" ColumnName="IdJugador3" />
-                <ScalarProperty Name="IdJugador2" ColumnName="IdJugador2" />
-                <ScalarProperty Name="IdJugador1" ColumnName="IdJugador1" />
-                <ScalarProperty Name="IdCanchaReservada" ColumnName="IdCanchaReservada" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

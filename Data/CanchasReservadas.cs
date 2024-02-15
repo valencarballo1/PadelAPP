@@ -25,10 +25,10 @@ namespace Data
         public Nullable<int> IdHorario { get; set; }
         public Nullable<int> IdUsuario { get; set; }
     
-        public virtual Horarios Horarios { get; set; }
         public virtual Canchas Canchas { get; set; }
+        public virtual Horarios Horarios { get; set; }
+        public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartidosCreadosUsuarios> PartidosCreadosUsuarios { get; set; }
-        public virtual Usuario Usuario { get; set; }
     }
 }

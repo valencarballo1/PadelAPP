@@ -289,6 +289,14 @@
 
         let fechaFormateada = partesFecha[1].padStart(2, '0') + '/' + partesFecha[0].padStart(2, '0') + '/' + partesFecha[2];
 
+        if (usuarioId == null) {
+            Swal.fire({
+                title: "No iniciaste sesion!",
+                text: "Para poder reservar inicie sesion!",
+                icon: "info"
+            });
+            return false;
+        }
         $.ajax({
             url: '@Url.Action("Reservar", "Reservas")',
             type: 'POST',
@@ -296,7 +304,8 @@
                 idCancha: idCancha,
                 fechaSeleccionada: fechaFormateada,
                 horarioDeReserva: horarioDeReserva,
-                duracion: duracion
+                duracion: duracion,
+                idUsuario: usuarioId
             },
             success: function (data) {
                 if (data == true) {

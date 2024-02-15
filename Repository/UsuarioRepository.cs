@@ -15,7 +15,7 @@ namespace Repository
     {
         public int Save(Usuario usuario)
         {
-            using (PadelAPPEntities db = new PadelAPPEntities())
+            using (PadelAppEntities db = new PadelAppEntities())
             {
                 db.Usuario.AddOrUpdate(usuario);
                 db.SaveChanges();
@@ -25,7 +25,7 @@ namespace Repository
 
         public Usuario GetByUsuarioNombre(string usuarioNombre)
         {
-            using (PadelAPPEntities db = new PadelAPPEntities())
+            using (PadelAppEntities db = new PadelAppEntities())
             {
                 return db.Usuario.Where(u => u.NombreUsuario == usuarioNombre).SingleOrDefault();
             }
@@ -33,7 +33,7 @@ namespace Repository
 
         public UsuarioDTO GetPerfil(int id)
         {
-            using (PadelAPPEntities db = new PadelAPPEntities())
+            using (PadelAppEntities db = new PadelAppEntities())
             {
                 Usuario usuario = db.Usuario.Include("Perfil").Where(u => u.Id == id).SingleOrDefault();
 
@@ -53,7 +53,7 @@ namespace Repository
 
         public UsuarioDTO GetLogin(string usuarioNombre, string contrasena)
         {
-            using (PadelAPPEntities db = new PadelAPPEntities())
+            using (PadelAppEntities db = new PadelAppEntities())
             {
                 UsuarioDTO perfil;
                 string usuNombre = usuarioNombre.ToLower();

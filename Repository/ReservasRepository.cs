@@ -13,7 +13,7 @@ namespace Repository
     {
         public List<DTO.ReservaDTO> GetReservas()
         {
-            using(PadelAPPEntities db = new PadelAPPEntities())
+            using(PadelAppEntities db = new PadelAppEntities())
             {
                 List<CanchasReservadas> lista = db.CanchasReservadas.Include("Horarios").ToList();
 
@@ -22,7 +22,8 @@ namespace Repository
                     Id = h.Id,
                     HorarioDesde = h.Horarios.HorarioDesde.Value,
                     HorarioHasta = h.Horarios.HorarioHasta.Value,
-                    CanchaNumero = h.IdCancha.Value
+                    CanchaNumero = h.IdCancha.Value,
+                    UsuarioNombre = h.Usuario.NombreUsuario
                 })
                 .OrderBy(r => r.HorarioDesde)
                 .ToList();
@@ -33,7 +34,7 @@ namespace Repository
 
         public void SaveCancha(CanchasReservadas canchaReservada)
         {
-            using(PadelAPPEntities db = new PadelAPPEntities())
+            using(PadelAppEntities db = new PadelAppEntities())
             {
                 db.CanchasReservadas.AddOrUpdate(canchaReservada);
                 db.SaveChanges();

@@ -22,7 +22,7 @@ namespace Repository
 
         public PartidosCreadosUsuarios Get(int idPartido)
         {
-            using(PadelAPPEntities db = new PadelAPPEntities())
+            using(PadelAppEntities db = new PadelAppEntities())
             {
                 return db.PartidosCreadosUsuarios.Include("CanchasReservadas").Where(p => p.Id == idPartido).SingleOrDefault();
             }
@@ -30,7 +30,7 @@ namespace Repository
 
         public PartidoDTO GetDTO(int idPartido)
         {
-            using (PadelAPPEntities db = new PadelAPPEntities())
+            using (PadelAppEntities db = new PadelAppEntities())
             {
                 PartidosCreadosUsuarios partidoEncontrado = db.PartidosCreadosUsuarios.Include("CanchasReservadas").Where(p => p.Id == idPartido).SingleOrDefault();
                 UsuarioDTO jugador1 = _UsuarioRepository.GetPerfil(partidoEncontrado.IdJugador1.Value);
@@ -79,7 +79,7 @@ namespace Repository
 
         public void Save(PartidosCreadosUsuarios partido)
         {
-            using(PadelAPPEntities db = new PadelAPPEntities())
+            using(PadelAppEntities db = new PadelAppEntities())
             {
                 db.PartidosCreadosUsuarios.AddOrUpdate(partido);
                 db.SaveChanges();
@@ -88,7 +88,7 @@ namespace Repository
 
         public List<DetallePartidoDTO> GetDetallePartido()
         {
-            using (PadelAPPEntities db = new PadelAPPEntities())
+            using (PadelAppEntities db = new PadelAppEntities())
             {
                 List<PartidosCreadosUsuarios> partidosEncontrado = db.PartidosCreadosUsuarios.Include("CanchasReservadas").ToList();
 

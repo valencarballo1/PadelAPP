@@ -183,7 +183,7 @@
     });
 
     const UsuarioGenerico = (nombre, apellido) => {
-        usuarioNombre.value = nombre + '.' + apellido;
+        usuarioNombre.value = (nombre + '.' + apellido).replace(/\s/g, '');
         const inputEvent = new Event('input', { bubbles: true });
         usuarioNombre.dispatchEvent(inputEvent);
     }

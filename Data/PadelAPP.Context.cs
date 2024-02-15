@@ -13,10 +13,10 @@ namespace Data
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PadelAPPEntities : DbContext
+    public partial class PadelAppEntities : DbContext
     {
-        public PadelAPPEntities()
-            : base("name=PadelAPPEntities")
+        public PadelAppEntities()
+            : base("name=PadelAppEntities")
         {
         }
     
@@ -25,11 +25,11 @@ namespace Data
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Canchas> Canchas { get; set; }
         public virtual DbSet<CanchasReservadas> CanchasReservadas { get; set; }
         public virtual DbSet<Horarios> Horarios { get; set; }
-        public virtual DbSet<Canchas> Canchas { get; set; }
+        public virtual DbSet<PartidosCreadosUsuarios> PartidosCreadosUsuarios { get; set; }
         public virtual DbSet<Perfil> Perfil { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
-        public virtual DbSet<PartidosCreadosUsuarios> PartidosCreadosUsuarios { get; set; }
     }
 }

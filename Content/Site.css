@@ -3,19 +3,25 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    font-family: 'DM Sans', sans-serif;
+    /*font-family: 'DM Sans', sans-serif;*/
+    font-family: "Open Sans", sans-serif;
+    color: #444444
+}
+
+.bgNav {
+    background-color: rgba(255, 255, 255, 0.9); /* Agrega un fondo blanco semi-transparente al jumbotron */
 }
 
 .jumbotron {
-    background-color: rgba(8, 53, 149, 0.7); /* Agrega un fondo blanco semi-transparente al jumbotron */
+    margin-top: 15px;
+    background-color: rgba(255, 255, 255, 0.9); /* Agrega un fondo blanco semi-transparente al jumbotron */
     padding: 20px;
 }
 
-.card-reserva {
-    /*background-color: #083595;*/
-    background-color: rgba(8, 53, 149, 0.7);
-    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
-    color: #ffffff;
+
+.card {
+    color: #444444;
+    margin-top: 15px;
 }
 
 #espera_contenedor {
@@ -30,13 +36,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    /*   -webkit-transition: all 1s 0s ease;
-
-     -moz-transition: all 1s 0s ease;
-
-     -o-transition: all 1s 0s ease;
-
-     transition: all 1s 0s ease;*/
 }
 
 

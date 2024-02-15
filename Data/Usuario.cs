@@ -17,12 +17,12 @@ namespace Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
-            this.Perfil = new HashSet<Perfil>();
+            this.CanchasReservadas = new HashSet<CanchasReservadas>();
             this.PartidosCreadosUsuarios = new HashSet<PartidosCreadosUsuarios>();
             this.PartidosCreadosUsuarios1 = new HashSet<PartidosCreadosUsuarios>();
             this.PartidosCreadosUsuarios2 = new HashSet<PartidosCreadosUsuarios>();
             this.PartidosCreadosUsuarios3 = new HashSet<PartidosCreadosUsuarios>();
-            this.CanchasReservadas = new HashSet<CanchasReservadas>();
+            this.Perfil = new HashSet<Perfil>();
         }
     
         public int Id { get; set; }
@@ -30,7 +30,7 @@ namespace Data
         public string Contrasena { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Perfil> Perfil { get; set; }
+        public virtual ICollection<CanchasReservadas> CanchasReservadas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartidosCreadosUsuarios> PartidosCreadosUsuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -40,6 +40,6 @@ namespace Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartidosCreadosUsuarios> PartidosCreadosUsuarios3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CanchasReservadas> CanchasReservadas { get; set; }
+        public virtual ICollection<Perfil> Perfil { get; set; }
     }
 }
