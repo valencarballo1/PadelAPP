@@ -24,7 +24,6 @@ namespace Business
         {
             DateTime horarioDesde = fechaSeleccionada.Add(DateTime.ParseExact(horarioDeReserva, "HH:mm", CultureInfo.InvariantCulture).TimeOfDay);
             DateTime horarioHasta = horarioDesde.AddMinutes(duracion);
-            int i = 0;
 
             Horarios reserva = new Horarios();
             CanchasReservadas canchasReservadas = new CanchasReservadas();
@@ -37,20 +36,21 @@ namespace Business
             canchasReservadas.IdCancha = idCancha;
             reserva.CanchasReservadas.Add(canchasReservadas);
 
-            while (jugadoresRestantes > i)
+            if (jugadoresRestantes == 3)
             {
-                if(i == 0)
-                {
-                    partidoCreado.IdJugador1 = idUsuario;
-                }else if(i == 1)
-                {
-                    partidoCreado.IdJugador2 = idUsuario;
+                partidoCreado.IdJugador1 = idUsuario;
+            }
+            else if (jugadoresRestantes == 2)
+            {
+                partidoCreado.IdJugador1 = idUsuario;
+                partidoCreado.IdJugador2 = idUsuario;
 
-                }else if(i == 2)
-                {
-                    partidoCreado.IdJugador3 = idUsuario;
-                }
-                i++;
+            }
+            else if (jugadoresRestantes == 1)
+            {
+                partidoCreado.IdJugador1 = idUsuario;
+                partidoCreado.IdJugador2 = idUsuario;
+                partidoCreado.IdJugador3 = idUsuario;
             }
 
             canchasReservadas.PartidosCreadosUsuarios.Add(partidoCreado);
@@ -64,7 +64,7 @@ namespace Business
             return _ReservasRepository.GetReservas();
         }
 
-        public bool Reservar(int idCancha, DateTime fechaSeleccionada, string horarioDeReserva, int duracion)
+        public bool Reservar(int idCancha, DateTime fechaSeleccionada, string horarioDeReserva, int duracion, int idUsuario)
         {
             DateTime horarioDesde = fechaSeleccionada.Add(DateTime.ParseExact(horarioDeReserva, "HH:mm", CultureInfo.InvariantCulture).TimeOfDay);
             DateTime horarioHasta = horarioDesde.AddMinutes(duracion);
@@ -75,6 +75,7 @@ namespace Business
             reserva.HorarioHasta = horarioHasta;
             reserva.Duracion = duracion;
             canchasReservadas.IdCancha = idCancha;
+            canchasReservadas.IdUsuario = idUsuario;
             reserva.CanchasReservadas.Add(canchasReservadas);
             _HorariosRepository.Save(reserva);
 

@@ -51,6 +51,11 @@ namespace ReservaPadel.Controllers
             {
                 id = _UsuarioBusiness.Registrarme(nombre, apellido, celular, usuario, contrasena);
             }
+
+            if(id > 0)
+            {
+                this.LogIn(usuario, contrasena);
+            }
             return Json(id);
         }
 
@@ -89,6 +94,21 @@ namespace ReservaPadel.Controllers
             }
 
             return Json(usuarioExiste, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult CerrarSesion()
+        {
+            if (Request.Cookies["UsuarioSesion"] != null)
+            {
+                var cookie = new HttpCookie("UsuarioSesion")
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                };
+
+                Response.Cookies.Add(cookie);
+            }
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
     }

@@ -123,6 +123,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
+    <Compile Include="Controllers\PartidoController.cs" />
     <Compile Include="Controllers\ReservasController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -153,8 +154,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="imgPerfiles\Prueba.ConExtension.jpg" />
-    <Content Include="imgPerfiles\Valentin.Carballo.jpg" />
+    <Content Include="imgPerfiles\AgregarAPartido.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -189,7 +189,9 @@
     <Content Include="Views\Usuario\Registro.cshtml" />
     <Content Include="Views\Usuario\Perfil.cshtml" />
     <Content Include="Views\Usuario\InicioSesion.cshtml" />
-    <Content Include="Views\Home\CrearPartido.cshtml" />
+    <Content Include="Views\Partido\Ver.cshtml" />
+    <Content Include="Views\Partido\Crear.cshtml" />
+    <Content Include="Views\Partido\Disponibles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

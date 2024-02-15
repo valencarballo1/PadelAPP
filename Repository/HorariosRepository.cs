@@ -13,7 +13,7 @@ namespace Repository
     {
         public bool Save(Horarios horario)
         {
-            using (PadelAPPEntities db = new PadelAPPEntities())
+            using (PadelAppEntities db = new PadelAppEntities())
             {
                 bool grabo = false;
                 if (horario != null)
@@ -27,7 +27,7 @@ namespace Repository
         }
         public List<HorarioDTO> Load(int idCancha, DateTime fechaSeleccionada)
         {
-            using (PadelAPPEntities db = new PadelAPPEntities())
+            using (PadelAppEntities db = new PadelAppEntities())
             {
                 List<int> listaReserva = db.CanchasReservadas.Where(c => c.IdCancha == idCancha).Select(c => c.IdHorario.Value).ToList();
                 DateTime inicioDelDia = fechaSeleccionada.Date;

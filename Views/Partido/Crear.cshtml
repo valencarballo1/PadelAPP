@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "CrearPartido";
+    ViewBag.Title = "Crear";
 }
 
 <div class="card">
@@ -203,6 +203,7 @@
     });
 
     function CrearPartido(idCancha) {
+        enEspera();
         let horarioDeReserva;
         if (idCancha > 1) {
             horarioDeReserva = $('#horario' + idCancha).val();
@@ -224,7 +225,8 @@
                 jugadoresRestantes: cantidadJugadores
             },
             success: function (data) {
-                if (data == true) {
+                enEspera("chau");
+                if (data > 0) {
                     Swal.fire({
                         title: "Partido Creado!",
                         text: "Tu partido fue creado con exito!",
@@ -232,7 +234,8 @@
                         showConfirmButton: true
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            location.reload();
+                            window.location = "@Url.Action("Ver", "Partido")?idPartido=" + data;
+;
                         }
                     });
                 } else {

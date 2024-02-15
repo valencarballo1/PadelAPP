@@ -1,0 +1,199 @@
+﻿
+@{
+    ViewBag.Title = "Ver";
+}
+
+<div class="card">
+    <div class="card-header d-flex justify-content-center row">
+        <div class="col-md-12 text-center">
+            <h4 id="titulo">
+            </h4>
+        </div>
+
+        <div class="col-md-12 text-center">
+            <h5 id="tituloHora">
+            </h5>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <!-- Jugador 1 -->
+            <div class="col-md-6 col-6">
+                <div class="text-center">
+                    <img src="@Model.FotoPerfil1" alt="Imagen Jugador 1" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+                    <div class="col-12">
+                        <h6 class="text-dark">@Model.UsuarioJ1</h6>
+                    </div>
+                </div>
+            </div>
+            <!-- Jugador 2 -->
+            <div class="col-md-6 col-6">
+                <div class="text-center">
+                    <img src="@Model.FotoPerfil2" alt="Imagen Jugador 2" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+                    @if (Model.UsuarioJ2 == "")
+                    {
+                        <div class="m-2">
+                            <button class="btn btn-success" onclick="unirse(2)">Unirse</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <h6 class="text-dark">@Model.UsuarioJ2</h6>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 text-center mt-4">
+            <h2>VS</h2>
+        </div>
+
+        <div class="row mt-4">
+            <!-- Jugador 3 -->
+            <div class="col-md-6 col-6">
+                <div class="text-center">
+                    <img src="@Model.FotoPerfil3" alt="Imagen Jugador 3" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+                    @if (Model.UsuarioJ3 == "")
+                    {
+                        <div class="m-2">
+                            <button class="btn btn-success" onclick="unirse(3)">Unirse</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <h6 class="text-dark">@Model.UsuarioJ3</h6>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Jugador 4 -->
+            <div class="col-md-6 col-6">
+                <div class="text-center">
+                    <img src="@Model.FotoPerfil4" alt="Imagen Jugador 4" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+                    @if (Model.UsuarioJ4 == "")
+                    {
+                        <div class="m-2">
+                            <button class="btn btn-success" onclick="unirse(4)">Unirse</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <h6 class="text-dark">@Model.UsuarioJ4</h6>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const idPartido = @Model.Id;
+    const titulo = document.getElementById('titulo');
+    const tituloHorario = document.getElementById('tituloHora');
+    const fechaTitulo = formatearFecha("@Model.HorarioDesde");
+    const horarioTituloDesde = formatearHorario("@Model.HorarioDesde");
+    const horarioTituloHasta = formatearHorario("@Model.HorarioHasta");
+
+    function unirse(posicionJugador) {
+        if (usuarioId == null) {
+            Swal.fire({
+                title: "Error",
+                text: "Para unirte debes iniciar sesion!",
+                icon: "error",
+                showConfirmButton: true
+            })
+        } else {
+            $.ajax({
+                url: "@Url.Action("Unirse", "Partido")",
+                type: "POST",
+                data: {
+                    idPartido: idPartido,
+                    idUsuario: usuarioId,
+                    posicionJugador: posicionJugador
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data == true) {
+                        Swal.fire({
+                            title: "Te uniste correctamente ",
+                            text: "Perfecto, ahora solo esperar a jugar!",
+                            icon: "success",
+                            showConfirmButton: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        Swal.fire({
+                            title: "Error",
+                            text: "Error, no pudiste unirte, alguien mas se unio!",
+                            icon: "error",
+                            showConfirmButton: true
+                        })
+                    }
+                },
+
+                error: function (jqXHR, textStatus, errorThrown) {
+                    Swal.fire({
+                        title: "Error",
+                        text: "Datos incorrectos, por favor vuelva a verificarlos!",
+                        icon: "error",
+                        showConfirmButton: true
+                    })
+                }
+            });
+        }
+    }
+
+    titulo.innerHTML = fechaTitulo;
+    tituloHorario.innerHTML = horarioTituloDesde + " - " + horarioTituloHasta;
+
+
+    function formatearFecha(fechaString) {
+        const partes = fechaString.split(" ");
+
+        const fechaComponentes = partes[0].split("/");
+        const dia = parseInt(fechaComponentes[0], 10);
+        const mes = parseInt(fechaComponentes[1], 10) - 1;
+        const año = parseInt(fechaComponentes[2], 10);
+
+        const horaComponentes = partes[1].split(":");
+        const horas = parseInt(horaComponentes[0], 10);
+        const minutos = parseInt(horaComponentes[1], 10);
+
+        const fecha = new Date(año, mes, dia, horas, minutos);
+
+        const opciones = { year: 'numeric', month: '2-digit', day: '2-digit'};
+        return fecha.toLocaleString('es-ES', opciones);
+    }
+
+    function formatearHorario(fechaString) {
+        const partes = fechaString.split(" ");
+
+        const fechaComponentes = partes[0].split("/");
+        const dia = parseInt(fechaComponentes[0], 10);
+        const mes = parseInt(fechaComponentes[1], 10) - 1;
+        const año = parseInt(fechaComponentes[2], 10);
+
+        const horaComponentes = partes[1].split(":");
+        const horas = parseInt(horaComponentes[0], 10);
+        const minutos = parseInt(horaComponentes[1], 10);
+
+        const fecha = new Date(año, mes, dia, horas, minutos);
+
+        const opciones = { hour: '2-digit', minute: '2-digit' };
+        return fecha.toLocaleString('es-ES', opciones);
+    }
+
+
+</script>

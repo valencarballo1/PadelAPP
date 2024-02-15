@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HorariosRepository.cs" />
+    <Compile Include="PartidoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReservasRepository.cs" />
     <Compile Include="UsuarioRepository.cs" />

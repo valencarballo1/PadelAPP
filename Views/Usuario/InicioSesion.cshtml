@@ -6,12 +6,12 @@
 <div class="card row m-2">
     <div class="card-header m-2">
         <div class="text-center h4">
-            <i class="fa fa-tennis-ball text-success"></i> INICIAR SESION <i class="fa fa-tennis-ball text-success"></i>
+            <i class="fa fa-tennis-ball text-white"></i> INICIAR SESION <i class="fa fa-tennis-ball text-white"></i>
         </div>
     </div>
     <div class="card-body row d-flex justify-content-center align-items-center">
 
-        <div class="col-md-7 g-3 d-flex justify-content-center">
+        <div class="col-md-5 g-3 d-flex justify-content-center">
             <div class="col-auto input-group">
                 <span class="input-group-text">
                     <i class="bi bi-person"></i>
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="col-md-7 g-3 d-flex justify-content-center align-items-center">
+        <div class="col-md-5 g-3 d-flex justify-content-center align-items-center">
             <div class="col-auto input-group">
                 <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Contraseña">
                 <div class="input-group-append">
@@ -37,6 +37,10 @@
         <div class="col-md-7 g-3 d-flex justify-content-center align-items-center">
             <button type="button" class="btn btn-success" id="inicioSesion">Iniciar Sesion</button>
         </div>
+
+        <div class="col-md-7 g-3 d-flex justify-content-center align-items-center p-2">
+            <p>¿No tienes cuenta? <a href="@Url.Action("Registro", "Usuario")" class="btn btn-warning">Regístrate</a></p>
+        </div>
     </div>
 
     <script>
@@ -45,6 +49,8 @@
         const contrasena = document.getElementById('contrasena');
 
         inicioSesion.addEventListener('click', () => {
+
+            enEspera();
 
             if (usuarioNombre.value.length == 0) {
                 Swal.fire({
@@ -75,6 +81,7 @@
                     },
                     success: function (response) {
                         console.log(response);
+                        enEspera("chau");
                         if (response != null) {
                             Swal.fire({
                                 title: "Bienvenido " + response.Nombre,

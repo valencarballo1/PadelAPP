@@ -183,7 +183,7 @@
     });
 
     const UsuarioGenerico = (nombre, apellido) => {
-        usuarioNombre.value = nombre + '.' + apellido;
+        usuarioNombre.value = (nombre + '.' + apellido).replace(/\s/g, '');
         const inputEvent = new Event('input', { bubbles: true });
         usuarioNombre.dispatchEvent(inputEvent);
     }
@@ -237,6 +237,7 @@
     });
 
     $("#formularioRegistro").submit(function (e) {
+        enEspera();
         e.preventDefault();
         var formData = new FormData(this);
 
@@ -247,6 +248,7 @@
             processData: false,
             contentType: false,
             success: function (response) {
+                enEspera("chau");
                 if (response > 0) {
                     Swal.fire({
                         title: "Registro confirmado!",

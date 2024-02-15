@@ -5,11 +5,27 @@
 
 <div class="row">
     <div class="card col-md-12 m-2">
-        <div class="card-header text-center">
-            <h5>Ver turnos reservados</h5>
+        <div class="card-header text-center row d-flex justify-content-center align-items-center">
+            <div class="col-md-12">
+                <h5>Ver turnos reservados</h5>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="fecha">Fecha Desde:</label>
+                <input type="text" class="form-control" id="fechaDesde" name="fechaDesde" readonly data-id="1">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="fecha">Fecha Hasta:</label>
+                <input type="text" class="form-control" id="fechaHasta" name="fechaHasta" readonly data-id="1">
+            </div>
+
+            <div class="col-md-6">
+                <button class="btn btn-sm btn-primary">Consultar</button>
+            </div>
         </div>
         <div class="card-body row align-items-center">
-            <div class="table-responsive">
+            <div class="table-responsive col-md-8">
                 <table class="table table-vcenter">
                     <thead>
                         <tr>
@@ -24,13 +40,41 @@
                     </tbody>
                 </table>
             </div>
+            <div class="col-md-4 row d-flex">
+                <div class="input-group m-1">
+                <label>Precio cancha</label> 
+                    <input type="number"  class="form-control" id="precioCancha"/>
+                </div>
+                <div class="input-group">
+                    <p>Recaudado</p>
+                    <p id="recaudacionDia"></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
     let usuId = 0;
+    let precioCancha = document.getElementById('precioCancha');
+    const recaudacionDia = document.getElementById('recaudacionDia');
+    let datos;
     $(document).ready(function () {
+
+        $('#fechaDesde').datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'es',
+            autoclose: true,
+            startDate: new Date(), // Establece la fecha mínima como la fecha actual
+            todayHighlight: true // Resalta la fecha actual
+        });
+        $('#fechaHasta').datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'es',
+            autoclose: true,
+            startDate: new Date(), // Establece la fecha mínima como la fecha actual
+            todayHighlight: true // Resalta la fecha actual
+        });
 
         $.ajax({
             url: '@Url.Action("GetReservas", "Reservas")',
@@ -38,6 +82,7 @@
             data: {},
             success: function (data) {
                 llenarTabla(data);
+                datos = data;
             },
             error: function (error) {
                 console.error('Error al obtener horarios:', error);
@@ -76,8 +121,9 @@
                 item.CanchaNumero,
                 formatearFecha(item.HorarioDesde),
                 formatearFecha(item.HorarioHasta),
-                ++usuId,
-                "<button class='btn btn-danger'>Dar de Baja</button>"
+                item.UsuarioNombre,
+                "<button class='btn btn-sm btn-danger m-1'>Dar de Baja</button>" +
+                "<button class='btn btn-sm btn-success'>Enviar Mensaje</button>"
             ];
 
             columnas.forEach((columna) => {
@@ -89,4 +135,5 @@
             tbody.appendChild(row);
         });
     }
+    
 </script>

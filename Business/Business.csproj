@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HorarioBusiness.cs" />
+    <Compile Include="PartidoBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReservasBusiness.cs" />
     <Compile Include="UsuarioBusiness.cs" />
