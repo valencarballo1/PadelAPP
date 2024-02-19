@@ -16,7 +16,7 @@ namespace ReservaPadel.Controllers
         {
             this._ReservasBusiness = new ReservasBusiness();
         }
-        public JsonResult Reservar(int idCancha, DateTime fechaSeleccionada ,string horarioDeReserva, int duracion, int idUsuario)
+        public JsonResult Reservar(int idCancha, string fechaSeleccionada, string horarioDeReserva, int duracion, int idUsuario)
         {
             /*comentario*/
             bool reservo = _ReservasBusiness.Reservar(idCancha, fechaSeleccionada, horarioDeReserva, duracion, idUsuario);
@@ -34,5 +34,11 @@ namespace ReservaPadel.Controllers
             int idPartidoCreado = _ReservasBusiness.CrearPartido(idUsuario, idCancha, fechaSeleccionada, horarioDeReserva, duracion, jugadoresRestantes);
             return Json(idPartidoCreado);
         }
+
+        public ActionResult ReservaPrueba()
+        {
+            return View();
+        }
+
     }
 }

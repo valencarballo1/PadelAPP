@@ -192,12 +192,12 @@
     <Content Include="Views\Partido\Ver.cshtml" />
     <Content Include="Views\Partido\Crear.cshtml" />
     <Content Include="Views\Partido\Disponibles.cshtml" />
+    <Content Include="Views\Reservas\ReservaPrueba.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Horario\" />
-    <Folder Include="Views\Reservas\" />
     <Folder Include="Views\Usuarios\" />
   </ItemGroup>
   <ItemGroup>

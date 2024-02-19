@@ -64,9 +64,17 @@ namespace Business
             return _ReservasRepository.GetReservas();
         }
 
-        public bool Reservar(int idCancha, DateTime fechaSeleccionada, string horarioDeReserva, int duracion, int idUsuario)
+        public bool Reservar(int idCancha, string fechaSeleccionada, string horarioDeReserva, int duracion, int idUsuario)
         {
-            DateTime horarioDesde = fechaSeleccionada.Add(DateTime.ParseExact(horarioDeReserva, "HH:mm", CultureInfo.InvariantCulture).TimeOfDay);
+            string[] partes = fechaSeleccionada.Split('/');
+
+            int day = int.Parse(partes[0]);
+            int month = int.Parse(partes[1]);
+            int year = int.Parse(partes[2]);
+
+            DateTime fechaUsuario = new DateTime(year, month, day);
+
+            DateTime horarioDesde = fechaUsuario.Add(DateTime.ParseExact(horarioDeReserva, "HH:mm", CultureInfo.InvariantCulture).TimeOfDay);
             DateTime horarioHasta = horarioDesde.AddMinutes(duracion);
 
             Horarios reserva = new Horarios();
