@@ -14,10 +14,12 @@ namespace ReservaPadel.Controllers
     public class PartidoController : Controller
     {
         private PartidoBusiness _PartidoBusiness;
+        private ReservasBusiness _ReservasBusiness;
 
         public PartidoController()
         {
             this._PartidoBusiness = new PartidoBusiness();
+            this._ReservasBusiness = new ReservasBusiness();
         }
 
         public ActionResult Ver(int idPartido)
@@ -110,6 +112,93 @@ namespace ReservaPadel.Controllers
             return View();
         }
 
+        public ActionResult Ultimos(int idUsuario)
+        {
+            string rutaDirectorio = Url.Content("~/" + "imgPerfiles/");
+            string nombreArchivo;
+            string rutaCompleta;
+
+
+            List<PartidoDTO> partidos = _PartidoBusiness.GetUltimos(idUsuario);
+
+            partidos.ForEach(partido => {
+                if (partido.UsuarioJ1 != null)
+                {
+                    nombreArchivo = partido.FotoPerfil1;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil1 = rutaCompleta;
+                }
+
+                if (!partido.UsuarioJ2.IsEmpty() && partido.UsuarioJ2 != partido.UsuarioJ1)
+                {
+                    nombreArchivo = partido.FotoPerfil2;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil2 = rutaCompleta;
+                }
+                else if (partido.UsuarioJ2 == "")
+                {
+                    nombreArchivo = "AgregarAPartido.png";
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil2 = rutaCompleta;
+                }
+                else if (partido.UsuarioJ1 == partido.UsuarioJ2)
+                {
+                    partido.UsuarioJ2 = "Invitado de " + partido.UsuarioJ1;
+                    nombreArchivo = partido.FotoPerfil2;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil2 = rutaCompleta;
+                }
+
+                if (!partido.UsuarioJ3.IsEmpty() && partido.UsuarioJ3 != partido.UsuarioJ1 && partido.UsuarioJ3 != partido.UsuarioJ2)
+                {
+                    nombreArchivo = partido.FotoPerfil3;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil3 = rutaCompleta;
+                }
+                else if (partido.UsuarioJ3 == "")
+                {
+                    nombreArchivo = "AgregarAPartido.png";
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil3 = rutaCompleta;
+                }
+                else if (partido.UsuarioJ3 == partido.UsuarioJ1)
+                {
+                    partido.UsuarioJ3 = "Invitado de: " + partido.UsuarioJ1;
+                    nombreArchivo = partido.FotoPerfil1;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil3 = rutaCompleta;
+                }
+                else if (partido.UsuarioJ3 == partido.UsuarioJ2)
+                {
+                    partido.UsuarioJ3 = "Invitado de: " + partido.UsuarioJ2;
+                    nombreArchivo = partido.FotoPerfil2;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil3 = rutaCompleta;
+                }
+
+
+                if (!partido.UsuarioJ4.IsEmpty())
+                {
+                    nombreArchivo = partido.FotoPerfil4;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil4 = rutaCompleta;
+                }
+                else if (partido.UsuarioJ4 == "")
+                {
+                    nombreArchivo = "AgregarAPartido.png";
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil4 = rutaCompleta;
+                }
+            });
+            return PartialView(partidos);
+        }
+
+        public ActionResult ReservasUsuario(int idUSuario)
+        {
+            List<ReservaDTO> reserva = _ReservasBusiness.GetReservasByUsuario(idUSuario);
+            return PartialView(reserva);
+        }
+
         public JsonResult Unirse(int idPartido, int idUsuario, int posicionJugador)
         {
             bool seUnio = _PartidoBusiness.Unirse(idPartido, idUsuario, posicionJugador);
@@ -121,6 +210,87 @@ namespace ReservaPadel.Controllers
         {
             List<DetallePartidoDTO> detalles = _PartidoBusiness.GetDetallePartidos();
             return Json(detalles, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult PartidosDisponibles()
+        {
+            string rutaDirectorio = Url.Content("~/" + "imgPerfiles/");
+            string nombreArchivo;
+            string rutaCompleta;
+
+
+            List<PartidoDTO> partidos = _PartidoBusiness.GetPartidosDisponibles();
+
+            partidos.ForEach(partido => {
+                if (partido.UsuarioJ1 != null)
+                {
+                    nombreArchivo = partido.FotoPerfil1;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil1 = rutaCompleta;
+                }
+
+                if (!partido.UsuarioJ2.IsEmpty() && partido.UsuarioJ2 != partido.UsuarioJ1)
+                {
+                    nombreArchivo = partido.FotoPerfil2;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil2 = rutaCompleta;
+                }
+                else if (partido.UsuarioJ2 == "")
+                {
+                    nombreArchivo = "AgregarAPartido.png";
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil2 = rutaCompleta;
+                }
+                else if (partido.UsuarioJ1 == partido.UsuarioJ2)
+                {
+                    partido.UsuarioJ2 = "Invitado de " + partido.UsuarioJ1;
+                    nombreArchivo = partido.FotoPerfil2;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil2 = rutaCompleta;
+                }
+
+                if (!partido.UsuarioJ3.IsEmpty() && partido.UsuarioJ3 != partido.UsuarioJ1 && partido.UsuarioJ3 != partido.UsuarioJ2)
+                {
+                    nombreArchivo = partido.FotoPerfil3;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil3 = rutaCompleta;
+                }
+                else if (partido.UsuarioJ3 == "")
+                {
+                    nombreArchivo = "AgregarAPartido.png";
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil3 = rutaCompleta;
+                }
+                else if (partido.UsuarioJ3 == partido.UsuarioJ1)
+                {
+                    partido.UsuarioJ3 = "Invitado de: " + partido.UsuarioJ1;
+                    nombreArchivo = partido.FotoPerfil1;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil3 = rutaCompleta;
+                }
+                else if (partido.UsuarioJ3 == partido.UsuarioJ2)
+                {
+                    partido.UsuarioJ3 = "Invitado de: " + partido.UsuarioJ2;
+                    nombreArchivo = partido.FotoPerfil2;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil3 = rutaCompleta;
+                }
+
+
+                if (!partido.UsuarioJ4.IsEmpty())
+                {
+                    nombreArchivo = partido.FotoPerfil4;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil4 = rutaCompleta;
+                }
+                else if (partido.UsuarioJ4 == "")
+                {
+                    nombreArchivo = "AgregarAPartido.png";
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil4 = rutaCompleta;
+                }
+            });
+            return Json(partidos, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -17,9 +17,9 @@ namespace ReservaPadel.Controllers
         {
             this._HorariosBusiness = new HorarioBusiness();
         }
-        public JsonResult Load(int idCancha, DateTime fechaSeleccionada)
+        public JsonResult Load(int idCancha, string fechaSeleccionada)
         {
-            List<HorarioDTO> lista = _HorariosBusiness.Load(idCancha ,fechaSeleccionada);
+            List<HorarioDTO> lista = _HorariosBusiness.Load(idCancha, fechaSeleccionada);
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
     }

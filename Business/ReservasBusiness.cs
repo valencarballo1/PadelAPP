@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Data.DTO;
 
 namespace Business
 {
@@ -20,9 +21,16 @@ namespace Business
             this._HorariosRepository = new HorariosRepository();
         }
 
-        public int CrearPartido(int idUsuario, int idCancha, DateTime fechaSeleccionada, string horarioDeReserva, int duracion, int jugadoresRestantes)
+        public int CrearPartido(int idUsuario, int idCancha, string fechaSeleccionada, string horarioDeReserva, int duracion, int jugadoresRestantes)
         {
-            DateTime horarioDesde = fechaSeleccionada.Add(DateTime.ParseExact(horarioDeReserva, "HH:mm", CultureInfo.InvariantCulture).TimeOfDay);
+            string[] partes = fechaSeleccionada.Split('/');
+
+            int day = int.Parse(partes[0]);
+            int month = int.Parse(partes[1]);
+            int year = int.Parse(partes[2]);
+            DateTime fechaUsuario = new DateTime(year, month, day);
+
+            DateTime horarioDesde = fechaUsuario.Add(DateTime.ParseExact(horarioDeReserva, "HH:mm", CultureInfo.InvariantCulture).TimeOfDay);
             DateTime horarioHasta = horarioDesde.AddMinutes(duracion);
 
             Horarios reserva = new Horarios();
@@ -34,6 +42,7 @@ namespace Business
             reserva.Duracion = duracion;
 
             canchasReservadas.IdCancha = idCancha;
+            canchasReservadas.IdUsuario = idUsuario;
             reserva.CanchasReservadas.Add(canchasReservadas);
 
             if (jugadoresRestantes == 3)
@@ -59,14 +68,27 @@ namespace Business
             return partidoCreado.Id;
         }
 
-        public List<DTO.ReservaDTO> GetReservas()
+        public List<ReservaDTO> GetReservas()
         {
             return _ReservasRepository.GetReservas();
         }
 
-        public bool Reservar(int idCancha, DateTime fechaSeleccionada, string horarioDeReserva, int duracion, int idUsuario)
+        public List<ReservaDTO> GetReservasByUsuario(int idUSuario)
         {
-            DateTime horarioDesde = fechaSeleccionada.Add(DateTime.ParseExact(horarioDeReserva, "HH:mm", CultureInfo.InvariantCulture).TimeOfDay);
+            return _ReservasRepository.GetReservasByUsuario(idUSuario);
+        }
+
+        public bool Reservar(int idCancha, string fechaSeleccionada, string horarioDeReserva, int duracion, int idUsuario)
+        {
+            string[] partes = fechaSeleccionada.Split('/');
+
+            int day = int.Parse(partes[0]);
+            int month = int.Parse(partes[1]);
+            int year = int.Parse(partes[2]);
+
+            DateTime fechaUsuario = new DateTime(year, month, day);
+
+            DateTime horarioDesde = fechaUsuario.Add(DateTime.ParseExact(horarioDeReserva, "HH:mm", CultureInfo.InvariantCulture).TimeOfDay);
             DateTime horarioHasta = horarioDesde.AddMinutes(duracion);
 
             Horarios reserva = new Horarios();

@@ -42,7 +42,6 @@
 <script>
     const fecha = document.getElementById("fecha");
     const reservar = document.getElementById("btnReserva");
-    let duracion;
     let datosDeHorario;
 
     $(document).ready(function () {
@@ -56,101 +55,77 @@
     });
 
     $('#fecha').on('changeDate', function (e) {
-    $('.duracionCheckbox:checked').prop('checked', false);
-    $('#horario').empty();
+        $('.duracionCheckbox:checked').prop('checked', false);
+        $('#horario').empty();
+        console.log("Nueva fecha seleccionada:", fecha.value);
 
+        $.ajax({
+            url: '@Url.Action("Load", "Horario")',
+            type: 'GET',
+            data: {
+                idCancha: 1,
+                fechaSeleccionada: fecha.value
+            },
 
-    $('.duracionCheckbox').on('change', function () {
-    $("#horario").empty();
-        duracion = parseInt($('.duracionCheckbox:checked').val());
-        const horaInicio = 8;
-        const horaFin = 24;
-        enEspera()
+            success: function (data) {
+                datosDeHorario = data;
+            },
+            error: function (error) {
+                console.error('Error al obtener horarios:', error);
+            }
+        });
 
-        for (let hora = horaInicio; hora < horaFin; hora++) {
-            for (let minuto = 0; minuto < 60; minuto += duracion) {
-                let horaFormato = ('0' + hora).slice(-2);
-                let minutoFormato = ('0' + minuto).slice(-2);
-                let tiempo = horaFormato + ':' + minutoFormato;
-                $('#horario').append('<option class="text-light bg-success" value="' + tiempo + '">' + tiempo + '</option>');
+        $('.duracionCheckbox').on('change', function () {
+            $("#horario").empty();
+            duracion = parseInt($('.duracionCheckbox:checked').val());
+            let horaInicio = 8;
+            let horaFin = 24;
 
-                if (duracion === 90) {
-                    minuto += 30;
-                    minutoFormato = ('0' + minuto).slice(-2);
-                    tiempo = horaFormato + ':' + minutoFormato;
+            for (let hora = horaInicio; hora < horaFin; hora++) {
+                for (let minuto = 0; minuto < 60; minuto += duracion) {
+                    let horaFormato = ('0' + hora).slice(-2);
+                    let minutoFormato = ('0' + minuto).slice(-2);
+                    let tiempo = horaFormato + ':' + minutoFormato;
                     $('#horario').append('<option class="text-light bg-success" value="' + tiempo + '">' + tiempo + '</option>');
+
+                    if (duracion === 90) {
+                        minuto += 30;
+                        minutoFormato = ('0' + minuto).slice(-2);
+                        tiempo = horaFormato + ':' + minutoFormato;
+                        $('#horario').append('<option class="text-light bg-success" value="' + tiempo + '">' + tiempo + '</option>');
+                    }
                 }
             }
-        }
-        console.log(datosDeHorario);
-            $.ajax({
-                url: '@Url.Action("Load", "Horario")',
-                type: 'GET',
-                data: {
-                    idCancha: 1,
-                    fechaSeleccionada: fecha.value
-                },
-
-                success: function (data) {
-                    console.log(data);
-                    datosDeHorario = data;
-                    deshabilitarHorarios(datosDeHorario);
-                    enEspera("chau");
-                },
-
-                error: function (error) {
-                    console.error('Error al obtener horarios:', error);
-                }
-            });
-        //if (datosDeHorario != null && datosDeHorario.length > 0) {
-        //    deshabilitarHorarios(datosDeHorario);
-        //}
+            if (datosDeHorario != null && datosDeHorario.length > 0) {
+                deshabilitarHorarios(datosDeHorario, $('.duracionCheckbox').val());
+            }
+        });
     });
-});
 
-    function deshabilitarHorarios(datosDeHorario) {
+    function deshabilitarHorarios(datosDeHorario, duracionTurno) {
         let horarioNoDisponible;
 
         datosDeHorario.forEach(function (horario) {
             if (horario.HorarioDesde && horario.HorarioHasta) {
-                const fechaMilisegundos = parseInt(horario.HorarioDesde.substr(6));
-                const fechaDesde = moment(fechaMilisegundos).tz('America/Chicago');
+                const fechaDesde = new Date(parseInt(horario.HorarioDesde.substr(6))); // Obtener la fecha desde el formato de milisegundos
+                const horaDesde = fechaDesde.getHours();
+                const minutoDesde = fechaDesde.getMinutes();
 
-                // Obtener las horas y minutos en formato deseado en la zona horaria 'America/Chicago'
-                const horaYMinutos = fechaDesde.format('hh:mm A');
-                console.log("Esto es de la configuración: " + horaYMinutos);
+                // Calcular el horario previo según la duración del turno
+                const horaPrevio = horaDesde - Math.floor(duracionTurno / 60);
+                const minutoPrevio = minutoDesde - (duracionTurno % 60);
 
-                // Obtener las horas y minutos en formato de 24 horas en la zona horaria 'America/Chicago'
-                const valorHorarioDesde = fechaDesde.format('HH:mm');
-                console.log("Esto es en formato de 24 horas: " + valorHorarioDesde);
+                // Formatear el horario previo
+                let valorHorarioPrevio = ('0' + horaPrevio).slice(-2) + ':' + ('0' + minutoPrevio).slice(-2);
 
-                horarioNoDisponible = $('#horario option[value="' + valorHorarioDesde + '"]')[0];
+                // Seleccionar la opción en el select
+                horarioNoDisponible = $('#horario option[value="' + valorHorarioPrevio + '"]')[0];
+
+                // Deshabilitar la opción
                 $(horarioNoDisponible).prop('disabled', true);
+
+                // Modificar las clases
                 $(horarioNoDisponible).removeClass('text-light bg-success').addClass('text-light bg-danger');
-
-                // Deshabilitar los dos horarios anteriores y el primer posterior si la duración es de 90 minutos
-                console.log(horario.Duracion);
-                if (horario.Duracion == 90 && duracion == 90) {
-                    const indice = $('#horario option').index(horarioNoDisponible);
-
-                    for (let i = indice - 1; i >= indice - 2 && i >= 0; i--) {
-                        $('#horario option').eq(i).prop('disabled', true)
-                            .removeClass('text-light bg-success').addClass('text-light bg-danger');
-                    }
-
-                    for (let i = indice + 1; i <= indice + 2 && i < $('#horario option').length; i++) {
-                        $('#horario option').eq(i).prop('disabled', true)
-                            .removeClass('text-light bg-success').addClass('text-light bg-danger');
-                    }
-                } else {
-                    const indice = $('#horario option').index(horarioNoDisponible);
-
-                    $(horarioNoDisponible).prop('disabled', true);
-                    $(horarioNoDisponible).removeClass('text-light bg-success').addClass('text-light bg-danger');
-
-                    $('#horario option').eq(indice + 1).prop('disabled', true)
-                        .removeClass('text-light bg-success').addClass('text-light bg-danger');
-                }
 
             } else {
                 console.error('El horario no es una cadena o un objeto válido:', horario);
@@ -169,8 +144,6 @@
             });
             return false;
         }
-
-        console.log(horarioDeReserva);
 
         $.ajax({
             url: '@Url.Action("Reservar", "Reservas")',

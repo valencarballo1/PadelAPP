@@ -22,6 +22,7 @@ namespace Data
             public int CanchaNumero { get; set; }
             public DateTime HorarioDesde { get; set; }
             public DateTime HorarioHasta { get; set; }
+            public int Duracion { get; set; }
             public string UsuarioNombre { get; set; }
         }
 

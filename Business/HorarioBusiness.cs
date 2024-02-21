@@ -18,9 +18,18 @@ namespace Business
             this._HorariosRepository = new HorariosRepository();
         }
 
-        public List<HorarioDTO> Load(int idCancha,DateTime fechaSeleccionada)
+        public List<HorarioDTO> Load(int idCancha, string fechaSeleccionada)
         {
-            return _HorariosRepository.Load(idCancha, fechaSeleccionada);
+            string[] partes = fechaSeleccionada.Split('/');
+
+            // Obtener los componentes de día, mes y año
+            int day = int.Parse(partes[0]);
+            int month = int.Parse(partes[1]);
+            int year = int.Parse(partes[2]);
+
+            DateTime fecha = new DateTime(year, month, day);
+
+            return _HorariosRepository.Load(idCancha, fecha);
         }
     }
 }

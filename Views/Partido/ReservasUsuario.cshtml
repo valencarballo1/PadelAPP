@@ -1,0 +1,45 @@
+﻿@model List<Data.DTO.ReservaDTO>
+
+@if (Model != null && Model.Any())
+{
+    <div class="card mb-3">
+        <div class="card-body row g-0 d-flex justify-content-center">
+            <div class="table-responsive">
+                <table id="reservasTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Cancha</th>
+                            <th>Fecha</th>
+                            <th>Horario Desde</th>
+                            <th>Horario Hasta</th>
+                            <th>Duración</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var reserva in Model)
+                        {
+                            <tr>
+                                <td>@reserva.CanchaNumero</td>
+                                <td>@reserva.HorarioDesde.ToString("dd/MM/yyyy")</td>
+                                <td>@reserva.HorarioDesde.ToString("HH:mm")</td>
+                                <td>@reserva.HorarioHasta.ToString("HH:mm")</td>
+                                <td>@reserva.Duracion minutos</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <p>No hay reservas disponibles.</p>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#reservasTable').DataTable();
+    });
+</script>

@@ -52,7 +52,7 @@ namespace ReservaPadel.Controllers
                 id = _UsuarioBusiness.Registrarme(nombre, apellido, celular, usuario, contrasena);
             }
 
-            if(id > 0)
+            if (id > 0)
             {
                 this.LogIn(usuario, contrasena);
             }
@@ -86,7 +86,7 @@ namespace ReservaPadel.Controllers
         {
             UsuarioDTO usuarioExiste = _UsuarioBusiness.GetLogin(usuarioNombre, contrasena);
 
-            if(usuarioExiste != null)
+            if (usuarioExiste != null)
             {
                 HttpCookie cookie = new HttpCookie("UsuarioSesion");
                 cookie["Id"] = usuarioExiste.Id.ToString(); // Puedes almacenar más información según tus necesidades
