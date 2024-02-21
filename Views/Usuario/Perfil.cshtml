@@ -2,20 +2,9 @@
 @{
     ViewBag.Title = "Perfil";
 }
-
-<style>
-    .perfil-img {
-        width: 150px; /* Ajusta según sea necesario */
-        height: 150px; /* Ajusta según sea necesario */
-        object-fit: cover;
-        border-radius: 50%;
-        border: 2px solid #fff; /* Ajusta según sea necesario */
-    }
-</style>
-
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12 col-xl-4">
             <!-- Establece el ancho deseado para la tarjeta -->
             <div class="card">
                 <div class="card-body d-flex flex-column align-items-center">
@@ -71,34 +60,35 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12 col-xl-8">
             <div class="card">
                 <div class="card-body row d-flex align-items-center">
-                    <div class="card col-md-6">
-                        <div class="card-header">
+                    <div class="card col-md-12 col-xl-12">
+                        <div class="card-header text-center">
                             Mis reservas
                         </div>
-                        <div class="card-body">
-
+                        <div class="card-body" id="reservasDelUsuario">
                         </div>
                     </div>
 
-                    <div class="card col-md-6">
-                        <div class="card-header">
+                    <div class="card col-md-12 col-xl-12">
+                        <div class="card-header text-center">
                             Mis ultimos partidos
                         </div>
-                        <div class="card-body"></div>
+                        <div class="card-body" id="ultimosPartidosContainer">
+
+                        </div>
                     </div>
+
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>
 
 <script>
-    const cerrarSesion = document.getElementById('cerrarSesion');
+        const idUsuario = @Model.Id;
+        const cerrarSesion = document.getElementById('cerrarSesion');
 
     cerrarSesion.addEventListener('click', function () {
         $.ajax({
@@ -124,6 +114,45 @@
                 });
             }
         },
+
+        });
     });
-    });
+
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            $.ajax({
+                url: '@Url.Action("Ultimos", "Partido")',
+                type: 'GET',
+                data: { idUsuario: idUsuario },
+
+                success: function (data) {
+                    $('#ultimosPartidosContainer').html(data);
+                },
+
+                error: function () {
+                    console.log('Error al cargar los últimos partidos.');
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            $.ajax({
+                url: '@Url.Action("ReservasUsuario", "Partido")',
+                type: 'GET',
+                data: { idUsuario: idUsuario },
+
+                success: function (data) {
+                    $('#reservasDelUsuario').html(data);
+                },
+
+
+                error: function () {
+                    console.log('Error al cargar los últimos partidos.');
+                }
+            });
+        });
+
 </script>

@@ -13,7 +13,7 @@ namespace Repository
     {
         public List<DTO.ReservaDTO> GetReservas()
         {
-            using(PadelAppEntities db = new PadelAppEntities())
+            using (PadelAppEntities db = new PadelAppEntities())
             {
                 List<CanchasReservadas> lista = db.CanchasReservadas.Include("Horarios").ToList();
 
@@ -32,9 +32,32 @@ namespace Repository
             }
         }
 
+        public List<ReservaDTO> GetReservasByUsuario(int idUsuario)
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+                List<ReservaDTO> reservasDTO = db.CanchasReservadas
+                    .Include("Canchas")
+                    .Include("Horarios")
+                    .Where(c => c.IdUsuario == idUsuario)
+                    .OrderByDescending(r => r.Horarios.HorarioDesde) // Asumiendo que tienes una propiedad FechaDeCreacion en CanchasReservadas
+                    .Take(3)
+                    .Select(r => new ReservaDTO
+                    {
+                        CanchaNumero = r.Canchas.NumeroCancha.Value,
+                        HorarioDesde = r.Horarios.HorarioDesde.Value,
+                        HorarioHasta = r.Horarios.HorarioHasta.Value,
+                        Duracion = r.Horarios.Duracion.Value,
+                    })
+                    .ToList();
+
+                return reservasDTO;
+            }
+        }
+
         public void SaveCancha(CanchasReservadas canchaReservada)
         {
-            using(PadelAppEntities db = new PadelAppEntities())
+            using (PadelAppEntities db = new PadelAppEntities())
             {
                 db.CanchasReservadas.AddOrUpdate(canchaReservada);
                 db.SaveChanges();

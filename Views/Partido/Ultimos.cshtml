@@ -1,0 +1,43 @@
+﻿@model List<Data.DTO.PartidoDTO>
+<style>
+
+    .ultimos-img {
+        width: 50px; /* Ajusta según sea necesario */
+        height: 50px; /* Ajusta según sea necesario */
+        object-fit: cover;
+        border-radius: 20%;
+        border: 2px solid #fff; /* Ajusta según sea necesario */
+    }
+</style>
+
+
+<div class="container mt-3">
+    @foreach (var partido in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-body row g-0 d-flex justify-content-center">
+                <div class="col-md-3 col-5 d-flex justify-content-center">
+                    <img src="@partido.FotoPerfil1" alt="Foto Jugador 1" class="ultimos-img" />
+                    <img src="@partido.FotoPerfil2" alt="Foto Jugador 2" class="ultimos-img"/>
+
+                </div>
+                <div class="col-2 col-md-4 text-center mt-3 d-flex justify-content-center">
+                    <h2>VS</h2>
+                </div>
+                <div class="col-md-3 col-5 d-flex justify-content-center">
+                    <img src="@partido.FotoPerfil3" alt="Foto Jugador 3" class="ultimos-img" />
+                    <img src="@partido.FotoPerfil4" alt="Foto Jugador 4" class="ultimos-img" />
+                </div>
+                <div class="col-md-12 col-4 d-flex justify-content-center">
+                    <!-- Aquí irá el día y el horario -->
+                    <h5 class="card-title">Fecha: @partido.HorarioDesde.ToString("dd/MM/yyyy")</h5>
+                    <!-- Puedes agregar más detalles según tus necesidades -->
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+
+</script>

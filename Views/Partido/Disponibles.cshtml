@@ -54,8 +54,8 @@
         card.innerHTML = `
       <div class="card-body">
         <h5 class="card-title text-center">Fecha: ${fechaPartido}</h5>
-        <h5 class="card-title text-center">Horario: ${fechaDesde} - ${fechaHasta}</h5>
-        <p class="card-text">Jugadores: ${partido.CantidadDeJugadores}</p>
+        <h7 class="card-title text-center">Horario: ${fechaDesde} - ${fechaHasta}</h7>
+        <p class="card-text">Jugadores: ${partido.CantidadJugadores}</p>
         <p class="card-text">Organizador: ${partido.UsuarioOrganizador}</p>
         <a href="@Url.Action("Ver", "Partido")?idPartido=${partido.Id}" class="btn btn-primary">Unirme al Partido</a>
       </div>
@@ -71,9 +71,12 @@
     }
 
     function formatearHora(fechaString) {
-        var fecha = new Date(parseInt(fechaString.substr(6)));
-        var opciones = { hour: '2-digit', minute: '2-digit' };
-        return fecha.toLocaleString('es-ES', opciones);
+        const fechaMilisegundos = parseInt(fechaString.substr(6));
+        const fechaDesde = moment(fechaMilisegundos).tz('America/Chicago');
+        const horaYMinutos = fechaDesde.format('hh:mm A');
+        console.log("Esto es de la configuración: " + horaYMinutos);
+
+        return horaYMinutos;
     }
 
 </script>

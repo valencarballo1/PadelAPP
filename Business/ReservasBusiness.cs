@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Data.DTO;
 
 namespace Business
 {
@@ -41,6 +42,7 @@ namespace Business
             reserva.Duracion = duracion;
 
             canchasReservadas.IdCancha = idCancha;
+            canchasReservadas.IdUsuario = idUsuario;
             reserva.CanchasReservadas.Add(canchasReservadas);
 
             if (jugadoresRestantes == 3)
@@ -66,9 +68,14 @@ namespace Business
             return partidoCreado.Id;
         }
 
-        public List<DTO.ReservaDTO> GetReservas()
+        public List<ReservaDTO> GetReservas()
         {
             return _ReservasRepository.GetReservas();
+        }
+
+        public List<ReservaDTO> GetReservasByUsuario(int idUSuario)
+        {
+            return _ReservasRepository.GetReservasByUsuario(idUSuario);
         }
 
         public bool Reservar(int idCancha, string fechaSeleccionada, string horarioDeReserva, int duracion, int idUsuario)

@@ -2,37 +2,148 @@
     ViewBag.Title = "Padel APP";
 }
 
-<div class="jumbotron row d-flex justify-content-between align-items-center">
-    <h1 class="display-4 text-center">MI APP DE PADEL</h1>
+<style>
 
-    <div class="card col-md-4 m-2">
-        <div class="card-header text-center">
-            <h5>Reserva tu cancha</h5>
-        </div>
-        <div class="card-body row align-items-center">
-            <div class="col-md-12">
-                <p class="lead text-center">Reserva tus horarios y disfruta de nuestros servicios.</p>
+    .ultimos-img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 20%;
+        border: 2px solid #fff;
+    }
+</style>
+
+<div class="row align-items-center">
+    <div class="row col-md-12 d-flex justify-content-lg-between justify-content-md-between justify-content-center p-3">
+        <div class="card col-md-5 col-10">
+            <div class="card-header text-center">
+                <h3>RESERVA TU CANCHA</h3>
             </div>
-            <div class="col-md-12 d-flex justify-content-center">
-                <div>
-                    <a class="btn btn-success" href="@Url.Action("Reserva", "Home")"><i class="bi bi-calendar-plus">Reservar</i></a>
+            <div class="card-body row align-items-center">
+                <div class="col-md-12">
+                    <p class="lead text-center">Reserva tus horarios y disfruta de nuestros servicios.</p>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div>
+                        <a class="btn btn-success" href="@Url.Action("Reserva", "Home")"><i class="bi bi-calendar-plus">Reservar</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-md-5 col-10">
+            <div class="card-body">
+                <div class="col-md-12 text-center">
+                    <p class="lead text-center">Reserva tu cancha y ¡arma tu partido! 🎾 Si faltan jugadores, otros podrán unirse a tu reserva para disfrutar juntos del juego. 🤝</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-success" href="@Url.Action("Disponibles", "Partido")"><i class="bi bi-joystick">Unirse</i></a>
+                    <a class="btn btn-success" href="@Url.Action("Crear", "Partido")"><i class="bi bi-calendar-plus">Crear</i></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-12 row m-2">
+        <div class="card col-md-12 col-12">
+            <div class="card-header text-center">
+                <h3>Partidos disponibles</h3>
+            </div>
+            <div class="card-body">
+                <div id="partidosContainer" class="slider responsive">
+                    <!-- Se generará dinámicamente aquí -->
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card col-md-4 m-2">
-        <div class="card-header text-center">
-            <h5>Crea tu partido</h5>
-        </div>
-        <div class="card-body">
-            <div class="col-md-12 text-center">
-                <p class="lead text-center">Reserva tu cancha y ¡arma tu partido! 🎾 Si faltan jugadores, otros podrán unirse a tu reserva para disfrutar juntos del juego. 🤝</p>
-            </div>
-            <div class="d-flex justify-content-between">
-                <a class="btn btn-success"href="@Url.Action("Disponibles", "Partido")"><i class="bi bi-joystick">Unirse</i></a>
-                <a class="btn btn-success" href="@Url.Action("Crear", "Partido")"><i class="bi bi-calendar-plus">Crear</i></a>
-            </div>
-        </div>
-    </div>
 </div>
+
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '@Url.Action("PartidosDisponibles", "Partido")', // Reemplaza con la URL correcta
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                const partidosContainer = $('#partidosContainer');
+
+
+                $.each(data, function (index, partido) {
+                    const card = $('<div class="card m-2">');
+                    const cardBody = $('<div class="row g-0 d-flex justify-content-center">');
+
+                    const colJugador1 = $('<div class="col-md-6 col-12 d-flex justify-content-center">');
+                    colJugador1.append('<img src="' + partido.FotoPerfil1 + '" alt="Foto Jugador 1" class="ultimos-img" />');
+                    colJugador1.append('<img src="' + partido.FotoPerfil2 + '" alt="Foto Jugador 2" class="ultimos-img"/>');
+
+                    const colVs = $('<div class="col-6 col-md-12 text-center mt-3 d-flex justify-content-center">');
+                    colVs.append('<h2>VS</h2>');
+
+                    const colJugador2 = $('<div class="col-md-6 col-12 d-flex justify-content-center">');
+                    colJugador2.append('<img src="' + partido.FotoPerfil3 + '" alt="Foto Jugador 3" class="ultimos-img" />');
+                    colJugador2.append('<img src="' + partido.FotoPerfil4 + '" alt="Foto Jugador 4" class="ultimos-img" />');
+
+
+                    const colFecha = $('<div class="col-md-12 col-12 d-flex justify-content-center">');
+                    colFecha.append('<h5 class="text-center">Fecha: ' + moment(partido.HorarioDesde).format('DD/MM/YYYY') + '</h5>');
+
+                    const colHorario = $('<div class="col-md-12 col-12 d-flex justify-content-center">');
+                    colHorario.append('<h7 class="text-center">Desde: ' + moment(partido.HorarioDesde).format('HH:mm') + " - " + moment(partido.HorarioHasta).format('HH:mm') + '</h7>');
+
+
+                    const colBtn = $('<div class="col-md-4 col-8 d-flex justify-content-center">');
+                    colBtn.append($('<button class="btn btn-success">Unirme' + '</button>'))
+
+                    cardBody.append(colJugador1);
+                    cardBody.append(colVs);
+                    cardBody.append(colJugador2);
+                    cardBody.append(colFecha);
+                    cardBody.append(colHorario);
+                    cardBody.append(colBtn);
+                    card.append(cardBody);
+                    partidosContainer.append(card);
+
+
+                });
+                partidosContainer.slick({
+                    dots: true,
+                    infinite: false,
+                    speed: 300,
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                    responsive: [
+                        {
+                            breakpoint: 1024,
+                            settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 3,
+                                infinite: true,
+                                dots: true
+                            }
+                        },
+                        {
+                            breakpoint: 600,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                            }
+                        },
+                        {
+                            breakpoint: 480,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                            }
+                        }
+                    ]
+                });
+            },
+            error: function (error) {
+                console.error('Error al obtener los datos de los partidos:', error);
+            }
+        });
+    });
+</script>

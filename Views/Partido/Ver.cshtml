@@ -160,39 +160,19 @@
 
 
     function formatearFecha(fechaString) {
-        const partes = fechaString.split(" ");
+        const fechaDesde = moment(fechaString);
 
-        const fechaComponentes = partes[0].split("/");
-        const dia = parseInt(fechaComponentes[0], 10);
-        const mes = parseInt(fechaComponentes[1], 10) - 1;
-        const año = parseInt(fechaComponentes[2], 10);
-
-        const horaComponentes = partes[1].split(":");
-        const horas = parseInt(horaComponentes[0], 10);
-        const minutos = parseInt(horaComponentes[1], 10);
-
-        const fecha = new Date(año, mes, dia, horas, minutos);
-
-        const opciones = { year: 'numeric', month: '2-digit', day: '2-digit'};
-        return fecha.toLocaleString('es-ES', opciones);
+        const diaMesAno = fechaDesde.format('DD-MM-YYYY');
+        console.log(diaMesAno);
+        return diaMesAno;
     }
 
     function formatearHorario(fechaString) {
-        const partes = fechaString.split(" ");
+        const fechaDesde = moment(fechaString);
 
-        const fechaComponentes = partes[0].split("/");
-        const dia = parseInt(fechaComponentes[0], 10);
-        const mes = parseInt(fechaComponentes[1], 10) - 1;
-        const año = parseInt(fechaComponentes[2], 10);
-
-        const horaComponentes = partes[1].split(":");
-        const horas = parseInt(horaComponentes[0], 10);
-        const minutos = parseInt(horaComponentes[1], 10);
-
-        const fecha = new Date(año, mes, dia, horas, minutos);
-
-        const opciones = { hour: '2-digit', minute: '2-digit' };
-        return fecha.toLocaleString('es-ES', opciones);
+        const horaYMinutos = fechaDesde.format('hh:mm A');
+        console.log(horaYMinutos);
+        return horaYMinutos;
     }
 
 

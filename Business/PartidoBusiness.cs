@@ -64,5 +64,15 @@ namespace Business
         {
             return _PartidoRepository.GetDetallePartido();
         }
+
+        public List<PartidoDTO> GetUltimos(int idUsuario)
+        {
+            return _PartidoRepository.GetUltimos(idUsuario);
+        }
+
+        public List<PartidoDTO> GetPartidosDisponibles()
+        {
+            return _PartidoRepository.GetPartidosDisponibles();
+        }
     }
 }
