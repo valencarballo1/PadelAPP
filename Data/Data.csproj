@@ -62,6 +62,9 @@
     <Compile Include="CanchasReservadas.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Categorias.cs">
+      <DependentUpon>PadelAPP.tt</DependentUpon>
+    </Compile>
     <Compile Include="DTO.cs" />
     <Compile Include="Horarios.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>

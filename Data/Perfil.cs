@@ -20,7 +20,10 @@ namespace Data
         public string Celular { get; set; }
         public string FotoPerfil { get; set; }
         public Nullable<int> IdUsuario { get; set; }
+        public Nullable<int> CategoriaID { get; set; }
+        public Nullable<decimal> Puntuacion { get; set; }
     
         public virtual Usuario Usuario { get; set; }
+        public virtual Categorias Categorias { get; set; }
     }
 }

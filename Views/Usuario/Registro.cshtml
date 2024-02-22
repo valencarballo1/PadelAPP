@@ -58,7 +58,18 @@
             </div>
         </div>
 
-        <div class="row col-md-6 g-3 align-items-center d-flex justify-content-center">
+        <div class="col-md-6 g-3 align-items-center">
+            <div class="col-auto">
+                <label for="celular" class="col-form-label">Categoria</label>
+            </div>
+            <div class="col-auto input-group">
+                <select id="selectCategorias" class="form-control" name="categoriaId">
+                    <option value="">Selecciona tu categoría</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row col-md-12 g-3 align-items-center d-flex justify-content-center">
             <div class="col-md-12">
                 <label for="vistaPrevia">Foto de perfil:</label>
                 <img src="#" alt="Vista Previa" class="perfil-img d-none" id="vistaPrevia">
@@ -117,7 +128,17 @@
     let usuarioExiste = false;
 
     $(document).ready(function () {
-
+        $.ajax({
+            url: "@Url.Action("GetAll", "Categoria")",
+            type: 'GET',
+            dataType: 'json',
+            success: function (categorias) {
+                construirOpcionesSelect(categorias);
+            },
+            error: function (error) {
+                console.error('Error al obtener las categorías:', error);
+            }
+        });
     });
 
     document.getElementById('fotoPerfil').addEventListener('change', function (e) {
@@ -189,36 +210,38 @@
     }
 
     usuarioNombre.addEventListener('input', function () {
-        const mensajeError = document.getElementById('mensajeErrorUsuario');
+    const mensajeError = document.getElementById('mensajeErrorUsuario');
 
-        $.ajax({
-            url: '@Url.Action("GetByUsuarioNombre", "Usuario")',
-            type: 'GET',
-            data: {
-                usuarioNombre: usuarioNombre.value
-            },
-            success: function (data) {
-                if (data == true) {
-                    usuarioExiste = true;
-                }
-
-            },
-            error: function (error) {
-                console.error('Error al obtener horarios:', error);
+    $.ajax({
+        url: '@Url.Action("GetByUsuarioNombre", "Usuario")',
+        type: 'GET',
+        data: {
+            usuarioNombre: usuarioNombre.value
+        },
+        success: function (data) {
+            if (data == true) {
+                usuarioExiste = true;
+            } else {
+                usuarioExiste = false;
             }
-        });
 
-        if (usuarioExiste) {
-            mensajeError.classList.remove('text-success');
-            mensajeError.classList.add('text-danger', 'bi', 'bi-x-circle-fill');
-            mensajeError.textContent = 'Usuario Existente';
-        } else {
-            mensajeError.classList.remove('text-danger');
-            mensajeError.classList.remove('bi', 'bi-x-circle-fill');
-            mensajeError.classList.add('text-success', 'bi', 'bi-check-circle-fill');
-            mensajeError.textContent = 'Disponible';
+            console.log("ENTRA + " + usuarioExiste);
+            if (usuarioExiste) {
+                mensajeError.classList.remove('text-success');
+                mensajeError.classList.add('text-danger', 'bi', 'bi-x-circle-fill');
+                mensajeError.textContent = 'Usuario Existente';
+            } else {
+                mensajeError.classList.remove('text-danger');
+                mensajeError.classList.remove('bi', 'bi-x-circle-fill');
+                mensajeError.classList.add('text-success', 'bi', 'bi-check-circle-fill');
+                mensajeError.textContent = 'Disponible';
+            }
+        },
+        error: function (error) {
+            console.error('Error al obtener horarios:', error);
         }
     });
+});
 
     document.getElementById('mostrarContrasena').addEventListener('click', function () {
         const contrasenaInput = document.getElementById('contrasena');
@@ -235,6 +258,24 @@
             iconoOjo.classList.add('bi-eye');
         }
     });
+
+    function construirOpcionesSelect(categorias) {
+        const select = $('#selectCategorias');
+
+        select.empty();
+        select.append('<option value="">Selecciona tu categoría</option>');
+
+        categorias.forEach(function (categoria) {
+            select.append('<option value="' + categoria.Id + '">' + categoria.Nombre + '</option>');
+        });
+
+        select.on('change', function () {
+            const valorSeleccionado = $(this).val();
+            console.log('Valor seleccionado:', valorSeleccionado);
+
+            // Puedes hacer lo que quieras con el valor seleccionado aquí
+        });
+    }
 
     $("#formularioRegistro").submit(function (e) {
         enEspera();
@@ -266,9 +307,13 @@
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                swal("Hubo un error en la carga", {
+                enEspera("chau")
+                Swal.fire({
+                    title: "Error!",
+                    text: "Hubo un error en el registo!",
                     icon: "error",
-                });
+                    showConfirmButton: true
+                })
             }
 
 

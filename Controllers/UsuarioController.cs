@@ -29,12 +29,12 @@ namespace ReservaPadel.Controllers
         }
 
         [HttpPost]
-        public JsonResult Registrarme(string nombre, string apellido, string celular, string usuario, string contrasena, HttpPostedFileBase fotoPerfil)
+        public JsonResult Registrarme(string nombre, string apellido, string celular, string usuario, string contrasena, int categoriaId, HttpPostedFileBase fotoPerfil)
         {
             int id = 0;
             if (fotoPerfil != null && fotoPerfil.ContentLength > 0)
             {
-                id = _UsuarioBusiness.Registrarme(nombre, apellido, celular, usuario, contrasena, Path.GetExtension(fotoPerfil.FileName));
+                id = _UsuarioBusiness.Registrarme(nombre, apellido, celular, usuario, contrasena, categoriaId, Path.GetExtension(fotoPerfil.FileName));
                 string rutaDirectorio = Server.MapPath("~/imgPerfiles/");
 
                 if (!Directory.Exists(rutaDirectorio))
@@ -49,7 +49,7 @@ namespace ReservaPadel.Controllers
             }
             else
             {
-                id = _UsuarioBusiness.Registrarme(nombre, apellido, celular, usuario, contrasena);
+                id = _UsuarioBusiness.Registrarme(nombre, apellido, celular, usuario, contrasena, categoriaId);
             }
 
             if (id > 0)

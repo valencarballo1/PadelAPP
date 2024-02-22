@@ -11,13 +11,16 @@ namespace Business
     public class UsuarioBusiness
     {
         private UsuarioRepository _UsuarioRepository;
+        private CategoriaRepository _CategoriaRepository;
 
         public UsuarioBusiness()
         {
             this._UsuarioRepository = new UsuarioRepository();
+            this._CategoriaRepository = new CategoriaRepository();
         }
-        public int Registrarme(string nombre, string apellido, string celular, string usuario, string contrasena, string extension = "")
+        public int Registrarme(string nombre, string apellido, string celular, string usuario, string contrasena, int categoriaID, string extension = "")
         {
+            double categoriaPuntuacion = _CategoriaRepository.GetPuntuacionById(categoriaID);
             Usuario nuevoUsuario = new Usuario();
             Perfil usuarioPerfil = new Perfil();
 
@@ -27,6 +30,8 @@ namespace Business
             usuarioPerfil.Nombre = nombre;
             usuarioPerfil.Apellido = apellido;
             usuarioPerfil.Celular = celular;
+            usuarioPerfil.CategoriaID = categoriaID;
+            usuarioPerfil.Puntuacion = Convert.ToDecimal(categoriaPuntuacion);
             if (extension == "")
             {
                 usuarioPerfil.FotoPerfil = nuevoUsuario.NombreUsuario;

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PadelAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PadelAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Canchas">
           <Key>
             <PropertyRef Name="Id" />
@@ -21,6 +21,15 @@
           <Property Name="IdCancha" Type="int" />
           <Property Name="IdHorario" Type="int" />
           <Property Name="IdUsuario" Type="int" />
+        </EntityType>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="CategoriaID" />
+          </Key>
+          <Property Name="CategoriaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="PuntuacionMin" Type="float" />
+          <Property Name="PuntuacionMax" Type="float" />
         </EntityType>
         <EntityType Name="Horarios">
           <Key>
@@ -52,6 +61,8 @@
           <Property Name="Celular" Type="varchar" MaxLength="20" />
           <Property Name="FotoPerfil" Type="varchar" MaxLength="200" />
           <Property Name="IdUsuario" Type="int" />
+          <Property Name="CategoriaID" Type="int" />
+          <Property Name="Puntuacion" Type="decimal" Precision="5" Scale="2" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -157,6 +168,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Perfil__Categori__4BAC3F29">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="0..1" />
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="CategoriaID" />
+            </Principal>
+            <Dependent Role="Perfil">
+              <PropertyRef Name="CategoriaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Perfil__IdUsuari__3D5E1FD2">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="Perfil" Type="Self.Perfil" Multiplicity="*" />
@@ -172,6 +195,7 @@
         <EntityContainer Name="PadelAppModelStoreContainer">
           <EntitySet Name="Canchas" EntityType="Self.Canchas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CanchasReservadas" EntityType="Self.CanchasReservadas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Horarios" EntityType="Self.Horarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartidosCreadosUsuarios" EntityType="Self.PartidosCreadosUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
@@ -208,13 +232,16 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
           </AssociationSet>
+          <AssociationSet Name="FK__Perfil__Categori__4BAC3F29" Association="Self.FK__Perfil__Categori__4BAC3F29">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Perfil" EntitySet="Perfil" />
+          </AssociationSet>
           <AssociationSet Name="FK__Perfil__IdUsuari__3D5E1FD2" Association="Self.FK__Perfil__IdUsuari__3D5E1FD2">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Perfil" EntitySet="Perfil" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PadelAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -277,6 +304,9 @@
           <Property Name="FotoPerfil" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="IdUsuario" Type="Int32" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Perfil__IdUsuari__3D5E1FD2" FromRole="Perfil" ToRole="Usuario" />
+          <Property Name="CategoriaID" Type="Int32" />
+          <NavigationProperty Name="Categorias" Relationship="PadelAppModel.FK__Perfil__Categori__4BAC3F29" FromRole="Perfil" ToRole="Categorias" />
+          <Property Name="Puntuacion" Type="Decimal" Precision="5" Scale="2" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -443,7 +473,34 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Perfil" EntitySet="Perfil" />
           </AssociationSet>
+          <EntitySet Name="Categorias" EntityType="PadelAppModel.Categorias" />
+          <AssociationSet Name="FK__Perfil__Categori__4BAC3F29" Association="PadelAppModel.FK__Perfil__Categori__4BAC3F29">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Perfil" EntitySet="Perfil" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="CategoriaID" />
+          </Key>
+          <Property Name="CategoriaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PuntuacionMin" Type="Double" />
+          <Property Name="PuntuacionMax" Type="Double" />
+          <NavigationProperty Name="Perfil" Relationship="PadelAppModel.FK__Perfil__Categori__4BAC3F29" FromRole="Categorias" ToRole="Perfil" />
+        </EntityType>
+        <Association Name="FK__Perfil__Categori__4BAC3F29">
+          <End Type="PadelAppModel.Categorias" Role="Categorias" Multiplicity="0..1" />
+          <End Type="PadelAppModel.Perfil" Role="Perfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="CategoriaID" />
+            </Principal>
+            <Dependent Role="Perfil">
+              <PropertyRef Name="CategoriaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -494,6 +551,8 @@
           <EntitySetMapping Name="Perfil">
             <EntityTypeMapping TypeName="PadelAppModel.Perfil">
               <MappingFragment StoreEntitySet="Perfil">
+                <ScalarProperty Name="Puntuacion" ColumnName="Puntuacion" />
+                <ScalarProperty Name="CategoriaID" ColumnName="CategoriaID" />
                 <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Apellido" ColumnName="Apellido" />
@@ -509,6 +568,16 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
                 <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="PadelAppModel.Categorias">
+              <MappingFragment StoreEntitySet="Categorias">
+                <ScalarProperty Name="PuntuacionMax" ColumnName="PuntuacionMax" />
+                <ScalarProperty Name="PuntuacionMin" ColumnName="PuntuacionMin" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CategoriaID" ColumnName="CategoriaID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

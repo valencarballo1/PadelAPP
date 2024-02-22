@@ -17,16 +17,36 @@
         <div class="card mb-3">
             <div class="card-body row g-0 d-flex justify-content-center">
                 <div class="col-md-3 col-5 d-flex justify-content-center">
-                    <img src="@partido.FotoPerfil1" alt="Foto Jugador 1" class="ultimos-img" />
-                    <img src="@partido.FotoPerfil2" alt="Foto Jugador 2" class="ultimos-img"/>
+                    <div class="col-6">
+                        <img src="@partido.FotoPerfil1" alt="Foto Jugador 1" class="ultimos-img" />
+                        <div class="col-12">
+                            @partido.Categoria1 - @partido.Puntuacion1
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <img src="@partido.FotoPerfil2" alt="Foto Jugador 2" class="ultimos-img" />
+                        <div class="col-12">
+                            @partido.Categoria2 - @partido.Puntuacion2
+                        </div>
+                    </div>
 
                 </div>
                 <div class="col-2 col-md-4 text-center mt-3 d-flex justify-content-center">
                     <h2>VS</h2>
                 </div>
                 <div class="col-md-3 col-5 d-flex justify-content-center">
-                    <img src="@partido.FotoPerfil3" alt="Foto Jugador 3" class="ultimos-img" />
-                    <img src="@partido.FotoPerfil4" alt="Foto Jugador 4" class="ultimos-img" />
+                    <div class="col-6">
+                        <img src="@partido.FotoPerfil3" alt="Foto Jugador 3" class="ultimos-img" />
+                        <div class="col-12">
+                            @partido.Categoria3 - @partido.Puntuacion3
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <img src="@partido.FotoPerfil4" alt="Foto Jugador 4" class="ultimos-img" />
+                        <div class="col-12">
+                            @partido.Categoria4 - @partido.Puntuacion4
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-12 col-4 d-flex justify-content-center">
                     <!-- Aquí irá el día y el horario -->

@@ -31,5 +31,6 @@ namespace Data
         public virtual DbSet<PartidosCreadosUsuarios> PartidosCreadosUsuarios { get; set; }
         public virtual DbSet<Perfil> Perfil { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Categorias> Categorias { get; set; }
     }
 }
