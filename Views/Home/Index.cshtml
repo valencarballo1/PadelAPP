@@ -76,11 +76,11 @@
 
                     const colJugador1 = $('<div class="col-6 text-center">');
                     colJugador1.append('<img src="' + partido.FotoPerfil1 + '" alt="Foto Jugador 1" class="ultimos-img mx-auto" />');
-                    colJugador1.append('<div class="col-12">' + partido.Categoria1 + ' - ' + partido.Puntuacion1 ?? .00 + '</div>');
+                    colJugador1.append('<div class="col-12">' + partido.Categoria1 ?? '' + ' - ' + partido.Puntuacion1 ?? .00 + '</div>');
 
                     const colJugador2 = $('<div class="col-6 text-center">');
                     colJugador2.append('<img src="' + partido.FotoPerfil2 + '" alt="Foto Jugador 2" class="ultimos-img mx-auto" />');
-                    colJugador2.append('<div class="col-12">' + partido.Categoria2 + ' - ' + (partido.Puntuacion2 ?? 0.00) + '</div>');
+                    colJugador2.append('<div class="col-12">' + partido.Categoria2 ?? '' + ' - ' + (partido.Puntuacion2 ?? 0.00) + '</div>');
 
                     colJugadores1y2.append(colJugador1);
                     colJugadores1y2.append(colJugador2);
@@ -92,11 +92,11 @@
 
                     const colJugador3 = $('<div class="col-6 text-center">');
                     colJugador3.append('<img src="' + partido.FotoPerfil3 + '" alt="Foto Jugador 1" class="ultimos-img mx-auto" />');
-                    colJugador3.append('<div class="col-12">' + partido.Categoria3 + ' - ' + partido.Puntuacion3 ?? 0.00 + '</div>');
+                    colJugador3.append('<div class="col-12">' + partido.Categoria3 ?? '' + ' - ' + partido.Puntuacion3 ?? 0.00 + '</div>');
 
                     const colJugador4 = $('<div class="col-6 text-center">');
                     colJugador4.append('<img src="' + partido.FotoPerfil4 + '" alt="Foto Jugador 2" class="ultimos-img mx-auto" />');
-                    colJugador4.append('<div class="col-12">' + partido.Categoria4 + ' - ' + (partido.Puntuacion4 ?? 0.00) + '</div>');
+                    colJugador4.append('<div class="col-12">' + partido.Categoria4 ?? '' + ' - ' + (partido.Puntuacion4 ?? 0.00) + '</div>');
 
                     colJugadores3y4.append(colJugador3);
                     colJugadores3y4.append(colJugador4);
