@@ -98,12 +98,12 @@
         const iniciarSesionText = document.getElementById("iniciarSesionText");
         const divParaUsuario = document.getElementById("divParaUsuario");
         /**/
-        $(document).ready(function () {
             usuarioId = getCookieValue("UsuarioSesion")
 
             if (usuarioId != null) {
                 parseInt(usuarioId);
             }
+        $(document).ready(function () {
 
             console.log(usuarioId);
 
@@ -139,6 +139,11 @@
                 }
             }
             return null;
+        }
+
+        function obtenerUsuarioId() {
+            console.log("retorno llamada " + usuarioId);
+            return usuarioId;
         }
 
         function enEspera(modo = "on", titulo = "Procesando...", texto = "Aguarde un instante") {

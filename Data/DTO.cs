@@ -60,6 +60,7 @@ namespace Data
             public decimal? Puntuacion3 { get; set; }
             public string Categoria4 { get; set; }
             public decimal? Puntuacion4 { get; set; }
+            public int IdUsuarioOrganiza {  get; set; }
         }
 
         public class DetallePartidoDTO

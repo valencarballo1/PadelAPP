@@ -106,7 +106,7 @@
                     colFecha.append('<h5 class="text-center">Fecha: ' + moment(partido.HorarioDesde).format('DD/MM/YYYY') + '</h5>');
 
                     const colHorario = $('<div class="col-md-12 col-12 d-flex justify-content-center">');
-                    colHorario.append('<h7 class="text-center">Desde: ' + moment(partido.HorarioDesde).format('HH:mm') + " - " + moment(partido.HorarioHasta).format('HH:mm') + '</h7>');
+                    colHorario.append('<h7 class="text-center">Desde: ' + formatearHora(partido.HorarioDesde) + " - " + formatearHora(partido.HorarioHasta) + '</h7>');
 
 
                     const colBtn = $('<div class="col-md-4 col-8 d-flex justify-content-center">');
@@ -161,5 +161,14 @@
                 console.error('Error al obtener los datos de los partidos:', error);
             }
         });
+
+        function formatearHora(fechaString) {
+            const fechaMilisegundos = parseInt(fechaString.substr(6));
+            const fechaDesde = moment(fechaMilisegundos).tz('America/Chicago');
+            const horaYMinutos = fechaDesde.format('hh:mm A');
+            console.log("Esto es de la configuración: " + horaYMinutos);
+
+            return horaYMinutos;
+        }
     });
 </script>

@@ -55,6 +55,7 @@ namespace Repository
                 PartidoDTO partido = new PartidoDTO
                 {
                     Id = partidoEncontrado.Id,
+                    IdUsuarioOrganiza = partidoEncontrado.CanchasReservadas.IdUsuario.Value,
                     CanchaNumero = partidoEncontrado.CanchasReservadas.IdCancha.Value,
                     HorarioDesde = partidoEncontrado.CanchasReservadas.Horarios.HorarioDesde.Value,
                     HorarioHasta = partidoEncontrado.CanchasReservadas.Horarios.HorarioHasta.Value,
@@ -212,8 +213,10 @@ namespace Repository
         {
             using (PadelAppEntities db = new PadelAppEntities())
             {
+                DateTime fechaHoy = DateTime.Now;
                 List<PartidoDTO> partidosLista = new List<PartidoDTO>();
                 List<PartidosCreadosUsuarios> partidosEncontrado = db.PartidosCreadosUsuarios.Include("CanchasReservadas")
+                    .Where(p => p.CanchasReservadas.Horarios.HorarioDesde >= fechaHoy)
                     .OrderByDescending(p => p.Id)
                     .ToList();
 

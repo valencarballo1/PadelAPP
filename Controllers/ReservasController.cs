@@ -34,11 +34,5 @@ namespace ReservaPadel.Controllers
             int idPartidoCreado = _ReservasBusiness.CrearPartido(idUsuario, idCancha, fechaSeleccionada, horarioDeReserva, duracion, jugadoresRestantes);
             return Json(idPartidoCreado);
         }
-
-        public ActionResult ReservaPrueba()
-        {
-            return View();
-        }
-
     }
 }
