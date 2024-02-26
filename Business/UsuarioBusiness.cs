@@ -22,6 +22,7 @@ namespace Business
         {
             double categoriaPuntuacion = _CategoriaRepository.GetPuntuacionById(categoriaID);
             Usuario nuevoUsuario = new Usuario();
+            nuevoUsuario.EsAdmin = false;
             Perfil usuarioPerfil = new Perfil();
 
             nuevoUsuario.NombreUsuario = usuario.ToLower();
@@ -58,6 +59,11 @@ namespace Business
         public DTO.UsuarioDTO GetLogin(string usuarioNombre, string contrasena)
         {
             return _UsuarioRepository.GetLogin(usuarioNombre, contrasena);
+        }
+
+        public bool EsAdmin(int idUsuario)
+        {
+            return _CategoriaRepository.EsAdmin(idUsuario);
         }
     }
 }

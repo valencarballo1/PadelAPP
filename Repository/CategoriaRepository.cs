@@ -10,6 +10,14 @@ namespace Repository
 {
     public class CategoriaRepository
     {
+        public bool EsAdmin(int idUsuario)
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+                return db.Usuario.Where(u => u.Id == idUsuario).Single().EsAdmin.Value;
+            }
+        }
+
         public List<CategoriaDTO> GetAll()
         {
             using(PadelAppEntities db = new PadelAppEntities())

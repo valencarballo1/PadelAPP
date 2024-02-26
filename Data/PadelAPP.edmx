@@ -71,6 +71,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NombreUsuario" Type="varchar" MaxLength="150" />
           <Property Name="Contrasena" Type="varchar" MaxLength="150" />
+          <Property Name="EsAdmin" Type="bit" />
         </EntityType>
         <Association Name="FK__CanchasRe__IdCan__403A8C7D">
           <End Role="Canchas" Type="Self.Canchas" Multiplicity="0..1" />
@@ -321,6 +322,7 @@
           <NavigationProperty Name="PartidosCreadosUsuarios2" Relationship="Self.FK__PartidosC__IdJug__47DBAE45" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
           <NavigationProperty Name="PartidosCreadosUsuarios3" Relationship="Self.FK__PartidosC__IdJug__48CFD27E" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
           <NavigationProperty Name="Perfil" Relationship="Self.FK__Perfil__IdUsuari__3D5E1FD2" FromRole="Usuario" ToRole="Perfil" />
+          <Property Name="EsAdmin" Type="Boolean" />
         </EntityType>
         <Association Name="FK__CanchasRe__IdCan__403A8C7D">
           <End Role="Canchas" Type="Self.Canchas" Multiplicity="0..1" />
@@ -565,6 +567,7 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="PadelAppModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="EsAdmin" ColumnName="EsAdmin" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
                 <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />

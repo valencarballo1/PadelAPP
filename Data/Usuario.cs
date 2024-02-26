@@ -28,6 +28,7 @@ namespace Data
         public int Id { get; set; }
         public string NombreUsuario { get; set; }
         public string Contrasena { get; set; }
+        public Nullable<bool> EsAdmin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CanchasReservadas> CanchasReservadas { get; set; }

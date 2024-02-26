@@ -112,10 +112,10 @@
     const horarioTituloHasta = formatearHorario("@Model.HorarioHasta");
     const contenedorVS = document.getElementById('contenedorVS');
     const usuarioOrganiza = @Model.IdUsuarioOrganiza;
-    const fechaActual = new Date()
+    const fechaActual = new Date();
 
     $(document).ready(function () {
-        if (fechaTitulo < fechaActual.getDate) {
+        if (formatearFecha(fechaActual) >= fechaTitulo) {
             const idUsuario = obtenerUsuarioId();
             contenedorVS.innerHTML = '<button class="btn btn-success" id="btnFinalizar"">Finalizar Partido</button>';
             const btnFinalizar = document.getElementById("btnFinalizar");

@@ -95,7 +95,12 @@ namespace Repository
         {
             using (PadelAppEntities db = new PadelAppEntities())
             {
-                List<PartidosCreadosUsuarios> partidosEncontrado = db.PartidosCreadosUsuarios.Include("CanchasReservadas").ToList();
+                DateTime fechaHoy = DateTime.Now;
+
+                List<PartidosCreadosUsuarios> partidosEncontrado = db.PartidosCreadosUsuarios
+                    .Include("CanchasReservadas")
+                    .Where(p => p.CanchasReservadas.Horarios.HorarioDesde >= fechaHoy)
+                    .ToList();
 
                 List<DetallePartidoDTO> detalles = partidosEncontrado.Select(h => new DetallePartidoDTO
                 {

@@ -69,9 +69,9 @@ namespace ReservaPadel.Controllers
             }
             return Json(existeUsuario, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult Perfil(int id)
         {
+
             UsuarioDTO usuario = _UsuarioBusiness.GetPerfil(id);
             string rutaDirectorio = Url.Content("~/" + "imgPerfiles/");
 
@@ -80,6 +80,7 @@ namespace ReservaPadel.Controllers
             string rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
             usuario.FotoPerfil = rutaCompleta;
             return View(usuario);
+
         }
 
         public JsonResult LogIn(string usuarioNombre, string contrasena)
@@ -109,6 +110,13 @@ namespace ReservaPadel.Controllers
                 Response.Cookies.Add(cookie);
             }
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult EsAdmin(int idUsuario)
+        {
+            bool esAdmin = _UsuarioBusiness.EsAdmin(idUsuario);
+            return Json(esAdmin, JsonRequestBehavior.AllowGet);
         }
 
     }

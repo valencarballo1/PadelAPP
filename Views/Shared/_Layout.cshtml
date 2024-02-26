@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav" id="navBarLista">
                     <li class="nav-item nav-tabs">
                         <a class="nav-link" href="@Url.Action("Index", "Home")">
                             <i class="bi bi-house-door-fill">
@@ -93,33 +93,63 @@
     <script type="text/javascript" src="~/Content/slick-1.8.1/slick/slick.min.js"></script>
     <script>
         let usuarioId;
+        const navBar = document.getElementById('navBarLista');
         const perfilUsuario = document.getElementById('perfilUsuario');
         const iconoPerfil = perfilUsuario.querySelector(".bi-person-vcard-fill");
         const iniciarSesionText = document.getElementById("iniciarSesionText");
         const divParaUsuario = document.getElementById("divParaUsuario");
+        let esAdmin = false;
         /**/
             usuarioId = getCookieValue("UsuarioSesion")
 
-            if (usuarioId != null) {
-                parseInt(usuarioId);
-            }
         $(document).ready(function () {
 
             console.log(usuarioId);
 
             if (usuarioId !== null && usuarioId !== "") {
+                parseInt(usuarioId);
                 iconoPerfil.style.display = "inline";
                 iniciarSesionText.style.display = "none";
                 perfilUsuario.href = "@Url.Action("Perfil", "Usuario")" + "?Id=" + usuarioId;
+                obtenerRol(usuarioId)
+                    .then(function (esAdmin) {
+                        if (esAdmin) {
+                            const nuevoLi = document.createElement("li");
+                            nuevoLi.classList.add("nav-item", "nav-tabs");
+
+                            const nuevoEnlace = document.createElement("a");
+                            nuevoEnlace.classList.add("nav-link", "colorAItems");
+
+                            const nuevoI = document.createElement("i");
+                            nuevoI.classList.add("bi", "bi-clipboard-data");
+
+                            const texto = document.createTextNode("Panel");
+
+                            nuevoEnlace.appendChild(nuevoI);
+                            nuevoEnlace.appendChild(texto);  // Añadir el texto después del icono
+
+                            nuevoEnlace.href = "#";
+                            nuevoLi.appendChild(nuevoEnlace);
+                            navBar.appendChild(nuevoLi);
+                        } else {
+                            // Realizar acciones para usuarios no administradores
+                        }
+                    })
+                    .catch(function (error) {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "No se pudo obtener ROL!",
+                            icon: "error"
+                        });
+                        console.error('Error al obtener ROL:', error);
+                    });
+            
             } else {
                 iconoPerfil.style.display = "none";
                 iniciarSesionText.style.display = "inline";
                 perfilUsuario.href = "@Url.Action("InicioSesion", "Usuario")"
             }
 
-            if (usuarioId != null) {
-                //divParaUsuario.style.display = "inline";
-            }
         }); //Termina el ready
 
         function getCookieValue(cookieName) {
@@ -178,6 +208,25 @@
 
         }
 
+        function obtenerRol(usuarioId) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: '@Url.Action("EsAdmin", "Usuario")',
+            type: 'GET',
+            data: {
+                idUsuario: usuarioId
+            },
+            success: function (data) {
+                enEspera("chau");
+                resolve(data === true);
+            },
+            error: function (error) {
+                enEspera("chau");
+                reject(error);
+            }
+        });
+    });
+}
 
 
     </script>
