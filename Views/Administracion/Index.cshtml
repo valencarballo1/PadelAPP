@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row align-items-center">
+    <div class="row col-md-12 d-flex justify-content-lg-between justify-content-md-between justify-content-center p-3">
+        <div class="card col-md-5 col-10">
+            <div class="card-header text-center">
+                <h3>Ver Reservas</h3>
+            </div>
+            <div class="card-body row align-items-center">
+                <div class="col-md-12">
+                    <p class="lead text-center">Ver reservas de los usuarios. Finalizar turno, dar de baja y de mas acciones.</p>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div>
+                        <a class="btn btn-success" href="@Url.Action("Reservas", "Administracion")"><i class="bi bi-bank2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-md-5 col-10">
+            <div class="card-body">
+                <div class="card-header text-center">
+                    <h3>Precio de cancha</h3>
+                </div>
+                <div class="col-md-12 text-center">
+                    <p class="lead text-center">Modificar el precio de la cancha por hora o ver valor actual</p>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-success" href="@Url.Action("PrecioCancha", "Administracion")"><i class="bi bi-currency-dollar"></i></a>
+                    @*<a class="btn btn-success" href="@Url.Action("Crear", "Partido")"><i class="bi bi-calendar-plus">Crear</i></a>*@
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

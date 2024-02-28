@@ -64,6 +64,15 @@
           <Property Name="CategoriaID" Type="int" />
           <Property Name="Puntuacion" Type="decimal" Precision="5" Scale="2" />
         </EntityType>
+        <EntityType Name="PrecioCancha">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PrecioPorHora" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -200,6 +209,7 @@
           <EntitySet Name="Horarios" EntityType="Self.Horarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartidosCreadosUsuarios" EntityType="Self.PartidosCreadosUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrecioCancha" EntityType="Self.PrecioCancha" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__CanchasRe__IdCan__403A8C7D" Association="Self.FK__CanchasRe__IdCan__403A8C7D">
             <End Role="Canchas" EntitySet="Canchas" />
@@ -480,6 +490,7 @@
             <End Role="Categorias" EntitySet="Categorias" />
             <End Role="Perfil" EntitySet="Perfil" />
           </AssociationSet>
+          <EntitySet Name="PrecioCancha" EntityType="PadelAppModel.PrecioCancha" />
         </EntityContainer>
         <EntityType Name="Categorias">
           <Key>
@@ -503,6 +514,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PrecioCancha">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PrecioPorHora" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -581,6 +601,16 @@
                 <ScalarProperty Name="PuntuacionMin" ColumnName="PuntuacionMin" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="CategoriaID" ColumnName="CategoriaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrecioCancha">
+            <EntityTypeMapping TypeName="PadelAppModel.PrecioCancha">
+              <MappingFragment StoreEntitySet="PrecioCancha">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="PrecioPorHora" ColumnName="PrecioPorHora" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

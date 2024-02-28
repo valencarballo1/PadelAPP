@@ -32,6 +32,33 @@ namespace Repository
             }
         }
 
+        public List<ReservaDTO> GetReservasAdmin(DateTime fecha)
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+                DateTime inicioDia = fecha.Date;
+                DateTime finDia = fecha.Date.AddDays(1).AddTicks(-1);
+
+                List<CanchasReservadas> lista = db.CanchasReservadas
+                    .Include("Horarios")
+                    .Where(r => r.Horarios.HorarioDesde >= inicioDia && r.Horarios.HorarioHasta <= finDia)
+                    .ToList();
+
+                List<ReservaDTO> reservas = lista.Select(h => new ReservaDTO
+                {
+                    Id = h.Id,
+                    HorarioDesde = h.Horarios.HorarioDesde.Value,
+                    HorarioHasta = h.Horarios.HorarioHasta.Value,
+                    CanchaNumero = h.IdCancha.Value,
+                    UsuarioNombre = h.Usuario.NombreUsuario
+                })
+                .OrderBy(r => r.HorarioDesde)
+                .ToList();
+
+                return reservas;
+            }
+        }
+
         public List<ReservaDTO> GetReservasByUsuario(int idUsuario)
         {
             using (PadelAppEntities db = new PadelAppEntities())

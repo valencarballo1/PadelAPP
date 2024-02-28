@@ -69,17 +69,26 @@ namespace ReservaPadel.Controllers
             }
             return Json(existeUsuario, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Perfil(int id)
+        public ActionResult Perfil()
         {
+            HttpCookie cookie = Request.Cookies["UsuarioSesion"];
+            if (cookie != null)
+            {
+                // Accede a los valores de la cookie según tus necesidades
+                string usuarioId = cookie["Id"];
+                UsuarioDTO usuario = _UsuarioBusiness.GetPerfil(int.Parse(usuarioId));
+                string rutaDirectorio = Url.Content("~/" + "imgPerfiles/");
 
-            UsuarioDTO usuario = _UsuarioBusiness.GetPerfil(id);
-            string rutaDirectorio = Url.Content("~/" + "imgPerfiles/");
-
-            // Nombre del archivo basado en el nombre de usuario
-            string nombreArchivo = usuario.FotoPerfil;
-            string rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
-            usuario.FotoPerfil = rutaCompleta;
-            return View(usuario);
+                // Nombre del archivo basado en el nombre de usuario
+                string nombreArchivo = usuario.FotoPerfil;
+                string rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                usuario.FotoPerfil = rutaCompleta;
+                return View(usuario);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
         }
 
@@ -113,10 +122,19 @@ namespace ReservaPadel.Controllers
         }
 
         [HttpGet]
-        public JsonResult EsAdmin(int idUsuario)
+        public JsonResult EsAdmin()
         {
-            bool esAdmin = _UsuarioBusiness.EsAdmin(idUsuario);
-            return Json(esAdmin, JsonRequestBehavior.AllowGet);
+            HttpCookie cookie = Request.Cookies["UsuarioSesion"];
+            if (cookie != null)
+            {
+                string idUsuario = cookie["Id"];
+                bool esAdmin = _UsuarioBusiness.EsAdmin(int.Parse(idUsuario));
+                return Json(esAdmin, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
         }
 
     }

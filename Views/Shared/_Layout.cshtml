@@ -110,7 +110,7 @@
                 parseInt(usuarioId);
                 iconoPerfil.style.display = "inline";
                 iniciarSesionText.style.display = "none";
-                perfilUsuario.href = "@Url.Action("Perfil", "Usuario")" + "?Id=" + usuarioId;
+                perfilUsuario.href = "@Url.Action("Perfil", "Usuario")";
                 obtenerRol(usuarioId)
                     .then(function (esAdmin) {
                         if (esAdmin) {
@@ -128,7 +128,7 @@
                             nuevoEnlace.appendChild(nuevoI);
                             nuevoEnlace.appendChild(texto);  // Añadir el texto después del icono
 
-                            nuevoEnlace.href = "#";
+                            nuevoEnlace.href = "@Url.Action("Index", "Administracion")";
                             nuevoLi.appendChild(nuevoEnlace);
                             navBar.appendChild(nuevoLi);
                         } else {

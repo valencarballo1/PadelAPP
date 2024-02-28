@@ -90,6 +90,9 @@
     <Compile Include="Perfil.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>
+    <Compile Include="PrecioCancha.cs">
+      <DependentUpon>PadelAPP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Usuario.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>

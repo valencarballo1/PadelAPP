@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Reservas";
+}
+
+<div id="fechaSelector" class="d-flex justify-content-center">
+    <div class="pt-3">
+        <label for="datepicker" class="text-center text-white">SELECCIONE UNA FECHA:</label>
+    </div>
+    <div class="col-md-4 pt-2">
+        <input type="text" class="form-control" id="fecha" readonly />
+    </div>
+</div>
+
+<h2 class="text-white text-center p-3" id="fechaActual">Reservas Administrativas - @(DateTime.Now.ToString("dd/MM/yyyy"))</h2>
+
+<table id="reservasTable" class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Horario Desde</th>
+            <th>Horario Hasta</th>
+            <th>Usuario</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<div class="modal fade" id="finalizarTurnoModal" tabindex="-1" role="dialog" aria-labelledby="finalizarTurnoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="finalizarTurnoModalLabel">Finalizar Turno</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Importe de la cancha: <span id="importeCancha"></span></p>
+                <label for="montoAdicional">Monto adicional por pelotas o bebidas:</label>
+                <input type="number" id="montoAdicional" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="finalizarTurno()">Finalizar Turno</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    const fecha = document.getElementById("fecha");
+
+    $(document).ready(function () {
+
+        $("#fecha").datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            startDate: new Date(),
+            todayHighlight: true
+        });
+        obtenerReservas();
+
+        $('#fecha').on('changeDate', function (e) {
+            obtenerReservas(fecha.value);
+        });
+
+
+
+
+        function obtenerReservas(fecha) {
+            fecha = fecha || obtenerFechaActual();
+
+            const fechaFormateada = fecha.split('/').reverse().join('-');
+
+            $.ajax({
+                url: '@Url.Action("GetReservasAdmin", "Administracion")',
+                type: 'GET',
+                data: { fecha: fechaFormateada },
+                dataType: 'json',
+                success: function (data) {
+                    $('#reservasTable tbody').empty();
+                    $.each(data, function (index, reserva) {
+                        agregarFila(reserva);
+                    });
+
+                    $('#fechaActual').text('Reservas Administrativas - ' + fecha);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function agregarFila(reserva) {
+
+            const fila = '<tr class="aling-items-center">' +
+                '<td class="text-center">' + reserva.Id + '</td>' +
+                '<td class="text-center">' + moment(reserva.HorarioDesde).format("DD/MM/YYYY") + '</td>' +
+                '<td class="text-center">' + moment(reserva.HorarioDesde).format("HH:mm") + '</td>' +
+                '<td class="text-center">' + moment(reserva.HorarioHasta).format("HH:mm") + '</td>' +
+                '<td class="text-center">' + reserva.UsuarioNombre + '</td>' +
+                '<td>' +
+                '<button type="button" class="btn btn-primary col-md-5" onClick="mostrarModal(' + reserva.Id +')">Finalizar Turno</button>' +
+                '<button type="button" class="btn btn-danger col-md-5">Dar de Baja</button>' +
+                '</td>' +
+                '</tr>';
+            $('#reservasTable tbody').append(fila);
+        }
+    });
+
+    function obtenerFechaActual() {
+        const hoy = new Date();
+        let dd = hoy.getDate();
+        let mm = hoy.getMonth() + 1; // Sumar 1 al mes porque en JavaScript los meses comienzan desde 0
+        let yyyy = hoy.getFullYear();
+
+        // Agregar ceros iniciales si es necesario
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        return dd + '/' + mm + '/' + yyyy;
+    }
+
+    function mostrarModal(id) {
+        console.log(id);
+        $('#importeCancha').text("12000");
+        $('#finalizarTurnoModal').modal('show');
+    }
+</script>

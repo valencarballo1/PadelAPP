@@ -73,6 +73,11 @@ namespace Business
             return _ReservasRepository.GetReservas();
         }
 
+        public List<ReservaDTO> GetReservasAdmin(DateTime fecha)
+        {
+            return _ReservasRepository.GetReservasAdmin(fecha);
+        }
+
         public List<ReservaDTO> GetReservasByUsuario(int idUSuario)
         {
             return _ReservasRepository.GetReservasByUsuario(idUSuario);
