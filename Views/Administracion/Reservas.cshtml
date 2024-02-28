@@ -17,7 +17,6 @@
 <table id="reservasTable" class="table">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Fecha</th>
             <th>Horario Desde</th>
             <th>Horario Hasta</th>
@@ -25,7 +24,7 @@
             <th>Acciones</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="align-items-sm-center">
     </tbody>
 </table>
 
@@ -38,10 +37,29 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <p>Importe de la cancha: <span id="importeCancha"></span></p>
-                <label for="montoAdicional">Monto adicional por pelotas o bebidas:</label>
-                <input type="number" id="montoAdicional" />
+            <div class="modal-body d-flex row text-center">
+                <div class="col-md-12 text-dark-emphasis p-2">
+                    <p>Importe de la cancha: <span id="importeCancha"></span></p>
+                </div>
+                <div class="col-md-12 d-flex p-2">
+                    <div class="col-md-6">
+                        <label for="montoAdicional">Monto adicional por pelotas o bebidas:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control-sm" id="montoAdicional" />
+                    </div>
+                </div>
+                <div class="col-md-12 d-flex row p-2">
+                    <div class="col-md-9">
+                        <p>Total importe a pagar: <span id="totalImporteAPagar"></span></p>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-sm btn-success" id="btnImportePorJugador">Dividir x4</button>
+                    </div>
+                    <div class="col-md-9">
+                        <span id="totalImporteAPagarJugador"></span>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -98,13 +116,12 @@
 
         function agregarFila(reserva) {
 
-            const fila = '<tr class="aling-items-center">' +
-                '<td class="text-center">' + reserva.Id + '</td>' +
+            const fila = '<tr class="col-md-12">' +
                 '<td class="text-center">' + moment(reserva.HorarioDesde).format("DD/MM/YYYY") + '</td>' +
                 '<td class="text-center">' + moment(reserva.HorarioDesde).format("HH:mm") + '</td>' +
                 '<td class="text-center">' + moment(reserva.HorarioHasta).format("HH:mm") + '</td>' +
                 '<td class="text-center">' + reserva.UsuarioNombre + '</td>' +
-                '<td>' +
+                '<td class="d-sm-flex">' +
                 '<button type="button" class="btn btn-primary col-md-5" onClick="mostrarModal(' + reserva.Id +')">Finalizar Turno</button>' +
                 '<button type="button" class="btn btn-danger col-md-5">Dar de Baja</button>' +
                 '</td>' +
@@ -132,8 +149,28 @@
     }
 
     function mostrarModal(id) {
+        const montoAdicional = document.getElementById("montoAdicional");
+        const importeAPagar = document.getElementById("totalImporteAPagar");
+        const totalImporteAPagarJugador = document.getElementById("totalImporteAPagarJugador");
+        const btnImportePorJugador = document.getElementById("btnImportePorJugador"); 
+        const importeCancha = 12000;
+        let adicional = 0;
         console.log(id);
-        $('#importeCancha').text("12000");
+        $('#importeCancha').text("$" + importeCancha);
         $('#finalizarTurnoModal').modal('show');
+
+        montoAdicional.addEventListener("input", function () {
+            adicional = montoAdicional.value;
+            if (adicional == 0) {
+                importeAPagar.innerText = (parseFloat(0) + importeCancha).toFixed(2);
+            }
+            importeAPagar.innerText = (parseFloat(adicional) + importeCancha).toFixed(2);
+        });
+        importeAPagar.innerText = (parseFloat(adicional) + importeCancha).toFixed(2);
+
+        btnImportePorJugador.addEventListener("click", function () {
+                totalImporteAPagarJugador.innerText = "$"+(parseFloat(importeAPagar.innerText) / 4).toFixed(2);
+        });
+
     }
 </script>

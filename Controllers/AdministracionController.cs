@@ -43,7 +43,24 @@ namespace ReservaPadel.Controllers
 
         public ActionResult Reservas()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["UsuarioSesion"];
+            if (cookie != null)
+            {
+                string idUsuario = cookie["Id"];
+                bool esAdmin = _UsuarioBusiness.EsAdmin(int.Parse(idUsuario));
+                if (esAdmin)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public JsonResult GetReservasAdmin(DateTime fecha)
