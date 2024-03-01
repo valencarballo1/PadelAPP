@@ -15,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
-    <link href="~/Content/css/sb-admin-2.min.css" rel="stylesheet">
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
@@ -25,6 +24,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data-10-year-range.min.js"></script>
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300&display=swap" rel="stylesheet">
@@ -241,10 +241,13 @@
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <li class="nav-item dropdown no-arrow">
+                        <div class="d-flex align-items-center">
+                            <a type="button" class="btn btn-primary btn-sm" id="btnInicioSesion"  href="@Url.Action("InicioSesion", "Usuario")">Iniciar Sesion</a>
+                        </div>
+                        <li class="nav-item dropdown no-arrow hidden" id="liPerfil">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="usuarioNombre">Iniciar Sesión</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="usuarioNombre"></span>
                                 <img class="img-profile rounded-circle" id="usuarioImg"
                                      src="img/undraw_profile.svg">
                             </a>
@@ -322,8 +325,9 @@
                         $('#usuarioNombre').text(response.usuarioNombre);
                         $('#usuarioImg').attr('src', response.usuarioImg);
                         $('#usuarioImg').removeClass('hidden');
+                        $('#liPerfil').removeClass('hidden');
+                        $('#btnInicioSesion').addClass('hidden');
                     } else {
-                        $('#usuarioNombre').text('Iniciar Sesión');
                         $('#usuarioImg').addClass('hidden');
                     }
                 },

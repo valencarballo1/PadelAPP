@@ -21,6 +21,7 @@
           <Property Name="IdCancha" Type="int" />
           <Property Name="IdHorario" Type="int" />
           <Property Name="IdUsuario" Type="int" />
+          <Property Name="Estado" Type="int" />
         </EntityType>
         <EntityType Name="Categorias">
           <Key>
@@ -72,6 +73,17 @@
           <Property Name="PrecioPorHora" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="FechaAlta" Type="datetime" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RecaudacionCancha">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaRecaudacion" Type="datetime" />
+          <Property Name="CanchaReservadaId" Type="int" />
+          <Property Name="MontoCancha" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="MontoAdicional" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="MontoFinal" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -202,6 +214,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Recaudaci__Canch__52593CB8">
+          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="0..1" />
+          <End Role="RecaudacionCancha" Type="Self.RecaudacionCancha" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CanchasReservadas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecaudacionCancha">
+              <PropertyRef Name="CanchaReservadaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PadelAppModelStoreContainer">
           <EntitySet Name="Canchas" EntityType="Self.Canchas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CanchasReservadas" EntityType="Self.CanchasReservadas" Schema="dbo" store:Type="Tables" />
@@ -210,6 +234,7 @@
           <EntitySet Name="PartidosCreadosUsuarios" EntityType="Self.PartidosCreadosUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrecioCancha" EntityType="Self.PrecioCancha" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecaudacionCancha" EntityType="Self.RecaudacionCancha" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__CanchasRe__IdCan__403A8C7D" Association="Self.FK__CanchasRe__IdCan__403A8C7D">
             <End Role="Canchas" EntitySet="Canchas" />
@@ -251,6 +276,10 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Perfil" EntitySet="Perfil" />
           </AssociationSet>
+          <AssociationSet Name="FK__Recaudaci__Canch__52593CB8" Association="Self.FK__Recaudaci__Canch__52593CB8">
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+            <End Role="RecaudacionCancha" EntitySet="RecaudacionCancha" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -277,6 +306,8 @@
           <NavigationProperty Name="Horarios" Relationship="Self.FK__CanchasRe__IdHor__412EB0B6" FromRole="CanchasReservadas" ToRole="Horarios" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__CanchasRe__IdUsu__4222D4EF" FromRole="CanchasReservadas" ToRole="Usuario" />
           <NavigationProperty Name="PartidosCreadosUsuarios" Relationship="Self.FK__PartidosC__IdCan__44FF419A" FromRole="CanchasReservadas" ToRole="PartidosCreadosUsuarios" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="RecaudacionCancha" Relationship="PadelAppModel.FK__Recaudaci__Canch__52593CB8" FromRole="CanchasReservadas" ToRole="RecaudacionCancha" />
         </EntityType>
         <EntityType Name="Horarios">
           <Key>
@@ -491,6 +522,11 @@
             <End Role="Perfil" EntitySet="Perfil" />
           </AssociationSet>
           <EntitySet Name="PrecioCancha" EntityType="PadelAppModel.PrecioCancha" />
+          <EntitySet Name="RecaudacionCancha" EntityType="PadelAppModel.RecaudacionCancha" />
+          <AssociationSet Name="FK__Recaudaci__Canch__52593CB8" Association="PadelAppModel.FK__Recaudaci__Canch__52593CB8">
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+            <End Role="RecaudacionCancha" EntitySet="RecaudacionCancha" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Categorias">
           <Key>
@@ -523,6 +559,30 @@
           <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="RecaudacionCancha">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaRecaudacion" Type="DateTime" Precision="3" />
+          <Property Name="CanchaReservadaId" Type="Int32" />
+          <Property Name="MontoCancha" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MontoAdicional" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MontoFinal" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="CanchasReservadas" Relationship="PadelAppModel.FK__Recaudaci__Canch__52593CB8" FromRole="RecaudacionCancha" ToRole="CanchasReservadas" />
+        </EntityType>
+        <Association Name="FK__Recaudaci__Canch__52593CB8">
+          <End Type="PadelAppModel.CanchasReservadas" Role="CanchasReservadas" Multiplicity="0..1" />
+          <End Type="PadelAppModel.RecaudacionCancha" Role="RecaudacionCancha" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CanchasReservadas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecaudacionCancha">
+              <PropertyRef Name="CanchaReservadaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -541,6 +601,7 @@
           <EntitySetMapping Name="CanchasReservadas">
             <EntityTypeMapping TypeName="PadelAppModel.CanchasReservadas">
               <MappingFragment StoreEntitySet="CanchasReservadas">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdCancha" ColumnName="IdCancha" />
                 <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
@@ -610,6 +671,18 @@
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
                 <ScalarProperty Name="PrecioPorHora" ColumnName="PrecioPorHora" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecaudacionCancha">
+            <EntityTypeMapping TypeName="PadelAppModel.RecaudacionCancha">
+              <MappingFragment StoreEntitySet="RecaudacionCancha">
+                <ScalarProperty Name="MontoFinal" ColumnName="MontoFinal" />
+                <ScalarProperty Name="MontoAdicional" ColumnName="MontoAdicional" />
+                <ScalarProperty Name="MontoCancha" ColumnName="MontoCancha" />
+                <ScalarProperty Name="CanchaReservadaId" ColumnName="CanchaReservadaId" />
+                <ScalarProperty Name="FechaRecaudacion" ColumnName="FechaRecaudacion" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

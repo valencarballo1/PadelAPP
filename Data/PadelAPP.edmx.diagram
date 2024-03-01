@@ -23,6 +23,8 @@
         <EntityTypeShape EntityType="PadelAppModel.Categorias" Width="1.5" PointX="7.375" PointY="5.875" />
         <AssociationConnector Association="PadelAppModel.FK__Perfil__Categori__4BAC3F29" />
         <EntityTypeShape EntityType="PadelAppModel.PrecioCancha" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PadelAppModel.RecaudacionCancha" Width="1.5" PointX="5.25" PointY="9" />
+        <AssociationConnector Association="PadelAppModel.FK__Recaudaci__Canch__52593CB8" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
