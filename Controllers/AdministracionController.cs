@@ -41,6 +41,11 @@ namespace ReservaPadel.Controllers
             }
         }
 
+        public ActionResult Panel()
+        {
+            return View();
+        }
+
         public ActionResult Reservas()
         {
             HttpCookie cookie = Request.Cookies["UsuarioSesion"];

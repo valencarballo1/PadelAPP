@@ -137,5 +137,30 @@ namespace ReservaPadel.Controllers
             }
         }
 
+        [HttpGet]
+        public JsonResult ValidarSesion()
+        {
+            HttpCookie cookie = Request.Cookies["UsuarioSesion"];
+            bool estaActivo = false;
+            string usuarioNombre = "";
+            string usuarioImg = "";
+
+            if (cookie != null)
+            {
+                string idUsuario = cookie["Id"];
+                UsuarioDTO usuario = _UsuarioBusiness.GetPerfil(int.Parse(idUsuario));
+                if (usuario != null)
+                {
+                    estaActivo = true;
+                    usuarioNombre = usuario.NombreUsuario;
+                    string rutaDirectorio = Url.Content("~/" + "imgPerfiles/");
+                    string nombreArchivo = usuario.FotoPerfil;
+                    string rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    usuarioImg = rutaCompleta;
+                }
+            }
+            return Json(new { estaActivo, usuarioNombre, usuarioImg }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

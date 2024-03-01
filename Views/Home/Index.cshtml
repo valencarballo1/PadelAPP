@@ -72,7 +72,7 @@
                     const card = $('<div class="card m-2">');
                     const cardBody = $('<div class="row g-0 d-flex justify-content-center">');
 
-                    const colJugadores1y2 = $('<div class="row">');
+                    const colJugadores1y2 = $('<div class="row p-2">');
 
                     const colJugador1 = $('<div class="col-6 text-center">');
                     colJugador1.append('<img src="' + partido.FotoPerfil1 + '" alt="Foto Jugador 1" class="ultimos-img mx-auto" />');
@@ -88,7 +88,7 @@
                     const colVs = $('<div class="col-6 col-md-12 text-center mt-3 d-flex justify-content-center">');
                     colVs.append('<h2>VS</h2>');
 
-                    const colJugadores3y4 = $('<div class="row">');
+                    const colJugadores3y4 = $('<div class="row p-2">');
 
                     const colJugador3 = $('<div class="col-6 text-center">');
                     colJugador3.append('<img src="' + partido.FotoPerfil3 + '" alt="Foto Jugador 1" class="ultimos-img mx-auto" />');
@@ -109,7 +109,7 @@
                     colHorario.append('<h7 class="text-center">Desde: ' + formatearHora(partido.HorarioDesde) + " - " + formatearHora(partido.HorarioHasta) + '</h7>');
 
 
-                    const colBtn = $('<div class="col-md-4 col-8 d-flex justify-content-center">');
+                    const colBtn = $('<div class="col-md-4 col-8 d-flex justify-content-center p-1">');
                     colBtn.append($('<a class="btn btn-success" href="' + urlVerPartido + '">Unirme</a>'));
 
                     cardBody.append(colJugadores1y2);
