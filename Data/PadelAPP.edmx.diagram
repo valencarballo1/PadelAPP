@@ -10,7 +10,7 @@
         <EntityTypeShape EntityType="PadelAppModel.Horarios" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="PadelAppModel.PartidosCreadosUsuarios" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PadelAppModel.Perfil" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PadelAppModel.Usuario" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PadelAppModel.Usuario" Width="1.5" PointX="10.25" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="PadelAppModel.FK__CanchasRe__IdCan__403A8C7D" ManuallyRouted="false" />
         <AssociationConnector Association="PadelAppModel.FK__CanchasRe__IdHor__412EB0B6" ManuallyRouted="false" />
         <AssociationConnector Association="PadelAppModel.FK__CanchasRe__IdUsu__4222D4EF" ManuallyRouted="false" />
@@ -20,6 +20,11 @@
         <AssociationConnector Association="PadelAppModel.FK__PartidosC__IdJug__47DBAE45" ManuallyRouted="false" />
         <AssociationConnector Association="PadelAppModel.FK__PartidosC__IdJug__48CFD27E" ManuallyRouted="false" />
         <AssociationConnector Association="PadelAppModel.FK__Perfil__IdUsuari__3D5E1FD2" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PadelAppModel.Categorias" Width="1.5" PointX="7.375" PointY="5.875" />
+        <AssociationConnector Association="PadelAppModel.FK__Perfil__Categori__4BAC3F29" />
+        <EntityTypeShape EntityType="PadelAppModel.PrecioCancha" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PadelAppModel.RecaudacionCancha" Width="1.5" PointX="5.25" PointY="9" />
+        <AssociationConnector Association="PadelAppModel.FK__Recaudaci__Canch__52593CB8" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -2,17 +2,6 @@
     ViewBag.Title = "Padel APP";
 }
 
-<style>
-
-    .ultimos-img {
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-        border-radius: 20%;
-        border: 2px solid #fff;
-    }
-</style>
-
 <div class="row align-items-center">
     <div class="row col-md-12 d-flex justify-content-lg-between justify-content-md-between justify-content-center p-3">
         <div class="card col-md-5 col-10">
@@ -33,6 +22,9 @@
 
         <div class="card col-md-5 col-10">
             <div class="card-body">
+                <div class="card-header text-center">
+                    <h3>CREA TU PARTIDO</h3>
+                </div>
                 <div class="col-md-12 text-center">
                     <p class="lead text-center">Reserva tu cancha y ¡arma tu partido! 🎾 Si faltan jugadores, otros podrán unirse a tu reserva para disfrutar juntos del juego. 🤝</p>
                 </div>
@@ -61,7 +53,6 @@
 </div>
 
 <script>
-
     $(document).ready(function () {
         $.ajax({
             url: '@Url.Action("PartidosDisponibles", "Partido")', // Reemplaza con la URL correcta
@@ -69,43 +60,68 @@
             dataType: 'json',
             success: function (data) {
                 const partidosContainer = $('#partidosContainer');
+                let idPartido = 0;
+                let urlVerPartido = "";
 
 
                 $.each(data, function (index, partido) {
+                    idPartido = partido.Id;
+                    urlVerPartido = "@Url.Action("Ver", "Partido")?idPartido=" + idPartido;
+                    console.log(urlVerPartido);
+
                     const card = $('<div class="card m-2">');
                     const cardBody = $('<div class="row g-0 d-flex justify-content-center">');
 
-                    const colJugador1 = $('<div class="col-md-6 col-12 d-flex justify-content-center">');
-                    colJugador1.append('<img src="' + partido.FotoPerfil1 + '" alt="Foto Jugador 1" class="ultimos-img" />');
-                    colJugador1.append('<img src="' + partido.FotoPerfil2 + '" alt="Foto Jugador 2" class="ultimos-img"/>');
+                    const colJugadores1y2 = $('<div class="row p-2">');
+
+                    const colJugador1 = $('<div class="col-6 text-center">');
+                    colJugador1.append('<img src="' + partido.FotoPerfil1 + '" alt="Foto Jugador 1" class="ultimos-img mx-auto" />');
+                    colJugador1.append('<div class="col-12">' + partido.Categoria1 ?? '' + ' - ' + partido.Puntuacion1 ?? .00 + '</div>');
+
+                    const colJugador2 = $('<div class="col-6 text-center">');
+                    colJugador2.append('<img src="' + partido.FotoPerfil2 + '" alt="Foto Jugador 2" class="ultimos-img mx-auto" />');
+                    colJugador2.append('<div class="col-12">' + partido.Categoria2 ?? '' + ' - ' + (partido.Puntuacion2 ?? 0.00) + '</div>');
+
+                    colJugadores1y2.append(colJugador1);
+                    colJugadores1y2.append(colJugador2);
 
                     const colVs = $('<div class="col-6 col-md-12 text-center mt-3 d-flex justify-content-center">');
                     colVs.append('<h2>VS</h2>');
 
-                    const colJugador2 = $('<div class="col-md-6 col-12 d-flex justify-content-center">');
-                    colJugador2.append('<img src="' + partido.FotoPerfil3 + '" alt="Foto Jugador 3" class="ultimos-img" />');
-                    colJugador2.append('<img src="' + partido.FotoPerfil4 + '" alt="Foto Jugador 4" class="ultimos-img" />');
+                    const colJugadores3y4 = $('<div class="row p-2">');
+
+                    const colJugador3 = $('<div class="col-6 text-center">');
+                    colJugador3.append('<img src="' + partido.FotoPerfil3 + '" alt="Foto Jugador 1" class="ultimos-img mx-auto" />');
+                    colJugador3.append('<div class="col-12">' + partido.Categoria3 ?? '' + ' - ' + partido.Puntuacion3 ?? 0.00 + '</div>');
+
+                    const colJugador4 = $('<div class="col-6 text-center">');
+                    colJugador4.append('<img src="' + partido.FotoPerfil4 + '" alt="Foto Jugador 2" class="ultimos-img mx-auto" />');
+                    colJugador4.append('<div class="col-12">' + partido.Categoria4 ?? '' + ' - ' + (partido.Puntuacion4 ?? 0.00) + '</div>');
+
+                    colJugadores3y4.append(colJugador3);
+                    colJugadores3y4.append(colJugador4);
 
 
                     const colFecha = $('<div class="col-md-12 col-12 d-flex justify-content-center">');
                     colFecha.append('<h5 class="text-center">Fecha: ' + moment(partido.HorarioDesde).format('DD/MM/YYYY') + '</h5>');
 
                     const colHorario = $('<div class="col-md-12 col-12 d-flex justify-content-center">');
-                    colHorario.append('<h7 class="text-center">Desde: ' + moment(partido.HorarioDesde).format('HH:mm') + " - " + moment(partido.HorarioHasta).format('HH:mm') + '</h7>');
+                    colHorario.append('<h7 class="text-center">Desde: ' + formatearHora(partido.HorarioDesde) + " - " + formatearHora(partido.HorarioHasta) + '</h7>');
 
 
-                    const colBtn = $('<div class="col-md-4 col-8 d-flex justify-content-center">');
-                    colBtn.append($('<button class="btn btn-success">Unirme' + '</button>'))
+                    const colBtn = $('<div class="col-md-4 col-8 d-flex justify-content-center p-1">');
+                    colBtn.append($('<a class="btn btn-success" href="' + urlVerPartido + '">Unirme</a>'));
 
-                    cardBody.append(colJugador1);
+                    cardBody.append(colJugadores1y2);
                     cardBody.append(colVs);
-                    cardBody.append(colJugador2);
+                    cardBody.append(colJugadores3y4);
+
+
                     cardBody.append(colFecha);
                     cardBody.append(colHorario);
                     cardBody.append(colBtn);
                     card.append(cardBody);
                     partidosContainer.append(card);
-
 
                 });
                 partidosContainer.slick({
@@ -145,5 +161,14 @@
                 console.error('Error al obtener los datos de los partidos:', error);
             }
         });
+
+        function formatearHora(fechaString) {
+            const fechaMilisegundos = parseInt(fechaString.substr(6));
+            const fechaDesde = moment(fechaMilisegundos).tz('America/Chicago');
+            const horaYMinutos = fechaDesde.format('hh:mm A');
+            console.log("Esto es de la configuración: " + horaYMinutos);
+
+            return horaYMinutos;
+        }
     });
 </script>

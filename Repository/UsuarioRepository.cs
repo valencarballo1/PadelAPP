@@ -44,7 +44,9 @@ namespace Repository
                     Nombre = usuario.Perfil.SingleOrDefault().Nombre,
                     Apellido = usuario.Perfil.SingleOrDefault().Apellido,
                     Celular = usuario.Perfil.SingleOrDefault().Celular,
-                    FotoPerfil = usuario.Perfil.SingleOrDefault().FotoPerfil
+                    FotoPerfil = usuario.Perfil.SingleOrDefault().FotoPerfil,
+                    Categoria = usuario.Perfil.SingleOrDefault().Categorias.Nombre,
+                    Puntuacion = usuario.Perfil.SingleOrDefault().Puntuacion.Value
                 };
 
                 return perfil;

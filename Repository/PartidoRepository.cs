@@ -41,35 +41,40 @@ namespace Repository
                 if (partidoEncontrado.IdJugador2 != null)
                 {
                     jugador2 = _UsuarioRepository.GetPerfil(partidoEncontrado.IdJugador2.Value);
-
                 }
 
                 if (partidoEncontrado.IdJugador3 != null)
                 {
                     jugador3 = _UsuarioRepository.GetPerfil(partidoEncontrado.IdJugador3.Value);
-
                 }
 
                 if (partidoEncontrado.IdJugador4 != null)
                 {
                     jugador4 = _UsuarioRepository.GetPerfil(partidoEncontrado.IdJugador4.Value);
-
                 }
-
                 PartidoDTO partido = new PartidoDTO
                 {
                     Id = partidoEncontrado.Id,
+                    IdUsuarioOrganiza = partidoEncontrado.CanchasReservadas.IdUsuario.Value,
                     CanchaNumero = partidoEncontrado.CanchasReservadas.IdCancha.Value,
                     HorarioDesde = partidoEncontrado.CanchasReservadas.Horarios.HorarioDesde.Value,
                     HorarioHasta = partidoEncontrado.CanchasReservadas.Horarios.HorarioHasta.Value,
                     UsuarioJ1 = jugador1.NombreUsuario,
                     FotoPerfil1 = jugador1.FotoPerfil,
+                    Categoria1 = jugador1.Categoria,
+                    Puntuacion1 = jugador1.Puntuacion,
                     UsuarioJ2 = jugador2?.NombreUsuario ?? string.Empty,
                     FotoPerfil2 = jugador2?.FotoPerfil ?? string.Empty,
+                    Categoria2 = jugador2?.Categoria ?? string.Empty,
+                    Puntuacion2 = jugador2?.Puntuacion,
                     UsuarioJ3 = jugador3?.NombreUsuario ?? string.Empty,
                     FotoPerfil3 = jugador3?.FotoPerfil ?? string.Empty,
+                    Categoria3 = jugador3?.Categoria ?? string.Empty,
+                    Puntuacion3 = jugador3?.Puntuacion,
                     UsuarioJ4 = jugador4?.NombreUsuario ?? string.Empty,
-                    FotoPerfil4 = jugador4?.FotoPerfil ?? string.Empty
+                    FotoPerfil4 = jugador4?.FotoPerfil ?? string.Empty,
+                    Categoria4 = jugador4?.Categoria ?? string.Empty,
+                    Puntuacion4 = jugador4?.Puntuacion,
 
                 };
 
@@ -90,7 +95,12 @@ namespace Repository
         {
             using (PadelAppEntities db = new PadelAppEntities())
             {
-                List<PartidosCreadosUsuarios> partidosEncontrado = db.PartidosCreadosUsuarios.Include("CanchasReservadas").ToList();
+                DateTime fechaHoy = DateTime.Now;
+
+                List<PartidosCreadosUsuarios> partidosEncontrado = db.PartidosCreadosUsuarios
+                    .Include("CanchasReservadas")
+                    .Where(p => p.CanchasReservadas.Horarios.HorarioDesde >= fechaHoy)
+                    .ToList();
 
                 List<DetallePartidoDTO> detalles = partidosEncontrado.Select(h => new DetallePartidoDTO
                 {
@@ -179,12 +189,20 @@ namespace Repository
                         HorarioHasta = partidoEncontrado.CanchasReservadas.Horarios.HorarioHasta.Value,
                         UsuarioJ1 = jugador1.NombreUsuario,
                         FotoPerfil1 = jugador1.FotoPerfil,
+                        Categoria1 = jugador1.Categoria,
+                        Puntuacion1 = jugador1.Puntuacion,
                         UsuarioJ2 = jugador2?.NombreUsuario ?? string.Empty,
                         FotoPerfil2 = jugador2?.FotoPerfil ?? string.Empty,
+                        Categoria2 = jugador2?.Categoria ?? string.Empty,
+                        Puntuacion2 = jugador2?.Puntuacion,
                         UsuarioJ3 = jugador3?.NombreUsuario ?? string.Empty,
                         FotoPerfil3 = jugador3?.FotoPerfil ?? string.Empty,
+                        Categoria3 = jugador3?.Categoria ?? string.Empty,
+                        Puntuacion3 = jugador3?.Puntuacion,
                         UsuarioJ4 = jugador4?.NombreUsuario ?? string.Empty,
-                        FotoPerfil4 = jugador4?.FotoPerfil ?? string.Empty
+                        FotoPerfil4 = jugador4?.FotoPerfil ?? string.Empty,
+                        Categoria4 = jugador4?.Categoria ?? string.Empty,
+                        Puntuacion4 = jugador4?.Puntuacion,
 
                     };
 
@@ -200,8 +218,10 @@ namespace Repository
         {
             using (PadelAppEntities db = new PadelAppEntities())
             {
+                DateTime fechaHoy = DateTime.Now;
                 List<PartidoDTO> partidosLista = new List<PartidoDTO>();
                 List<PartidosCreadosUsuarios> partidosEncontrado = db.PartidosCreadosUsuarios.Include("CanchasReservadas")
+                    .Where(p => p.CanchasReservadas.Horarios.HorarioDesde >= fechaHoy)
                     .OrderByDescending(p => p.Id)
                     .ToList();
 
@@ -238,12 +258,20 @@ namespace Repository
                         HorarioHasta = partidoEncontrado.CanchasReservadas.Horarios.HorarioHasta.Value,
                         UsuarioJ1 = jugador1.NombreUsuario,
                         FotoPerfil1 = jugador1.FotoPerfil,
+                        Categoria1 = jugador1.Categoria,
+                        Puntuacion1 = jugador1.Puntuacion,
                         UsuarioJ2 = jugador2?.NombreUsuario ?? string.Empty,
                         FotoPerfil2 = jugador2?.FotoPerfil ?? string.Empty,
+                        Categoria2 = jugador2?.Categoria ?? string.Empty,
+                        Puntuacion2 = jugador2?.Puntuacion,
                         UsuarioJ3 = jugador3?.NombreUsuario ?? string.Empty,
                         FotoPerfil3 = jugador3?.FotoPerfil ?? string.Empty,
+                        Categoria3 = jugador3?.Categoria ?? string.Empty,
+                        Puntuacion3 = jugador3?.Puntuacion,
                         UsuarioJ4 = jugador4?.NombreUsuario ?? string.Empty,
-                        FotoPerfil4 = jugador4?.FotoPerfil ?? string.Empty
+                        FotoPerfil4 = jugador4?.FotoPerfil ?? string.Empty,
+                        Categoria4 = jugador4?.Categoria ?? string.Empty,
+                        Puntuacion4 = jugador4?.Puntuacion,
 
                     };
 

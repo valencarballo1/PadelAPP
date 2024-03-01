@@ -29,12 +29,12 @@ namespace ReservaPadel.Controllers
         }
 
         [HttpPost]
-        public JsonResult Registrarme(string nombre, string apellido, string celular, string usuario, string contrasena, HttpPostedFileBase fotoPerfil)
+        public JsonResult Registrarme(string nombre, string apellido, string celular, string usuario, string contrasena, int categoriaId, HttpPostedFileBase fotoPerfil)
         {
             int id = 0;
             if (fotoPerfil != null && fotoPerfil.ContentLength > 0)
             {
-                id = _UsuarioBusiness.Registrarme(nombre, apellido, celular, usuario, contrasena, Path.GetExtension(fotoPerfil.FileName));
+                id = _UsuarioBusiness.Registrarme(nombre, apellido, celular, usuario, contrasena, categoriaId, Path.GetExtension(fotoPerfil.FileName));
                 string rutaDirectorio = Server.MapPath("~/imgPerfiles/");
 
                 if (!Directory.Exists(rutaDirectorio))
@@ -49,7 +49,7 @@ namespace ReservaPadel.Controllers
             }
             else
             {
-                id = _UsuarioBusiness.Registrarme(nombre, apellido, celular, usuario, contrasena);
+                id = _UsuarioBusiness.Registrarme(nombre, apellido, celular, usuario, contrasena, categoriaId);
             }
 
             if (id > 0)
@@ -69,17 +69,27 @@ namespace ReservaPadel.Controllers
             }
             return Json(existeUsuario, JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult Perfil(int id)
+        public ActionResult Perfil()
         {
-            UsuarioDTO usuario = _UsuarioBusiness.GetPerfil(id);
-            string rutaDirectorio = Url.Content("~/" + "imgPerfiles/");
+            HttpCookie cookie = Request.Cookies["UsuarioSesion"];
+            if (cookie != null)
+            {
+                // Accede a los valores de la cookie según tus necesidades
+                string usuarioId = cookie["Id"];
+                UsuarioDTO usuario = _UsuarioBusiness.GetPerfil(int.Parse(usuarioId));
+                string rutaDirectorio = Url.Content("~/" + "imgPerfiles/");
 
-            // Nombre del archivo basado en el nombre de usuario
-            string nombreArchivo = usuario.FotoPerfil;
-            string rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
-            usuario.FotoPerfil = rutaCompleta;
-            return View(usuario);
+                // Nombre del archivo basado en el nombre de usuario
+                string nombreArchivo = usuario.FotoPerfil;
+                string rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                usuario.FotoPerfil = rutaCompleta;
+                return View(usuario);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
         }
 
         public JsonResult LogIn(string usuarioNombre, string contrasena)
@@ -109,6 +119,47 @@ namespace ReservaPadel.Controllers
                 Response.Cookies.Add(cookie);
             }
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult EsAdmin()
+        {
+            HttpCookie cookie = Request.Cookies["UsuarioSesion"];
+            if (cookie != null)
+            {
+                string idUsuario = cookie["Id"];
+                bool esAdmin = _UsuarioBusiness.EsAdmin(int.Parse(idUsuario));
+                return Json(esAdmin, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult ValidarSesion()
+        {
+            HttpCookie cookie = Request.Cookies["UsuarioSesion"];
+            bool estaActivo = false;
+            string usuarioNombre = "";
+            string usuarioImg = "";
+
+            if (cookie != null)
+            {
+                string idUsuario = cookie["Id"];
+                UsuarioDTO usuario = _UsuarioBusiness.GetPerfil(int.Parse(idUsuario));
+                if (usuario != null)
+                {
+                    estaActivo = true;
+                    usuarioNombre = usuario.NombreUsuario;
+                    string rutaDirectorio = Url.Content("~/" + "imgPerfiles/");
+                    string nombreArchivo = usuario.FotoPerfil;
+                    string rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    usuarioImg = rutaCompleta;
+                }
+            }
+            return Json(new { estaActivo, usuarioNombre, usuarioImg }, JsonRequestBehavior.AllowGet);
         }
 
     }

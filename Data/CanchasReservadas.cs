@@ -18,17 +18,21 @@ namespace Data
         public CanchasReservadas()
         {
             this.PartidosCreadosUsuarios = new HashSet<PartidosCreadosUsuarios>();
+            this.RecaudacionCancha = new HashSet<RecaudacionCancha>();
         }
     
         public int Id { get; set; }
         public Nullable<int> IdCancha { get; set; }
         public Nullable<int> IdHorario { get; set; }
         public Nullable<int> IdUsuario { get; set; }
+        public Nullable<int> Estado { get; set; }
     
         public virtual Canchas Canchas { get; set; }
         public virtual Horarios Horarios { get; set; }
         public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartidosCreadosUsuarios> PartidosCreadosUsuarios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RecaudacionCancha> RecaudacionCancha { get; set; }
     }
 }

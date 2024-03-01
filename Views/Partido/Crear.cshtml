@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group">
                     <label for="fecha">Selecciona una fecha:</label>
-                    <input type="text" class="form-control" id="fecha" name="fecha">
+                    <input type="text" class="form-control" id="fecha" name="fecha" readonly data-id="1">
                 </div>
 
 
@@ -138,11 +138,9 @@
                 const fechaMilisegundos = parseInt(horario.HorarioDesde.substr(6));
                 const fechaDesde = moment(fechaMilisegundos).tz('America/Chicago');
 
-                // Obtener las horas y minutos en formato deseado en la zona horaria 'America/Chicago'
                 const horaYMinutos = fechaDesde.format('hh:mm A');
                 console.log("Esto es de la configuración: " + horaYMinutos);
 
-                // Obtener las horas y minutos en formato de 24 horas en la zona horaria 'America/Chicago'
                 const valorHorarioDesde = fechaDesde.format('HH:mm');
                 console.log("Esto es en formato de 24 horas: " + valorHorarioDesde);
 
@@ -150,7 +148,6 @@
                 $(horarioNoDisponible).prop('disabled', true);
                 $(horarioNoDisponible).removeClass('text-light bg-success').addClass('text-light bg-danger');
 
-                // Deshabilitar los dos horarios anteriores y el primer posterior si la duración es de 90 minutos
                 console.log(horario.Duracion);
                 if (horario.Duracion == 90 && duracion == 90) {
                     const indice = $('#horario option').index(horarioNoDisponible);
@@ -192,6 +189,26 @@
     function CrearPartido(idCancha) {
         enEspera();
         const horarioDeReserva = $('#horario').val();
+
+        if (usuarioId == null) {
+            Swal.fire({
+                title: "No iniciaste sesión",
+                text: "Para poder reservar, inicia sesión o regístrate",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#28a745",
+                confirmButtonText: "Iniciar Sesión",
+                cancelButtonText: "Registrarse"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("InicioSesion", "Usuario")';
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    window.location.href = '@Url.Action("Registro", "Usuario")';
+                }
+            });
+            return false;
+        }
 
 
         $.ajax({

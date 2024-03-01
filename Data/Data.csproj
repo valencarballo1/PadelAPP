@@ -62,7 +62,11 @@
     <Compile Include="CanchasReservadas.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Categorias.cs">
+      <DependentUpon>PadelAPP.tt</DependentUpon>
+    </Compile>
     <Compile Include="DTO.cs" />
+    <Compile Include="ESTADO.cs" />
     <Compile Include="Horarios.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>
@@ -87,7 +91,13 @@
     <Compile Include="Perfil.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>
+    <Compile Include="PrecioCancha.cs">
+      <DependentUpon>PadelAPP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecaudacionCancha.cs">
+      <DependentUpon>PadelAPP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Usuario.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>

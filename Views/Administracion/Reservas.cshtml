@@ -1,0 +1,261 @@
+﻿
+@{
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+<div class="container-fluid">
+    <div id="fechaSelector" class="d-flex justify-content-center">
+        <div class="pt-3">
+            <label for="datepicker" class="text-center text-dark">SELECCIONE UNA FECHA:</label>
+        </div>
+        <div class="col-md-4 pt-2">
+            <input type="text" class="form-control" id="fecha" readonly />
+        </div>
+    </div>
+
+    <h2 class="text-dark text-center p-3" id="fechaActual">Reservas - @(DateTime.Now.ToString("dd/MM/yyyy"))</h2>
+
+    <table id="reservasTable" class="table">
+        <thead>
+            <tr>
+                <th class="text-center">Horario Desde</th>
+                <th class="text-center">Horario Hasta</th>
+                <th class="text-center">Usuario</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="align-items-sm-center">
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="finalizarTurnoModal" tabindex="-1" role="dialog" aria-labelledby="finalizarTurnoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="finalizarTurnoModalLabel">Finalizar Turno</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body d-flex row text-center">
+                    <div class="col-md-12 text-dark-emphasis p-2">
+                        <p>Importe de la cancha: <span id="importeCancha"></span></p>
+                    </div>
+                    <div class="col-md-12 d-flex p-2">
+                        <div class="col-md-6">
+                            <label for="montoAdicional">Monto adicional por pelotas o bebidas:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" class="form-control-sm" id="montoAdicional" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 d-flex row p-2">
+                        <div class="col-md-9">
+                            <p>Total importe a pagar: <span id="totalImporteAPagar"></span></p>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-sm btn-success" id="btnImportePorJugador">Dividir x4</button>
+                        </div>
+                        <div class="col-md-9">
+                            <span id="totalImporteAPagarJugador"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="finalizarTurno">Finalizar Turno</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    const fecha = document.getElementById("fecha");
+    const finalizarTunro = document.getElementById('finalizarTurno');
+
+    $(document).ready(function () {
+
+        $("#fecha").datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            startDate: new Date(),
+            todayHighlight: true
+        });
+        obtenerReservas();
+
+        $('#fecha').on('changeDate', function (e) {
+            obtenerReservas(fecha.value);
+        });
+
+
+
+
+        function obtenerReservas(fecha) {
+            fecha = fecha || obtenerFechaActual();
+
+            const fechaFormateada = fecha.split('/').reverse().join('-');
+
+            $.ajax({
+                url: '@Url.Action("GetReservasAdmin", "Administracion")',
+                type: 'GET',
+                data: { fecha: fechaFormateada },
+                dataType: 'json',
+                success: function (data) {
+                    $('#reservasTable tbody').empty();
+                    $.each(data, function (index, reserva) {
+                        agregarFila(reserva);
+                    });
+
+                    $('#fechaActual').text('Reservas - ' + fecha);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function agregarFila(reserva) {
+            const fila = '<tr class="col-md-12">' +
+                '<td class="text-center align-middle">' + moment(reserva.HorarioDesde).format("HH:mm") + '</td>' +
+                '<td class="text-center align-middle">' + moment(reserva.HorarioHasta).format("HH:mm") + '</td>' +
+                '<td class="text-center align-middle">' + reserva.UsuarioNombre + '</td>' +
+                '<td class="d-flex flex-column align-items-center align-middle">' +
+                '<button type="button" class="btn btn-sm btn-primary m-2" onClick="mostrarModal(' + reserva.Id + ')">Finalizar Turno</button>' +
+                '<button type="button" class="btn btn-sm btn-danger m-2" onClick="mostrarModal(' + reserva.Id + ')>Dar de Baja</button>' +
+                '</td>' +
+                '</tr>';
+            $('#reservasTable tbody').append(fila);
+        }
+    });
+
+    function obtenerFechaActual() {
+        const hoy = new Date();
+        let dd = hoy.getDate();
+        let mm = hoy.getMonth() + 1; // Sumar 1 al mes porque en JavaScript los meses comienzan desde 0
+        let yyyy = hoy.getFullYear();
+
+        // Agregar ceros iniciales si es necesario
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        return dd + '/' + mm + '/' + yyyy;
+    }
+
+    function mostrarModal(id) {
+        const montoAdicional = document.getElementById("montoAdicional");
+        const importeAPagar = document.getElementById("totalImporteAPagar");
+        const totalImporteAPagarJugador = document.getElementById("totalImporteAPagarJugador");
+        const btnImportePorJugador = document.getElementById("btnImportePorJugador");
+        const importeCancha = 12000;
+        let adicional = 0;
+        let precioFinal = 0;
+        console.log(id);
+        $('#importeCancha').text("$" + importeCancha);
+        $('#finalizarTurnoModal').modal('show');
+
+        montoAdicional.addEventListener("input", function () {
+            adicional = montoAdicional.value;
+            if (adicional == 0) {
+                importeAPagar.innerText = (parseFloat(0) + importeCancha).toFixed(2);
+            }
+            importeAPagar.innerText = (parseFloat(adicional) + importeCancha).toFixed(2);
+        });
+
+        importeAPagar.innerText = (parseFloat(adicional) + importeCancha).toFixed(2);
+
+        btnImportePorJugador.addEventListener("click", function () {
+                totalImporteAPagarJugador.innerText = "$"+(parseFloat(importeAPagar.innerText) / 4).toFixed(2);
+        });
+
+        finalizarTunro.addEventListener("click", function () {
+            $.ajax({
+                url: '@Url.Action("FinalizarTurno", "Administracion")',
+                type: 'GET',
+                data: {
+                    idCancha: id,
+                    importeCancha: importeCancha,
+                    adicional: adicional
+                },
+                dataType: 'json',
+
+                success: function (data) {
+                    if (data == true) {
+                        Swal.fire({
+                            title: "Turno finalizado!",
+                            text: "El turno se cargo con exito!",
+                            icon: "success",
+                            showConfirmButton: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "El turno no pudo ser cargado!",
+                            icon: "error",
+                            showConfirmButton: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        })
+
+    }
+
+    function darDeBaja(id) {
+
+        $.ajax({
+            url: '@Url.Action("DarDeBaja", "Administracion")',
+            type: 'GET',
+            data: {
+                idCancha: id
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data == true) {
+                    Swal.fire({
+                        title: "El turno se dio de baja!",
+                        text: "El turno se cancelo con exito!",
+                        icon: "success",
+                        showConfirmButton: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+
+                } else {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "El turno no pudo ser cancelado!",
+                        icon: "error",
+                        showConfirmButton: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>

@@ -19,16 +19,17 @@
     <div class="card-body">
         <div class="row">
             <!-- Jugador 1 -->
-            <div class="col-md-6 col-6">
+            <div class="col-md-6 col-6 p-2">
                 <div class="text-center">
                     <img src="@Model.FotoPerfil1" alt="Imagen Jugador 1" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
                     <div class="col-12">
                         <h6 class="text-dark">@Model.UsuarioJ1</h6>
                     </div>
+                    @Model.Categoria1 - PTOS. @Model.Puntuacion1
                 </div>
             </div>
             <!-- Jugador 2 -->
-            <div class="col-md-6 col-6">
+            <div class="col-md-6 col-6 p-2">
                 <div class="text-center">
                     <img src="@Model.FotoPerfil2" alt="Imagen Jugador 2" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
                     @if (Model.UsuarioJ2 == "")
@@ -42,18 +43,21 @@
                         <div class="col-12">
                             <h6 class="text-dark">@Model.UsuarioJ2</h6>
                         </div>
+                        <div class="col-12">
+                            @Model.Categoria2 - PTOS. @Model.Puntuacion2
+                        </div>
                     }
                 </div>
             </div>
         </div>
 
-        <div class="col-md-12 text-center mt-4">
+        <div class="col-md-12 text-center mt-4" id="contenedorVS">
             <h2>VS</h2>
         </div>
 
         <div class="row mt-4">
             <!-- Jugador 3 -->
-            <div class="col-md-6 col-6">
+            <div class="col-md-6 col-6 p-2">
                 <div class="text-center">
                     <img src="@Model.FotoPerfil3" alt="Imagen Jugador 3" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
                     @if (Model.UsuarioJ3 == "")
@@ -67,12 +71,15 @@
                         <div class="col-12">
                             <h6 class="text-dark">@Model.UsuarioJ3</h6>
                         </div>
+                        <div class="col-12">
+                            @Model.Categoria3 - PTOS. @Model.Puntuacion3
+                        </div>
                     }
                 </div>
             </div>
 
             <!-- Jugador 4 -->
-            <div class="col-md-6 col-6">
+            <div class="col-md-6 col-6 p-2">
                 <div class="text-center">
                     <img src="@Model.FotoPerfil4" alt="Imagen Jugador 4" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
                     @if (Model.UsuarioJ4 == "")
@@ -85,6 +92,9 @@
                     {
                         <div class="col-12">
                             <h6 class="text-dark">@Model.UsuarioJ4</h6>
+                        </div>
+                        <div class="col-12">
+                            @Model.Categoria4 - PTOS. @Model.Puntuacion4
                         </div>
                     }
                 </div>
@@ -100,15 +110,48 @@
     const fechaTitulo = formatearFecha("@Model.HorarioDesde");
     const horarioTituloDesde = formatearHorario("@Model.HorarioDesde");
     const horarioTituloHasta = formatearHorario("@Model.HorarioHasta");
+    const contenedorVS = document.getElementById('contenedorVS');
+    const usuarioOrganiza = @Model.IdUsuarioOrganiza;
+    const fechaActual = new Date();
+
+    $(document).ready(function () {
+        if (formatearFecha(fechaActual) >= fechaTitulo) {
+            const idUsuario = obtenerUsuarioId();
+            contenedorVS.innerHTML = '<button class="btn btn-success" id="btnFinalizar"">Finalizar Partido</button>';
+            const btnFinalizar = document.getElementById("btnFinalizar");
+
+            if (usuarioOrganiza == idUsuario) {
+                btnFinalizar.addEventListener('click', function () {
+                    console.log("Entra");
+                });
+            } else {
+                btnFinalizar.addEventListener('click', function () {
+                    console.log("No pertenece " + @Model.IdUsuarioOrganiza + "- usuario id: " + usuarioId);
+                });
+            }
+        }
+
+    });
 
     function unirse(posicionJugador) {
         if (usuarioId == null) {
             Swal.fire({
-                title: "Error",
-                text: "Para unirte debes iniciar sesion!",
-                icon: "error",
-                showConfirmButton: true
-            })
+                title: "No iniciaste sesión",
+                text: "Para poder reservar, inicia sesión o regístrate",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#28a745",
+                confirmButtonText: "Iniciar Sesión",
+                cancelButtonText: "Registrarse"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("InicioSesion", "Usuario")';
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    window.location.href = '@Url.Action("Registro", "Usuario")';
+                }
+            });
+            return false;
         } else {
             $.ajax({
                 url: "@Url.Action("Unirse", "Partido")",

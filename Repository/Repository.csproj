@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministracionRepository.cs" />
+    <Compile Include="CategoriaRepository.cs" />
     <Compile Include="HorariosRepository.cs" />
     <Compile Include="PartidoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
