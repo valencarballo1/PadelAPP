@@ -62,7 +62,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="finalizarTurno()">Finalizar Turno</button>
+                    <button type="button" class="btn btn-primary" id="finalizarTurno">Finalizar Turno</button>
                 </div>
             </div>
         </div>
@@ -73,6 +73,7 @@
 
 <script>
     const fecha = document.getElementById("fecha");
+    const finalizarTunro = document.getElementById('finalizarTurno');
 
     $(document).ready(function () {
 
@@ -116,14 +117,13 @@
         }
 
         function agregarFila(reserva) {
-
             const fila = '<tr class="col-md-12">' +
-                '<td class="text-center">' + moment(reserva.HorarioDesde).format("HH:mm") + '</td>' +
-                '<td class="text-center">' + moment(reserva.HorarioHasta).format("HH:mm") + '</td>' +
-                '<td class="text-center">' + reserva.UsuarioNombre + '</td>' +
-                '<td class="d-flex justify-content-center">' +
-                '<button type="button" class="btn btn-sm btn-primary" onClick="mostrarModal(' + reserva.Id +')">Finalizar Turno</button>' +
-                '<button type="button" class="btn btn-sm btn-danger">Dar de Baja</button>' +
+                '<td class="text-center align-middle">' + moment(reserva.HorarioDesde).format("HH:mm") + '</td>' +
+                '<td class="text-center align-middle">' + moment(reserva.HorarioHasta).format("HH:mm") + '</td>' +
+                '<td class="text-center align-middle">' + reserva.UsuarioNombre + '</td>' +
+                '<td class="d-flex flex-column align-items-center align-middle">' +
+                '<button type="button" class="btn btn-sm btn-primary m-2" onClick="mostrarModal(' + reserva.Id + ')">Finalizar Turno</button>' +
+                '<button type="button" class="btn btn-sm btn-danger m-2" onClick="mostrarModal(' + reserva.Id + ')>Dar de Baja</button>' +
                 '</td>' +
                 '</tr>';
             $('#reservasTable tbody').append(fila);
@@ -155,6 +155,7 @@
         const btnImportePorJugador = document.getElementById("btnImportePorJugador");
         const importeCancha = 12000;
         let adicional = 0;
+        let precioFinal = 0;
         console.log(id);
         $('#importeCancha').text("$" + importeCancha);
         $('#finalizarTurnoModal').modal('show');
@@ -166,11 +167,95 @@
             }
             importeAPagar.innerText = (parseFloat(adicional) + importeCancha).toFixed(2);
         });
+
         importeAPagar.innerText = (parseFloat(adicional) + importeCancha).toFixed(2);
 
         btnImportePorJugador.addEventListener("click", function () {
                 totalImporteAPagarJugador.innerText = "$"+(parseFloat(importeAPagar.innerText) / 4).toFixed(2);
         });
 
+        finalizarTunro.addEventListener("click", function () {
+            $.ajax({
+                url: '@Url.Action("FinalizarTurno", "Administracion")',
+                type: 'GET',
+                data: {
+                    idCancha: id,
+                    importeCancha: importeCancha,
+                    adicional: adicional
+                },
+                dataType: 'json',
+
+                success: function (data) {
+                    if (data == true) {
+                        Swal.fire({
+                            title: "Turno finalizado!",
+                            text: "El turno se cargo con exito!",
+                            icon: "success",
+                            showConfirmButton: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "El turno no pudo ser cargado!",
+                            icon: "error",
+                            showConfirmButton: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        })
+
+    }
+
+    function darDeBaja(id) {
+
+        $.ajax({
+            url: '@Url.Action("DarDeBaja", "Administracion")',
+            type: 'GET',
+            data: {
+                idCancha: id
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data == true) {
+                    Swal.fire({
+                        title: "El turno se dio de baja!",
+                        text: "El turno se cancelo con exito!",
+                        icon: "success",
+                        showConfirmButton: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+
+                } else {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "El turno no pudo ser cancelado!",
+                        icon: "error",
+                        showConfirmButton: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     }
 </script>

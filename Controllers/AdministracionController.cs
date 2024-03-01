@@ -73,5 +73,16 @@ namespace ReservaPadel.Controllers
             List<ReservaDTO> reservas = _ReservasBusiness.GetReservasAdmin(fecha);
             return Json(reservas, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult FinalizarTurno(int idCancha, decimal importeCancha, decimal adicional)
+        {
+            bool finalizo = _ReservasBusiness.FinalizarTurno(idCancha, importeCancha, adicional);
+            return Json(finalizo, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult DarDeBaja(int idCancha)
+        {
+            bool finalizo = _ReservasBusiness.DarDeBaja(idCancha);
+            return Json(finalizo, JsonRequestBehavior.AllowGet);
+        }
     }
 }

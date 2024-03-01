@@ -66,6 +66,7 @@
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO.cs" />
+    <Compile Include="ESTADO.cs" />
     <Compile Include="Horarios.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>

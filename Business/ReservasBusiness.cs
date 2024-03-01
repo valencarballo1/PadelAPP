@@ -43,6 +43,7 @@ namespace Business
 
             canchasReservadas.IdCancha = idCancha;
             canchasReservadas.IdUsuario = idUsuario;
+            canchasReservadas.Estado = ESTADO.PENDIENTE;
             reserva.CanchasReservadas.Add(canchasReservadas);
 
             if (jugadoresRestantes == 3)
@@ -66,6 +67,60 @@ namespace Business
             _HorariosRepository.Save(reserva);
 
             return partidoCreado.Id;
+        }
+
+        public bool DarDeBaja(int idCancha)
+        {
+            bool baja = false;
+
+            CanchasReservadas reserva = _ReservasRepository.GetCanchaReservada(idCancha);
+            if (reserva != null)
+            {
+                reserva.Estado = ESTADO.BAJA;
+                _ReservasRepository.SaveCancha(reserva);
+                baja = true;
+            }
+
+            return baja;
+        }
+
+        public bool FinalizarTurno(int idCancha, decimal importeCancha, decimal adicional)
+        {
+            try
+            {
+                bool finalizo = false;
+                CanchasReservadas reserva = _ReservasRepository.GetCanchaReservada(idCancha);
+                if (reserva != null)
+                {
+                    reserva.Estado = ESTADO.FINALIZADO;
+                    _ReservasRepository.SaveCancha(reserva);
+                }
+
+                RecaudacionCancha recaudacion = new RecaudacionCancha
+                {
+                    FechaRecaudacion = DateTime.Now,
+                    CanchaReservadaId = idCancha,
+                    MontoCancha = importeCancha,
+                    MontoAdicional = adicional,
+                    MontoFinal = importeCancha + adicional
+                };
+                bool graboRecaudacion = _ReservasRepository.SaveRecaudacion(recaudacion);
+                if (!graboRecaudacion)
+                {
+                    throw new Exception("Error al grabar");
+                }
+                else
+                {
+                    finalizo = true;
+                }
+                return finalizo;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public List<ReservaDTO> GetReservas()
@@ -103,6 +158,7 @@ namespace Business
             reserva.Duracion = duracion;
             canchasReservadas.IdCancha = idCancha;
             canchasReservadas.IdUsuario = idUsuario;
+            canchasReservadas.Estado = ESTADO.PENDIENTE;
             reserva.CanchasReservadas.Add(canchasReservadas);
             _HorariosRepository.Save(reserva);
 
