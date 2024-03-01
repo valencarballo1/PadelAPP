@@ -92,5 +92,11 @@ namespace ReservaPadel.Controllers
             decimal anual = _AdministracionBusiness.RecaudacionAnual();
             return Json(anual, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult ObtenerDatosRecaudacion()
+        {
+            List<decimal> recaudaciones = _AdministracionBusiness.GetRecaAllMeses();
+            return Json(recaudaciones, JsonRequestBehavior.AllowGet);
+        }
     }
 }

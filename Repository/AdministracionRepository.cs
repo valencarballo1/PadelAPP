@@ -9,6 +9,28 @@ namespace Repository
 {
     public class AdministracionRepository
     {
+        public List<decimal> GetRecaAllMeses()
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+                List<decimal> recaudaciones = new List<decimal>();
+
+                for (int mes = 1; mes <= 12; mes++)
+                {
+                    DateTime inicioMes = new DateTime(DateTime.Now.Year, mes, 1);
+                    DateTime finMes = inicioMes.AddMonths(1).AddTicks(-1);
+
+                    decimal recaudacionMes = db.RecaudacionCancha
+                        .Where(r => r.FechaRecaudacion >= inicioMes && r.FechaRecaudacion <= finMes)
+                        .Sum(r => r.MontoFinal) ?? 0m;
+
+                    recaudaciones.Add(recaudacionMes);
+                }
+
+                return recaudaciones;
+            }
+        }
+
         public decimal RecaudacionAnual()
         {
             using (PadelAppEntities db = new PadelAppEntities())

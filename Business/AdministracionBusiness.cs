@@ -16,6 +16,11 @@ namespace Business
             this._AdministracionRepository = new AdministracionRepository();
         }
 
+        public List<decimal> GetRecaAllMeses()
+        {
+            return _AdministracionRepository.GetRecaAllMeses();
+        }
+
         public decimal RecaudacionAnual()
         {
             return _AdministracionRepository.RecaudacionAnual();
