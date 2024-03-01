@@ -2051,7 +2051,6 @@
     <Content Include="Views\Administracion\Index.cshtml" />
     <Content Include="Views\Administracion\Reservas.cshtml" />
     <Content Include="Views\Shared\LayoutAdmin.cshtml" />
-    <Content Include="Views\Administracion\Panel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

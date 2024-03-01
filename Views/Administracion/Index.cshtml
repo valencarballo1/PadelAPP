@@ -1,42 +1,171 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
 }
 
-<div class="row align-items-center">
-    <div class="row col-md-12 d-flex justify-content-lg-between justify-content-md-between justify-content-center p-3">
-        <div class="card col-md-5 col-10">
-            <div class="card-header text-center">
-                <h3>Ver Reservas</h3>
-            </div>
-            <div class="card-body row align-items-center">
-                <div class="col-md-12">
-                    <p class="lead text-center">Ver reservas de los usuarios. Finalizar turno, dar de baja y de mas acciones.</p>
+<body>
+    <div class="container-fluid">
+
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+            </a>
+        </div>
+
+        <div class="row">
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Recaudaciones (Mensual)
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="recaudacionMensual"></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-12 d-flex justify-content-center">
-                    <div>
-                        <a class="btn btn-success" href="@Url.Action("Reservas", "Administracion")"><i class="bi bi-bank2"></i></a>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Recaudaciones (Anual)
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="recaudacionAnual"></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Notificaciones
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card col-md-5 col-10">
-            <div class="card-body">
-                <div class="card-header text-center">
-                    <h3>Precio de cancha</h3>
+        <div class="row">
+
+            <div class="col-xl-8 col-lg-7">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Recaudaciones</h6>
+                        <div class="dropdown no-arrow">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="myAreaChart"></canvas>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-12 text-center">
-                    <p class="lead text-center">Modificar el precio de la cancha por hora o ver valor actual</p>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <a class="btn btn-success" href="@Url.Action("PrecioCancha", "Administracion")"><i class="bi bi-currency-dollar"></i></a>
-                    @*<a class="btn btn-success" href="@Url.Action("Crear", "Partido")"><i class="bi bi-calendar-plus">Crear</i></a>*@
+            </div>
+
+            <div class="col-xl-4 col-lg-5">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="myPieChart"></canvas>
+                        </div>
+                        <div class="mt-4 text-center small">
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-primary"></i> Direct
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-success"></i> Social
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-info"></i> Referral
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
+</body>
 
-</div>
+<script>
+    recaudacionMensualElement = document.getElementById('recaudacionMensual');
+    recaudacionAnualElement = document.getElementById('recaudacionAnual');
 
+
+    $(document).ready(function () {
+        recaudacionMensual();
+        recaudacionAnual();
+    });
+
+
+    function recaudacionMensual() {
+        $.ajax({
+            url: '@Url.Action("RecaudacionMensual", "Administracion")',
+            type: 'GET',
+            data: {},
+            dataType: 'json',
+            success: function (data) {
+                if (data > 0) {
+                    console.log(data);
+                    recaudacionMensualElement.innerText = "$" + parseFloat(data);
+                } else {
+                    recaudacionMensualElement.innerText = "0";
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function recaudacionAnual() {
+        enEspera()
+        $.ajax({
+            url: '@Url.Action("RecaudacionAnual", "Administracion")',
+            type: 'GET',
+            data: {},
+            dataType: 'json',
+            success: function (data) {
+                if (data > 0) {
+                    console.log(data);
+                    recaudacionAnualElement.innerText = "$" + parseFloat(data);
+                } else {
+                    recaudacionAnualElement.innerText = "0";
+                }
+                enEspera("chau");
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+    }
+
+</script>

@@ -13,11 +13,13 @@ namespace ReservaPadel.Controllers
     {
         private ReservasBusiness _ReservasBusiness;
         private UsuarioBusiness _UsuarioBusiness;
+        private AdministracionBusiness _AdministracionBusiness;
 
         public AdministracionController()
         {
             this._ReservasBusiness = new ReservasBusiness();
             this._UsuarioBusiness = new UsuarioBusiness();
+            this._AdministracionBusiness = new AdministracionBusiness();
         }
         public ActionResult Index()
         {
@@ -39,11 +41,6 @@ namespace ReservaPadel.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-        }
-
-        public ActionResult Panel()
-        {
-            return View();
         }
 
         public ActionResult Reservas()
@@ -83,6 +80,17 @@ namespace ReservaPadel.Controllers
         {
             bool finalizo = _ReservasBusiness.DarDeBaja(idCancha);
             return Json(finalizo, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RecaudacionMensual()
+        {
+            decimal mensual = _AdministracionBusiness.RecaudacionMensual();
+            return Json(mensual, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult RecaudacionAnual()
+        {
+            decimal anual = _AdministracionBusiness.RecaudacionAnual();
+            return Json(anual, JsonRequestBehavior.AllowGet);
         }
     }
 }
