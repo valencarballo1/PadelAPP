@@ -152,6 +152,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\CSSADMIN\sb-admin-2.css" />
     <Content Include="Content\CSSADMIN\sb-admin-2.min.css" />
+    <Content Include="Content\CssHome\StyleHome.css" />
     <Content Include="Content\fondoImagen.jpg" />
     <Content Include="Content\fondoPadel.jpeg" />
     <Content Include="Content\fontawesome-free\attribution.js" />
@@ -201,10 +202,12 @@
     <Content Include="Content\slick-1.8.1\slick\slick.css" />
     <Content Include="Content\slick-1.8.1\slick\slick.js" />
     <Content Include="Content\slick-1.8.1\slick\slick.min.js" />
+    <Content Include="Content\StyleHome.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="imgPerfiles\AgregarAPartido.png" />
+    <Content Include="imgPerfiles\fondoCancha.jpg" />
     <Content Include="imgPerfiles\LogoPadel.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

@@ -16,11 +16,9 @@
                 <span class="input-group-text">
                     <i class="bi bi-person"></i>
                 </span>
-                <input type="text" id="usuarioNombre" class="form-control" placeholder="Nombre de usuario">
+                <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" placeholder="Nombre de usuario">
             </div>
-            <div class="m-2">
-                <i id="mensajeErrorUsuario" class="text-danger"></i>
-            </div>
+           
         </div>
 
         <div class="col-md-5 g-3 d-flex justify-content-center align-items-center">
@@ -45,13 +43,11 @@
 
     <script>
         const inicioSesion = document.getElementById('inicioSesion');
-        const usuarioNombre = document.getElementById('usuarioNombre');
+        const usuarioNombre = document.getElementById('nombreUsuario');
         const contrasena = document.getElementById('contrasena');
 
         inicioSesion.addEventListener('click', () => {
-
             enEspera();
-
             if (usuarioNombre.value.length == 0) {
                 Swal.fire({
                     title: "Error",
