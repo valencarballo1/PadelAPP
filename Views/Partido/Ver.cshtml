@@ -213,7 +213,7 @@
     function formatearHorario(fechaString) {
         const fechaDesde = moment(fechaString);
 
-        const horaYMinutos = fechaDesde.format('hh:mm A');
+        const horaYMinutos = fechaDesde.format('HH:mm');
         console.log(horaYMinutos);
         return horaYMinutos;
     }

@@ -5,16 +5,16 @@
 <div class="container-fluid">
     <div id="fechaSelector" class="d-flex justify-content-center">
         <div class="pt-3">
-            <label for="datepicker" class="text-center text-dark">SELECCIONE UNA FECHA:</label>
+            <label for="datepicker" class="text-center text-light">SELECCIONE UNA FECHA:</label>
         </div>
         <div class="col-md-4 pt-2">
             <input type="text" class="form-control" id="fecha" readonly />
         </div>
     </div>
 
-    <h2 class="text-dark text-center p-3" id="fechaActual">Reservas - @(DateTime.Now.ToString("dd/MM/yyyy"))</h2>
+    <h2 class="text-dark text-center p-3 text-light" id="fechaActual">Reservas - @(DateTime.Now.ToString("dd/MM/yyyy"))</h2>
 
-    <table id="reservasTable" class="table">
+    <table id="reservasTable" class="table bg-gradient-light">
         <thead>
             <tr>
                 <th class="text-center">Horario Desde</th>

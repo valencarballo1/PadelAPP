@@ -207,6 +207,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="imgPerfiles\AgregarAPartido.png" />
+    <Content Include="imgPerfiles\agustin.tapia.jpeg" />
     <Content Include="imgPerfiles\fondoCancha.jpg" />
     <Content Include="imgPerfiles\LogoPadel.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
