@@ -9945,7 +9945,11 @@ a:focus {
 }
 
     #wrapper #content-wrapper {
-        background-color: #f8f9fc;
+        background-image: url('/imgPerfiles/FondoCancha.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        /*background-color: #f8f9fc;*/
         width: 100%;
         overflow-x: hidden
     }

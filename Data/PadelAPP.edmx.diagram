@@ -25,6 +25,13 @@
         <EntityTypeShape EntityType="PadelAppModel.PrecioCancha" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="PadelAppModel.RecaudacionCancha" Width="1.5" PointX="5.25" PointY="9" />
         <AssociationConnector Association="PadelAppModel.FK__Recaudaci__Canch__52593CB8" />
+        <EntityTypeShape EntityType="PadelAppModel.Parejas" Width="1.5" PointX="5.25" PointY="12.625" />
+        <EntityTypeShape EntityType="PadelAppModel.PartidoResultado" Width="1.5" PointX="7.5" PointY="9.5" />
+        <AssociationConnector Association="PadelAppModel.FK__PartidoRe__IdCan__5BE2A6F2" />
+        <AssociationConnector Association="PadelAppModel.FK__Parejas__IdJugad__5535A963" />
+        <AssociationConnector Association="PadelAppModel.FK__Parejas__IdJugad__5629CD9C" />
+        <AssociationConnector Association="PadelAppModel.FK__PartidoRe__IdPar__5CD6CB2B" />
+        <AssociationConnector Association="PadelAppModel.FK__PartidoRe__IdPar__5DCAEF64" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

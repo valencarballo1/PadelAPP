@@ -14,6 +14,13 @@ namespace Data
     
     public partial class Perfil
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Perfil()
+        {
+            this.Parejas = new HashSet<Parejas>();
+            this.Parejas1 = new HashSet<Parejas>();
+        }
+    
         public int IdPerfil { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
@@ -25,5 +32,9 @@ namespace Data
     
         public virtual Usuario Usuario { get; set; }
         public virtual Categorias Categorias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Parejas> Parejas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Parejas> Parejas1 { get; set; }
     }
 }

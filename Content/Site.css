@@ -1,31 +1,4 @@
-﻿body {
-    background-image: url('/Content/fondoImagen.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    /*font-family: 'DM Sans', sans-serif;*/
-    font-family: "Open Sans", sans-serif;
-    color: #fff
-}
-
-.bgNav {
-    background-color: rgba(255, 255, 255, 0.9); /* Agrega un fondo blanco semi-transparente al jumbotron */
-}
-
-.jumbotron {
-    margin-top: 15px;
-    background-color: rgba(255, 255, 255, 0.9); /* Agrega un fondo blanco semi-transparente al jumbotron */
-    padding: 20px;
-}
-
-
-.card {
-    color: #444444;
-    margin-top: 15px;
-    background-color: rgba(255, 255, 255, 0.6);
-}
-
-#espera_contenedor {
+﻿#espera_contenedor {
     visibility: hidden;
     display: flex;
     align-items: center;

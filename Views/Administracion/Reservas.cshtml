@@ -5,16 +5,16 @@
 <div class="container-fluid">
     <div id="fechaSelector" class="d-flex justify-content-center">
         <div class="pt-3">
-            <label for="datepicker" class="text-center text-dark">SELECCIONE UNA FECHA:</label>
+            <label for="datepicker" class="text-center text-light">SELECCIONE UNA FECHA:</label>
         </div>
         <div class="col-md-4 pt-2">
             <input type="text" class="form-control" id="fecha" readonly />
         </div>
     </div>
 
-    <h2 class="text-dark text-center p-3" id="fechaActual">Reservas - @(DateTime.Now.ToString("dd/MM/yyyy"))</h2>
+    <h2 class="text-dark text-center p-3 text-light" id="fechaActual">Reservas - @(DateTime.Now.ToString("dd/MM/yyyy"))</h2>
 
-    <table id="reservasTable" class="table">
+    <table id="reservasTable" class="table bg-gradient-light">
         <thead>
             <tr>
                 <th class="text-center">Horario Desde</th>
@@ -80,7 +80,6 @@
         $("#fecha").datepicker({
             format: 'dd/mm/yyyy',
             autoclose: true,
-            startDate: new Date(),
             todayHighlight: true
         });
         obtenerReservas();
@@ -122,8 +121,8 @@
                 '<td class="text-center align-middle">' + moment(reserva.HorarioHasta).format("HH:mm") + '</td>' +
                 '<td class="text-center align-middle">' + reserva.UsuarioNombre + '</td>' +
                 '<td class="d-flex flex-column align-items-center align-middle">' +
-                '<button type="button" class="btn btn-sm btn-primary m-2" onClick="mostrarModal(' + reserva.Id + ')">Finalizar Turno</button>' +
-                '<button type="button" class="btn btn-sm btn-danger m-2" onClick="mostrarModal(' + reserva.Id + ')>Dar de Baja</button>' +
+                '<button type="button" class="btn btn-sm btn-primary m-2 col-md-6" onClick="mostrarModal(' + reserva.Id + ')">Finalizar Turno</button>' +
+                '<button type="button" class="btn btn-sm btn-danger m-2 col-md-6" onClick="darDeBaja(' + reserva.Id + ')">Dar de Baja</button>' +
                 '</td>' +
                 '</tr>';
             $('#reservasTable tbody').append(fila);

@@ -85,6 +85,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PadelAPP.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Parejas.cs">
+      <DependentUpon>PadelAPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartidoResultado.cs">
+      <DependentUpon>PadelAPP.tt</DependentUpon>
+    </Compile>
     <Compile Include="PartidosCreadosUsuarios.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>

@@ -3,12 +3,12 @@
 }
 
 <div class="row align-items-center">
-    <div class="row col-md-12 d-flex justify-content-lg-between justify-content-md-between justify-content-center p-3">
-        <div class="card col-md-5 col-10">
+    <div class="row col-md-12 d-flex justify-content-lg-between justify-content-md-between justify-content-center p-5">
+        <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-lg-5 col-sm-12 mt-2">
             <div class="card-header text-center">
                 <h3>RESERVA TU CANCHA</h3>
             </div>
-            <div class="card-body row align-items-center">
+            <div class="card-body row align-items-center no-gutters align-items-center">
                 <div class="col-md-12">
                     <p class="lead text-center">Reserva tus horarios y disfruta de nuestros servicios.</p>
                 </div>
@@ -20,11 +20,11 @@
             </div>
         </div>
 
-        <div class="card col-md-5 col-10">
+        <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-sm-12 col-lg-5 mt-2">
+            <div class="card-header text-center">
+                <h3>CREA TU PARTIDO</h3>
+            </div>
             <div class="card-body">
-                <div class="card-header text-center">
-                    <h3>CREA TU PARTIDO</h3>
-                </div>
                 <div class="col-md-12 text-center">
                     <p class="lead text-center">Reserva tu cancha y ¡arma tu partido! 🎾 Si faltan jugadores, otros podrán unirse a tu reserva para disfrutar juntos del juego. 🤝</p>
                 </div>
@@ -38,7 +38,7 @@
     </div>
 
     <div class="col-md-12 row m-2">
-        <div class="card col-md-12 col-12">
+        <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-12">
             <div class="card-header text-center">
                 <h3>Partidos disponibles</h3>
             </div>
@@ -69,47 +69,47 @@
                     urlVerPartido = "@Url.Action("Ver", "Partido")?idPartido=" + idPartido;
                     console.log(urlVerPartido);
 
-                    const card = $('<div class="card m-2">');
+                    const card = $('<div class="card col-sm-12 border-left-primary shadow m-3">');
                     const cardBody = $('<div class="row g-0 d-flex justify-content-center">');
 
-                    const colJugadores1y2 = $('<div class="row p-2">');
+                    const colJugadores1y2 = $('<div class="d-flex text-center justify-content-center">');
 
-                    const colJugador1 = $('<div class="col-6 text-center">');
+                    const colJugador1 = $('<div class="col-md-6 col-sm-6 text-center">');
                     colJugador1.append('<img src="' + partido.FotoPerfil1 + '" alt="Foto Jugador 1" class="ultimos-img mx-auto" />');
-                    colJugador1.append('<div class="col-12">' + partido.Categoria1 ?? '' + ' - ' + partido.Puntuacion1 ?? .00 + '</div>');
+                    colJugador1.append('<div class="col-md-12 d-flex">' + partido.Categoria1 ?? '' + '</div>');
 
-                    const colJugador2 = $('<div class="col-6 text-center">');
+                    const colJugador2 = $('<div class="col-md-6 col-sm-6 text-center">');
                     colJugador2.append('<img src="' + partido.FotoPerfil2 + '" alt="Foto Jugador 2" class="ultimos-img mx-auto" />');
-                    colJugador2.append('<div class="col-12">' + partido.Categoria2 ?? '' + ' - ' + (partido.Puntuacion2 ?? 0.00) + '</div>');
+                    colJugador2.append('<div class="col-md-12 d-flex">' + partido.Categoria2 ?? '' + '</div>');
 
                     colJugadores1y2.append(colJugador1);
                     colJugadores1y2.append(colJugador2);
 
-                    const colVs = $('<div class="col-6 col-md-12 text-center mt-3 d-flex justify-content-center">');
+                    const colVs = $('<div class="col-sm-6 col-md-12 text-center mt-3 d-flex justify-content-center">');
                     colVs.append('<h2>VS</h2>');
 
-                    const colJugadores3y4 = $('<div class="row p-2">');
+                    const colJugadores3y4 = $('<div class="d-flex text-center justify-content-center">');
 
-                    const colJugador3 = $('<div class="col-6 text-center">');
+                    const colJugador3 = $('<div class="col-md-6 col-sm-6 text-center">');
                     colJugador3.append('<img src="' + partido.FotoPerfil3 + '" alt="Foto Jugador 1" class="ultimos-img mx-auto" />');
-                    colJugador3.append('<div class="col-12">' + partido.Categoria3 ?? '' + ' - ' + partido.Puntuacion3 ?? 0.00 + '</div>');
+                    colJugador3.append('<div class="col-md-12 d-flex">' + partido.Categoria3 ?? '' + '</div>');
 
-                    const colJugador4 = $('<div class="col-6 text-center">');
+                    const colJugador4 = $('<div class="col-md-6 col-sm-6 text-center">');
                     colJugador4.append('<img src="' + partido.FotoPerfil4 + '" alt="Foto Jugador 2" class="ultimos-img mx-auto" />');
-                    colJugador4.append('<div class="col-12">' + partido.Categoria4 ?? '' + ' - ' + (partido.Puntuacion4 ?? 0.00) + '</div>');
+                    colJugador4.append('<div class="col-md-12 d-flex">' + partido.Categoria4 ?? '' + '</div>');
 
                     colJugadores3y4.append(colJugador3);
                     colJugadores3y4.append(colJugador4);
 
 
-                    const colFecha = $('<div class="col-md-12 col-12 d-flex justify-content-center">');
+                    const colFecha = $('<div class="col-md-12 col-sm-12 d-flex justify-content-center">');
                     colFecha.append('<h5 class="text-center">Fecha: ' + moment(partido.HorarioDesde).format('DD/MM/YYYY') + '</h5>');
 
-                    const colHorario = $('<div class="col-md-12 col-12 d-flex justify-content-center">');
+                    const colHorario = $('<div class="col-md-12 col-sm-12 d-flex justify-content-center">');
                     colHorario.append('<h7 class="text-center">Desde: ' + formatearHora(partido.HorarioDesde) + " - " + formatearHora(partido.HorarioHasta) + '</h7>');
 
 
-                    const colBtn = $('<div class="col-md-4 col-8 d-flex justify-content-center p-1">');
+                    const colBtn = $('<div class="col-md-4 col-sm-8 d-flex justify-content-center p-1">');
                     colBtn.append($('<a class="btn btn-success" href="' + urlVerPartido + '">Unirme</a>'));
 
                     cardBody.append(colJugadores1y2);
@@ -141,6 +141,13 @@
                             }
                         },
                         {
+                            breakpoint: 920,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                            }
+                        },
+                        {
                             breakpoint: 600,
                             settings: {
                                 slidesToShow: 1,
@@ -165,7 +172,7 @@
         function formatearHora(fechaString) {
             const fechaMilisegundos = parseInt(fechaString.substr(6));
             const fechaDesde = moment(fechaMilisegundos).tz('America/Chicago');
-            const horaYMinutos = fechaDesde.format('hh:mm A');
+            const horaYMinutos = fechaDesde.format('HH:mm');
             console.log("Esto es de la configuración: " + horaYMinutos);
 
             return horaYMinutos;
