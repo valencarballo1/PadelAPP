@@ -73,7 +73,7 @@
     function formatearHora(fechaString) {
         const fechaMilisegundos = parseInt(fechaString.substr(6));
         const fechaDesde = moment(fechaMilisegundos).tz('America/Chicago');
-        const horaYMinutos = fechaDesde.format('hh:mm A');
+        const horaYMinutos = fechaDesde.format('HH:mm');
         console.log("Esto es de la configuración: " + horaYMinutos);
 
         return horaYMinutos;

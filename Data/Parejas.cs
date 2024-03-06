@@ -12,29 +12,27 @@ namespace Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Perfil
+    public partial class Parejas
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Perfil()
+        public Parejas()
         {
-            this.Parejas = new HashSet<Parejas>();
-            this.Parejas1 = new HashSet<Parejas>();
+            this.PartidoResultado = new HashSet<PartidoResultado>();
+            this.PartidoResultado1 = new HashSet<PartidoResultado>();
         }
     
-        public int IdPerfil { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Celular { get; set; }
-        public string FotoPerfil { get; set; }
-        public Nullable<int> IdUsuario { get; set; }
-        public Nullable<int> CategoriaID { get; set; }
-        public Nullable<decimal> Puntuacion { get; set; }
+        public int IdPareja { get; set; }
+        public Nullable<int> IdJugador1 { get; set; }
+        public Nullable<int> IdJugador2 { get; set; }
+        public string UsuarioAlta { get; set; }
+        public Nullable<System.DateTime> FechaAlta { get; set; }
+        public Nullable<bool> Estado { get; set; }
     
-        public virtual Usuario Usuario { get; set; }
-        public virtual Categorias Categorias { get; set; }
+        public virtual Perfil Perfil { get; set; }
+        public virtual Perfil Perfil1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Parejas> Parejas { get; set; }
+        public virtual ICollection<PartidoResultado> PartidoResultado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Parejas> Parejas1 { get; set; }
+        public virtual ICollection<PartidoResultado> PartidoResultado1 { get; set; }
     }
 }

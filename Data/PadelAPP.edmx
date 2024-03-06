@@ -41,6 +41,35 @@
           <Property Name="HorarioHasta" Type="datetime" />
           <Property Name="Duracion" Type="int" />
         </EntityType>
+        <EntityType Name="Parejas">
+          <Key>
+            <PropertyRef Name="IdPareja" />
+          </Key>
+          <Property Name="IdPareja" Type="int" Nullable="false" />
+          <Property Name="IdJugador1" Type="int" />
+          <Property Name="IdJugador2" Type="int" />
+          <Property Name="UsuarioAlta" Type="nvarchar" MaxLength="255" />
+          <Property Name="FechaAlta" Type="datetime" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="PartidoResultado">
+          <Key>
+            <PropertyRef Name="IdPartido" />
+          </Key>
+          <Property Name="IdPartido" Type="int" Nullable="false" />
+          <Property Name="IdCanchaReservada" Type="int" />
+          <Property Name="IdPareja1" Type="int" />
+          <Property Name="IdPareja2" Type="int" />
+          <Property Name="Set1Pareja1" Type="int" />
+          <Property Name="Set1Pareja2" Type="int" />
+          <Property Name="Set2Pareja1" Type="int" />
+          <Property Name="Set2Pareja2" Type="int" />
+          <Property Name="Set3Pareja1" Type="int" />
+          <Property Name="Set3Pareja2" Type="int" />
+          <Property Name="UsuarioAlta" Type="nvarchar" MaxLength="255" />
+          <Property Name="FechaAlta" Type="datetime" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
         <EntityType Name="PartidosCreadosUsuarios">
           <Key>
             <PropertyRef Name="Id" />
@@ -127,6 +156,66 @@
             </Principal>
             <Dependent Role="CanchasReservadas">
               <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Parejas__IdJugad__5535A963">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+          <End Role="Parejas" Type="Self.Parejas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Parejas">
+              <PropertyRef Name="IdJugador1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Parejas__IdJugad__5629CD9C">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+          <End Role="Parejas" Type="Self.Parejas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Parejas">
+              <PropertyRef Name="IdJugador2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartidoRe__IdCan__5BE2A6F2">
+          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="0..1" />
+          <End Role="PartidoResultado" Type="Self.PartidoResultado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CanchasReservadas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartidoResultado">
+              <PropertyRef Name="IdCanchaReservada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartidoRe__IdPar__5CD6CB2B">
+          <End Role="Parejas" Type="Self.Parejas" Multiplicity="0..1" />
+          <End Role="PartidoResultado" Type="Self.PartidoResultado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parejas">
+              <PropertyRef Name="IdPareja" />
+            </Principal>
+            <Dependent Role="PartidoResultado">
+              <PropertyRef Name="IdPareja1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartidoRe__IdPar__5DCAEF64">
+          <End Role="Parejas" Type="Self.Parejas" Multiplicity="0..1" />
+          <End Role="PartidoResultado" Type="Self.PartidoResultado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parejas">
+              <PropertyRef Name="IdPareja" />
+            </Principal>
+            <Dependent Role="PartidoResultado">
+              <PropertyRef Name="IdPareja2" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -231,6 +320,8 @@
           <EntitySet Name="CanchasReservadas" EntityType="Self.CanchasReservadas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Horarios" EntityType="Self.Horarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parejas" EntityType="Self.Parejas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartidoResultado" EntityType="Self.PartidoResultado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartidosCreadosUsuarios" EntityType="Self.PartidosCreadosUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrecioCancha" EntityType="Self.PrecioCancha" Schema="dbo" store:Type="Tables" />
@@ -247,6 +338,26 @@
           <AssociationSet Name="FK__CanchasRe__IdUsu__4222D4EF" Association="Self.FK__CanchasRe__IdUsu__4222D4EF">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Parejas__IdJugad__5535A963" Association="Self.FK__Parejas__IdJugad__5535A963">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Parejas" EntitySet="Parejas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Parejas__IdJugad__5629CD9C" Association="Self.FK__Parejas__IdJugad__5629CD9C">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Parejas" EntitySet="Parejas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartidoRe__IdCan__5BE2A6F2" Association="Self.FK__PartidoRe__IdCan__5BE2A6F2">
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+            <End Role="PartidoResultado" EntitySet="PartidoResultado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartidoRe__IdPar__5CD6CB2B" Association="Self.FK__PartidoRe__IdPar__5CD6CB2B">
+            <End Role="Parejas" EntitySet="Parejas" />
+            <End Role="PartidoResultado" EntitySet="PartidoResultado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartidoRe__IdPar__5DCAEF64" Association="Self.FK__PartidoRe__IdPar__5DCAEF64">
+            <End Role="Parejas" EntitySet="Parejas" />
+            <End Role="PartidoResultado" EntitySet="PartidoResultado" />
           </AssociationSet>
           <AssociationSet Name="FK__PartidosC__IdCan__44FF419A" Association="Self.FK__PartidosC__IdCan__44FF419A">
             <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
@@ -308,6 +419,7 @@
           <NavigationProperty Name="PartidosCreadosUsuarios" Relationship="Self.FK__PartidosC__IdCan__44FF419A" FromRole="CanchasReservadas" ToRole="PartidosCreadosUsuarios" />
           <Property Name="Estado" Type="Int32" />
           <NavigationProperty Name="RecaudacionCancha" Relationship="PadelAppModel.FK__Recaudaci__Canch__52593CB8" FromRole="CanchasReservadas" ToRole="RecaudacionCancha" />
+          <NavigationProperty Name="PartidoResultado" Relationship="PadelAppModel.FK__PartidoRe__IdCan__5BE2A6F2" FromRole="CanchasReservadas" ToRole="PartidoResultado" />
         </EntityType>
         <EntityType Name="Horarios">
           <Key>
@@ -349,6 +461,8 @@
           <Property Name="CategoriaID" Type="Int32" />
           <NavigationProperty Name="Categorias" Relationship="PadelAppModel.FK__Perfil__Categori__4BAC3F29" FromRole="Perfil" ToRole="Categorias" />
           <Property Name="Puntuacion" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Parejas" Relationship="PadelAppModel.FK__Parejas__IdJugad__5535A963" FromRole="Perfil" ToRole="Parejas" />
+          <NavigationProperty Name="Parejas1" Relationship="PadelAppModel.FK__Parejas__IdJugad__5629CD9C" FromRole="Perfil" ToRole="Parejas" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -527,6 +641,28 @@
             <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
             <End Role="RecaudacionCancha" EntitySet="RecaudacionCancha" />
           </AssociationSet>
+          <EntitySet Name="Parejas" EntityType="PadelAppModel.Parejas" />
+          <EntitySet Name="PartidoResultado" EntityType="PadelAppModel.PartidoResultado" />
+          <AssociationSet Name="FK__PartidoRe__IdCan__5BE2A6F2" Association="PadelAppModel.FK__PartidoRe__IdCan__5BE2A6F2">
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+            <End Role="PartidoResultado" EntitySet="PartidoResultado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Parejas__IdJugad__5535A963" Association="PadelAppModel.FK__Parejas__IdJugad__5535A963">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Parejas" EntitySet="Parejas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Parejas__IdJugad__5629CD9C" Association="PadelAppModel.FK__Parejas__IdJugad__5629CD9C">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Parejas" EntitySet="Parejas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartidoRe__IdPar__5CD6CB2B" Association="PadelAppModel.FK__PartidoRe__IdPar__5CD6CB2B">
+            <End Role="Parejas" EntitySet="Parejas" />
+            <End Role="PartidoResultado" EntitySet="PartidoResultado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartidoRe__IdPar__5DCAEF64" Association="PadelAppModel.FK__PartidoRe__IdPar__5DCAEF64">
+            <End Role="Parejas" EntitySet="Parejas" />
+            <End Role="PartidoResultado" EntitySet="PartidoResultado" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Categorias">
           <Key>
@@ -580,6 +716,102 @@
             </Principal>
             <Dependent Role="RecaudacionCancha">
               <PropertyRef Name="CanchaReservadaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Parejas">
+          <Key>
+            <PropertyRef Name="IdPareja" />
+          </Key>
+          <Property Name="IdPareja" Type="Int32" Nullable="false" />
+          <Property Name="IdJugador1" Type="Int32" />
+          <Property Name="IdJugador2" Type="Int32" />
+          <Property Name="UsuarioAlta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Precision="3" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="Perfil" Relationship="PadelAppModel.FK__Parejas__IdJugad__5535A963" FromRole="Parejas" ToRole="Perfil" />
+          <NavigationProperty Name="Perfil1" Relationship="PadelAppModel.FK__Parejas__IdJugad__5629CD9C" FromRole="Parejas" ToRole="Perfil" />
+          <NavigationProperty Name="PartidoResultado" Relationship="PadelAppModel.FK__PartidoRe__IdPar__5CD6CB2B" FromRole="Parejas" ToRole="PartidoResultado" />
+          <NavigationProperty Name="PartidoResultado1" Relationship="PadelAppModel.FK__PartidoRe__IdPar__5DCAEF64" FromRole="Parejas" ToRole="PartidoResultado" />
+        </EntityType>
+        <EntityType Name="PartidoResultado">
+          <Key>
+            <PropertyRef Name="IdPartido" />
+          </Key>
+          <Property Name="IdPartido" Type="Int32" Nullable="false" />
+          <Property Name="IdCanchaReservada" Type="Int32" />
+          <Property Name="IdPareja1" Type="Int32" />
+          <Property Name="IdPareja2" Type="Int32" />
+          <Property Name="Set1Pareja1" Type="Int32" />
+          <Property Name="Set1Pareja2" Type="Int32" />
+          <Property Name="Set2Pareja1" Type="Int32" />
+          <Property Name="Set2Pareja2" Type="Int32" />
+          <Property Name="Set3Pareja1" Type="Int32" />
+          <Property Name="Set3Pareja2" Type="Int32" />
+          <Property Name="UsuarioAlta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Precision="3" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="CanchasReservadas" Relationship="PadelAppModel.FK__PartidoRe__IdCan__5BE2A6F2" FromRole="PartidoResultado" ToRole="CanchasReservadas" />
+          <NavigationProperty Name="Parejas" Relationship="PadelAppModel.FK__PartidoRe__IdPar__5CD6CB2B" FromRole="PartidoResultado" ToRole="Parejas" />
+          <NavigationProperty Name="Parejas1" Relationship="PadelAppModel.FK__PartidoRe__IdPar__5DCAEF64" FromRole="PartidoResultado" ToRole="Parejas" />
+        </EntityType>
+        <Association Name="FK__PartidoRe__IdCan__5BE2A6F2">
+          <End Type="PadelAppModel.CanchasReservadas" Role="CanchasReservadas" Multiplicity="0..1" />
+          <End Type="PadelAppModel.PartidoResultado" Role="PartidoResultado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CanchasReservadas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartidoResultado">
+              <PropertyRef Name="IdCanchaReservada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Parejas__IdJugad__5535A963">
+          <End Type="PadelAppModel.Perfil" Role="Perfil" Multiplicity="0..1" />
+          <End Type="PadelAppModel.Parejas" Role="Parejas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Parejas">
+              <PropertyRef Name="IdJugador1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Parejas__IdJugad__5629CD9C">
+          <End Type="PadelAppModel.Perfil" Role="Perfil" Multiplicity="0..1" />
+          <End Type="PadelAppModel.Parejas" Role="Parejas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Parejas">
+              <PropertyRef Name="IdJugador2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartidoRe__IdPar__5CD6CB2B">
+          <End Type="PadelAppModel.Parejas" Role="Parejas" Multiplicity="0..1" />
+          <End Type="PadelAppModel.PartidoResultado" Role="PartidoResultado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parejas">
+              <PropertyRef Name="IdPareja" />
+            </Principal>
+            <Dependent Role="PartidoResultado">
+              <PropertyRef Name="IdPareja1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartidoRe__IdPar__5DCAEF64">
+          <End Type="PadelAppModel.Parejas" Role="Parejas" Multiplicity="0..1" />
+          <End Type="PadelAppModel.PartidoResultado" Role="PartidoResultado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parejas">
+              <PropertyRef Name="IdPareja" />
+            </Principal>
+            <Dependent Role="PartidoResultado">
+              <PropertyRef Name="IdPareja2" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -684,6 +916,37 @@
                 <ScalarProperty Name="CanchaReservadaId" ColumnName="CanchaReservadaId" />
                 <ScalarProperty Name="FechaRecaudacion" ColumnName="FechaRecaudacion" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parejas">
+            <EntityTypeMapping TypeName="PadelAppModel.Parejas">
+              <MappingFragment StoreEntitySet="Parejas">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="IdJugador2" ColumnName="IdJugador2" />
+                <ScalarProperty Name="IdJugador1" ColumnName="IdJugador1" />
+                <ScalarProperty Name="IdPareja" ColumnName="IdPareja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartidoResultado">
+            <EntityTypeMapping TypeName="PadelAppModel.PartidoResultado">
+              <MappingFragment StoreEntitySet="PartidoResultado">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="Set3Pareja2" ColumnName="Set3Pareja2" />
+                <ScalarProperty Name="Set3Pareja1" ColumnName="Set3Pareja1" />
+                <ScalarProperty Name="Set2Pareja2" ColumnName="Set2Pareja2" />
+                <ScalarProperty Name="Set2Pareja1" ColumnName="Set2Pareja1" />
+                <ScalarProperty Name="Set1Pareja2" ColumnName="Set1Pareja2" />
+                <ScalarProperty Name="Set1Pareja1" ColumnName="Set1Pareja1" />
+                <ScalarProperty Name="IdPareja2" ColumnName="IdPareja2" />
+                <ScalarProperty Name="IdPareja1" ColumnName="IdPareja1" />
+                <ScalarProperty Name="IdCanchaReservada" ColumnName="IdCanchaReservada" />
+                <ScalarProperty Name="IdPartido" ColumnName="IdPartido" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
