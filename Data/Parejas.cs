@@ -18,21 +18,23 @@ namespace Data
         public Parejas()
         {
             this.PartidoResultado = new HashSet<PartidoResultado>();
-            this.PartidoResultado1 = new HashSet<PartidoResultado>();
         }
     
         public int IdPareja { get; set; }
         public Nullable<int> IdJugador1 { get; set; }
         public Nullable<int> IdJugador2 { get; set; }
+        public Nullable<int> IdJugador3 { get; set; }
+        public Nullable<int> IdJugador4 { get; set; }
         public string UsuarioAlta { get; set; }
         public Nullable<System.DateTime> FechaAlta { get; set; }
-        public Nullable<bool> Estado { get; set; }
+        public Nullable<int> IdPartido { get; set; }
     
         public virtual Perfil Perfil { get; set; }
         public virtual Perfil Perfil1 { get; set; }
+        public virtual Perfil Perfil2 { get; set; }
+        public virtual Perfil Perfil3 { get; set; }
+        public virtual PartidosCreadosUsuarios PartidosCreadosUsuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartidoResultado> PartidoResultado { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartidoResultado> PartidoResultado1 { get; set; }
     }
 }

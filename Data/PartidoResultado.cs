@@ -15,21 +15,16 @@ namespace Data
     public partial class PartidoResultado
     {
         public int IdPartido { get; set; }
-        public Nullable<int> IdCanchaReservada { get; set; }
-        public Nullable<int> IdPareja1 { get; set; }
-        public Nullable<int> IdPareja2 { get; set; }
+        public Nullable<int> IdPareja { get; set; }
         public Nullable<int> Set1Pareja1 { get; set; }
         public Nullable<int> Set1Pareja2 { get; set; }
         public Nullable<int> Set2Pareja1 { get; set; }
         public Nullable<int> Set2Pareja2 { get; set; }
         public Nullable<int> Set3Pareja1 { get; set; }
         public Nullable<int> Set3Pareja2 { get; set; }
-        public string UsuarioAlta { get; set; }
         public Nullable<System.DateTime> FechaAlta { get; set; }
         public Nullable<bool> Estado { get; set; }
     
-        public virtual CanchasReservadas CanchasReservadas { get; set; }
         public virtual Parejas Parejas { get; set; }
-        public virtual Parejas Parejas1 { get; set; }
     }
 }

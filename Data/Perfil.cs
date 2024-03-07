@@ -19,6 +19,8 @@ namespace Data
         {
             this.Parejas = new HashSet<Parejas>();
             this.Parejas1 = new HashSet<Parejas>();
+            this.Parejas2 = new HashSet<Parejas>();
+            this.Parejas3 = new HashSet<Parejas>();
         }
     
         public int IdPerfil { get; set; }
@@ -36,5 +38,9 @@ namespace Data
         public virtual ICollection<Parejas> Parejas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Parejas> Parejas1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Parejas> Parejas2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Parejas> Parejas3 { get; set; }
     }
 }

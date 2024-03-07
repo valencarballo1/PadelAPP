@@ -19,7 +19,6 @@ namespace Data
         {
             this.PartidosCreadosUsuarios = new HashSet<PartidosCreadosUsuarios>();
             this.RecaudacionCancha = new HashSet<RecaudacionCancha>();
-            this.PartidoResultado = new HashSet<PartidoResultado>();
         }
     
         public int Id { get; set; }
@@ -35,7 +34,5 @@ namespace Data
         public virtual ICollection<PartidosCreadosUsuarios> PartidosCreadosUsuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RecaudacionCancha> RecaudacionCancha { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartidoResultado> PartidoResultado { get; set; }
     }
 }

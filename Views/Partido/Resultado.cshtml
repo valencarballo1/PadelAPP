@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "Resultado";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center text-success-emphasis fw-bold">Registro de Resultados</h2>
+
+    <form id="resultadoForm">
+        <div class="form-group text-center">
+            <label for="pareja1" class="text-success-emphasis fw-bold">Pareja 1</label>
+            <h3 class="text-center text-success-emphasis fw-bold">@Model.Usuario1 - @Model.Usuario2</h3>
+        </div>
+
+        <div class="form-group text-center">
+            <label class="text-success-emphasis fw-bold">SETS</label>
+            <div class="d-flex align-items-center">
+                <div class="d-flex flex-column col-md-4">
+                    <div class="text-success-emphasis fw-bold">PRIMER SET</div>
+                    <div class="p-2 col-md-12 d-flex justify-content-center">
+                        <input type="number" id="set1Pareja1" class="form-control w-50" min="0" max="7">
+                    </div>
+                    <div class="p-2 col-md-12 d-flex justify-content-center">
+                        <input type="number" id="set1Pareja2" class="form-control w-50" min="0" max="7">
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column col-md-4">
+                    <div class="text-success-emphasis fw-bold">SEGUNDO SET</div>
+                    <div class="p-2 col-md-12 d-flex justify-content-center">
+                        <input type="number" id="set2Pareja1" class="form-control w-50" min="0" max="7">
+                    </div>
+                    <div class="p-2 col-md-12 d-flex justify-content-center">
+                        <input type="number" id="set2Pareja2" class="form-control w-50" min="0" max="7">
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column col-md-4">
+                    <div class="text-success-emphasis fw-bold">TERCER SET</div>
+                    <div class="p-2 col-md-12 d-flex justify-content-center">
+                        <input type="number" id="set3Pareja1" class="form-control w-50" min="0" max="7">
+                    </div>
+                    <div class="p-2 col-md-12 d-flex justify-content-center">
+                        <input type="number" id="set3Pareja2" class="form-control w-50" min="0" max="7">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group text-center">
+            <label for="pareja2" class="text-success-emphasis fw-bold">Pareja 2</label>
+            <h3 class="text-center text-success-emphasis fw-bold">@Model.Usuario3 - @Model.Usuario4</h3>
+
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-success">Guardar Resultado</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#resultadoForm").submit(function (e) {
+            e.preventDefault();
+
+            const set1Pareja1 = parseInt($("#set1Pareja1").val()) || 0;
+            const set1Pareja2 = parseInt($("#set1Pareja2").val()) || 0;
+            const set2Pareja1 = parseInt($("#set2Pareja1").val()) || 0;
+            const set2Pareja2 = parseInt($("#set2Pareja2").val()) || 0;
+            const set3Pareja1 = parseInt($("#set3Pareja1").val()) || 0;
+            const set3Pareja2 = parseInt($("#set3Pareja2").val()) || 0;
+
+            const resultadoDTO = {
+                set1Pareja1: set1Pareja1,
+                set1Pareja2: set1Pareja2,
+                set2Pareja1: set2Pareja1,
+                set2Pareja2: set2Pareja2,
+                set3Pareja1: set3Pareja1,
+                set3Pareja2: set3Pareja2
+            };
+
+            console.log(JSON.stringify(resultadoDTO));
+            enEspera();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GrabarResultado", "Partido")",
+                data: JSON.stringify(resultadoDTO),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data == true) {
+                        alert("Resultado guardado exitosamente");
+                    } else {
+                        alert("Error");
+                    }
+                },
+                error: function (error) {
+                    alert("Error al guardar el resultado");
+                }
+            });
+        });
+    });
+</script>
+

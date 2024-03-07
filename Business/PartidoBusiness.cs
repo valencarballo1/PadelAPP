@@ -26,12 +26,16 @@ namespace Business
         {
             bool seUnio = false;
             PartidosCreadosUsuarios partido = _PartidoRepository.Get(idPartido);
+            Parejas pareja = _PartidoRepository.GetParejaByPartido(idPartido);
 
-            if(posicionJugador == 2)
+            if (posicionJugador == 2)
             {
-                if(partido.IdJugador2 == null)
+
+                if (partido.IdJugador2 == null)
                 {
                     partido.IdJugador2 = idUsuario;
+                    pareja.IdJugador2 = idUsuario;
+                    _PartidoRepository.AddOrUpdatePareja(pareja);
                     _PartidoRepository.Save(partido);
                     seUnio = true;
                 }
@@ -39,9 +43,12 @@ namespace Business
 
             if (posicionJugador == 3)
             {
+
                 if (partido.IdJugador3 == null)
                 {
                     partido.IdJugador3 = idUsuario;
+                    pareja.IdJugador3 = idUsuario;
+                    _PartidoRepository.AddOrUpdatePareja(pareja);
                     _PartidoRepository.Save(partido);
                     seUnio = true;
                 }
@@ -52,6 +59,8 @@ namespace Business
                 if (partido.IdJugador4 == null)
                 {
                     partido.IdJugador4 = idUsuario;
+                    pareja.IdJugador4 = idUsuario;
+                    _PartidoRepository.AddOrUpdatePareja(pareja);
                     _PartidoRepository.Save(partido);
                     seUnio = true;
                 }
@@ -73,6 +82,11 @@ namespace Business
         public List<PartidoDTO> GetPartidosDisponibles()
         {
             return _PartidoRepository.GetPartidosDisponibles();
+        }
+
+        public ParejaDTO GetParejasDTOByPartido(int idPartido)
+        {
+            return _PartidoRepository.GetParejasDTOByPartido(idPartido);
         }
     }
 }

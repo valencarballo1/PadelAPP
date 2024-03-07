@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
@@ -279,6 +280,66 @@ namespace Repository
 
                 });
                 return partidosLista;
+            }
+        }
+
+        public Parejas GetParejaByPartido(int idPartido)
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+                return db.Parejas.Where(p => p.IdPartido == idPartido).SingleOrDefault();
+            }
+        }
+
+        public ParejaDTO GetParejasDTOByPartido(int idPartido)
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+                Parejas pareja = db.Parejas.Include("PartidosCreadosUsuarios").Where(p => p.IdPartido == idPartido).SingleOrDefault();
+
+                UsuarioDTO jugador1 = _UsuarioRepository.GetPerfil(pareja.PartidosCreadosUsuarios.IdJugador1.Value);
+                UsuarioDTO jugador2 = null;
+                UsuarioDTO jugador3 = null;
+                UsuarioDTO jugador4 = null;
+
+                if (pareja.PartidosCreadosUsuarios.IdJugador2 != null)
+                {
+                    jugador2 = _UsuarioRepository.GetPerfil(pareja.PartidosCreadosUsuarios.IdJugador2.Value);
+
+                }
+
+                if (pareja.PartidosCreadosUsuarios.IdJugador3 != null)
+                {
+                    jugador3 = _UsuarioRepository.GetPerfil(pareja.PartidosCreadosUsuarios.IdJugador3.Value);
+
+                }
+
+                if (pareja.PartidosCreadosUsuarios.IdJugador4 != null)
+                {
+                    jugador4 = _UsuarioRepository.GetPerfil(pareja.PartidosCreadosUsuarios.IdJugador4.Value);
+
+                }
+
+
+
+                ParejaDTO parejaDTO = new ParejaDTO
+                {
+                    Id = idPartido,
+                    Usuario1 = jugador1.NombreUsuario,
+                    Usuario2 = jugador2.NombreUsuario,
+                    Usuario3 = jugador3.NombreUsuario,
+                    Usuario4 = jugador4.NombreUsuario
+                };
+                return parejaDTO;
+            }
+        }
+
+        public void AddOrUpdatePareja(Parejas pareja)
+        {
+            using(PadelAppEntities db = new PadelAppEntities())
+            {
+                db.Parejas.AddOrUpdate(pareja);
+                db.SaveChanges();
             }
         }
     }

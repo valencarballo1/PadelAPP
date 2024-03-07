@@ -14,6 +14,12 @@ namespace Data
     
     public partial class PartidosCreadosUsuarios
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PartidosCreadosUsuarios()
+        {
+            this.Parejas = new HashSet<Parejas>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> IdCanchaReservada { get; set; }
         public Nullable<int> IdJugador1 { get; set; }
@@ -26,5 +32,7 @@ namespace Data
         public virtual Usuario Usuario1 { get; set; }
         public virtual Usuario Usuario2 { get; set; }
         public virtual Usuario Usuario3 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Parejas> Parejas { get; set; }
     }
 }

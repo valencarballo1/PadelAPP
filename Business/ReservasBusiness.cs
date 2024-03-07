@@ -36,6 +36,9 @@ namespace Business
             Horarios reserva = new Horarios();
             CanchasReservadas canchasReservadas = new CanchasReservadas();
             PartidosCreadosUsuarios partidoCreado = new PartidosCreadosUsuarios();
+            Parejas pareja = new Parejas();
+            pareja.FechaAlta = DateTime.Now;
+            pareja.UsuarioAlta = "Automatico";
 
             reserva.HorarioDesde = horarioDesde;
             reserva.HorarioHasta = horarioHasta;
@@ -49,11 +52,16 @@ namespace Business
             if (jugadoresRestantes == 3)
             {
                 partidoCreado.IdJugador1 = idUsuario;
+                pareja.IdJugador1 = idUsuario;
+                
             }
             else if (jugadoresRestantes == 2)
             {
                 partidoCreado.IdJugador1 = idUsuario;
                 partidoCreado.IdJugador2 = idUsuario;
+                pareja.IdJugador1 = idUsuario;
+                pareja.IdJugador2 = idUsuario;
+
 
             }
             else if (jugadoresRestantes == 1)
@@ -61,8 +69,11 @@ namespace Business
                 partidoCreado.IdJugador1 = idUsuario;
                 partidoCreado.IdJugador2 = idUsuario;
                 partidoCreado.IdJugador3 = idUsuario;
+                pareja.IdJugador1 = idUsuario;
+                pareja.IdJugador2 = idUsuario;
+                pareja.IdJugador3 = idUsuario;
             }
-
+            partidoCreado.Parejas.Add(pareja);
             canchasReservadas.PartidosCreadosUsuarios.Add(partidoCreado);
             _HorariosRepository.Save(reserva);
 

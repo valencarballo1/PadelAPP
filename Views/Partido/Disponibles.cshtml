@@ -3,17 +3,19 @@
     ViewBag.Title = "Disponibles";
 }
 
-<div class="card">
-    <div class="card-header">
-        <h2 class="text-center">Partidos disponibles para unirse</h2>
-    </div>
-
-    <div class="card-body">
-        <div class="container">
-            <div id="partidos-container" class="row justify-content-center"></div>
+<div class="row col-md-12 d-flex justify-content-center p-5">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-header">
+            <h2 class="text-center">Partidos disponibles para unirse</h2>
         </div>
-    </div>
 
+        <div class="card-body">
+            <div class="container">
+                <div id="partidos-container" class="row justify-content-center"></div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <script>
@@ -52,12 +54,12 @@
         const fechaHasta = formatearHora(partido.HorarioHasta);
 
         card.innerHTML = `
-      <div class="card-body">
-        <h5 class="card-title text-center">Fecha: ${fechaPartido}</h5>
-        <h7 class="card-title text-center">Horario: ${fechaDesde} - ${fechaHasta}</h7>
-        <p class="card-text">Jugadores: ${partido.CantidadJugadores}</p>
-        <p class="card-text">Organizador: ${partido.UsuarioOrganizador}</p>
-        <a href="@Url.Action("Ver", "Partido")?idPartido=${partido.Id}" class="btn btn-primary">Unirme al Partido</a>
+      <div class="card-body row d-flex justify-content-center">
+        <h3 class="card-title text-center col-md-12">Fecha: ${fechaPartido}</h3>
+        <h5 class="card-title text-center col-md-12">Horario: ${fechaDesde} - ${fechaHasta}</h5>
+        <p class="card-text text-center col-md-6">Jugadores: ${partido.CantidadJugadores}</p>
+        <p class="card-text text-center col-md-6">Organizador: ${partido.UsuarioOrganizador}</p>
+        <a href="@Url.Action("Ver", "Partido")?idPartido=${partido.Id}" class="btn btn-primary col-md-4">Unirme al Partido</a>
       </div>
     `;
 

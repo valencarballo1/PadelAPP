@@ -60,7 +60,7 @@ namespace Data
             public decimal? Puntuacion3 { get; set; }
             public string Categoria4 { get; set; }
             public decimal? Puntuacion4 { get; set; }
-            public int IdUsuarioOrganiza {  get; set; }
+            public int IdUsuarioOrganiza { get; set; }
         }
 
         public class DetallePartidoDTO
@@ -78,6 +78,26 @@ namespace Data
             public int Id { get; set; }
             public string Nombre { get; set; }
             public double Puntuacion { get; set; }
+        }
+
+        public class ParejaDTO
+        {
+            public int Id { get; set; }
+            public string Usuario1 { get; set; }
+            public string Usuario2 { get; set; }
+            public string Usuario3 { get; set; }
+            public string Usuario4 { get; set; }
+
+        }
+
+        public class ResultadoDTO
+        {
+            public int set1Pareja1 { get; set; }
+            public int set1Pareja2 { get; set; }
+            public int set2Pareja1 { get; set; }
+            public int set2Pareja2 { get; set; }
+            public int set3Pareja1 { get; set; }
+            public int set3Pareja2 { get; set; }
         }
     }
 }

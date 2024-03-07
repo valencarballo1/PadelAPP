@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReservaPadel", "ReservaPadel.csproj", "{F7EB23D1-78C0-4028-AF80-9BAE3A9685A8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9E459419-AB93-4F7D-B4AE-FC4232A82CFD} = {9E459419-AB93-4F7D-B4AE-FC4232A82CFD}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{FD9DD5A1-C806-4721-A41D-48BF64676123}"
 EndProject
