@@ -324,7 +324,7 @@ namespace Repository
 
                 ParejaDTO parejaDTO = new ParejaDTO
                 {
-                    Id = idPartido,
+                    Id = pareja.IdPareja,
                     Usuario1 = jugador1.NombreUsuario,
                     Usuario2 = jugador2.NombreUsuario,
                     Usuario3 = jugador3.NombreUsuario,
@@ -339,6 +339,32 @@ namespace Repository
             using(PadelAppEntities db = new PadelAppEntities())
             {
                 db.Parejas.AddOrUpdate(pareja);
+                db.SaveChanges();
+            }
+        }
+
+        public Parejas GetParejaById(int idPareja)
+        {
+            using(PadelAppEntities db = new PadelAppEntities())
+            {
+                return db.Parejas.Where(p => p.IdPareja == idPareja).SingleOrDefault();
+            }
+        }
+
+        public void SaveResultado(PartidoResultado resultado)
+        {
+            using(PadelAppEntities db = new PadelAppEntities())
+            {
+                db.PartidoResultado.AddOrUpdate(resultado);
+                db.SaveChanges();
+            }
+        }
+
+        public void AddOrUpdatePerfil(Perfil perfil)
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+                db.Perfil.AddOrUpdate(perfil);
                 db.SaveChanges();
             }
         }

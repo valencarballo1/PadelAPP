@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cd605728fa074bf4a932f498ec0eaa50" Name="Diagram1">
+      <Diagram DiagramId="cd605728fa074bf4a932f498ec0eaa50" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="PadelAppModel.Canchas" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PadelAppModel.CanchasReservadas" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PadelAppModel.Horarios" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
@@ -32,7 +32,7 @@
         <AssociationConnector Association="PadelAppModel.FK__Parejas__IdJugad__656C112C" />
         <AssociationConnector Association="PadelAppModel.FK__Parejas__IdParti__66603565" />
         <EntityTypeShape EntityType="PadelAppModel.PartidoResultado" Width="1.5" PointX="13.5" PointY="11.375" />
-        <AssociationConnector Association="PadelAppModel.FK__PartidoRe__IdPar__693CA210" />
+        <AssociationConnector Association="PadelAppModel.FK__PartidoRe__IdPar__6D0D32F4" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

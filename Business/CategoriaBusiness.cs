@@ -19,7 +19,7 @@ namespace Business
         }
         public List<CategoriaDTO> GetAll()
         {
-            return _CategoriaRepository.GetAll();
+            return _CategoriaRepository.GetAllCategorias();
         }
     }
 }

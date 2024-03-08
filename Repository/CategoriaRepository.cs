@@ -18,7 +18,7 @@ namespace Repository
             }
         }
 
-        public List<CategoriaDTO> GetAll()
+        public List<CategoriaDTO> GetAllCategorias()
         {
             using(PadelAppEntities db = new PadelAppEntities())
             {
@@ -36,6 +36,14 @@ namespace Repository
                 });
 
                 return lista;
+            }
+        }
+
+        public Categorias GetByPuntuacion(double puntuacion)
+        {
+            using(PadelAppEntities db = new PadelAppEntities())
+            {
+                return db.Categorias.Where(c => c.PuntuacionMin <= puntuacion && c.PuntuacionMax >= puntuacion).SingleOrDefault();
             }
         }
 

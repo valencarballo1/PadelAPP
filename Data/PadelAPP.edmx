@@ -58,7 +58,7 @@
           <Key>
             <PropertyRef Name="IdPartido" />
           </Key>
-          <Property Name="IdPartido" Type="int" Nullable="false" />
+          <Property Name="IdPartido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdPareja" Type="int" />
           <Property Name="Set1Pareja1" Type="int" />
           <Property Name="Set1Pareja2" Type="int" />
@@ -218,7 +218,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PartidoRe__IdPar__693CA210">
+        <Association Name="FK__PartidoRe__IdPar__6D0D32F4">
           <End Role="Parejas" Type="Self.Parejas" Multiplicity="0..1" />
           <End Role="PartidoResultado" Type="Self.PartidoResultado" Multiplicity="*" />
           <ReferentialConstraint>
@@ -370,7 +370,7 @@
             <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
             <End Role="Parejas" EntitySet="Parejas" />
           </AssociationSet>
-          <AssociationSet Name="FK__PartidoRe__IdPar__693CA210" Association="Self.FK__PartidoRe__IdPar__693CA210">
+          <AssociationSet Name="FK__PartidoRe__IdPar__6D0D32F4" Association="Self.FK__PartidoRe__IdPar__6D0D32F4">
             <End Role="Parejas" EntitySet="Parejas" />
             <End Role="PartidoResultado" EntitySet="PartidoResultado" />
           </AssociationSet>
@@ -680,7 +680,7 @@
             <End Role="Parejas" EntitySet="Parejas" />
           </AssociationSet>
           <EntitySet Name="PartidoResultado" EntityType="PadelAppModel.PartidoResultado" />
-          <AssociationSet Name="FK__PartidoRe__IdPar__693CA210" Association="PadelAppModel.FK__PartidoRe__IdPar__693CA210">
+          <AssociationSet Name="FK__PartidoRe__IdPar__6D0D32F4" Association="PadelAppModel.FK__PartidoRe__IdPar__6D0D32F4">
             <End Role="Parejas" EntitySet="Parejas" />
             <End Role="PartidoResultado" EntitySet="PartidoResultado" />
           </AssociationSet>
@@ -757,7 +757,7 @@
           <NavigationProperty Name="Perfil2" Relationship="PadelAppModel.FK__Parejas__IdJugad__6477ECF3" FromRole="Parejas" ToRole="Perfil" />
           <NavigationProperty Name="Perfil3" Relationship="PadelAppModel.FK__Parejas__IdJugad__656C112C" FromRole="Parejas" ToRole="Perfil" />
           <NavigationProperty Name="PartidosCreadosUsuarios" Relationship="PadelAppModel.FK__Parejas__IdParti__66603565" FromRole="Parejas" ToRole="PartidosCreadosUsuarios" />
-          <NavigationProperty Name="PartidoResultado" Relationship="PadelAppModel.FK__PartidoRe__IdPar__693CA210" FromRole="Parejas" ToRole="PartidoResultado" />
+          <NavigationProperty Name="PartidoResultado" Relationship="PadelAppModel.FK__PartidoRe__IdPar__6D0D32F4" FromRole="Parejas" ToRole="PartidoResultado" />
         </EntityType>
         <Association Name="FK__Parejas__IdJugad__628FA481">
           <End Type="PadelAppModel.Perfil" Role="Perfil" Multiplicity="0..1" />
@@ -823,7 +823,7 @@
           <Key>
             <PropertyRef Name="IdPartido" />
           </Key>
-          <Property Name="IdPartido" Type="Int32" Nullable="false" />
+          <Property Name="IdPartido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdPareja" Type="Int32" />
           <Property Name="Set1Pareja1" Type="Int32" />
           <Property Name="Set1Pareja2" Type="Int32" />
@@ -833,9 +833,9 @@
           <Property Name="Set3Pareja2" Type="Int32" />
           <Property Name="FechaAlta" Type="DateTime" Precision="3" />
           <Property Name="Estado" Type="Boolean" />
-          <NavigationProperty Name="Parejas" Relationship="PadelAppModel.FK__PartidoRe__IdPar__693CA210" FromRole="PartidoResultado" ToRole="Parejas" />
+          <NavigationProperty Name="Parejas" Relationship="PadelAppModel.FK__PartidoRe__IdPar__6D0D32F4" FromRole="PartidoResultado" ToRole="Parejas" />
         </EntityType>
-        <Association Name="FK__PartidoRe__IdPar__693CA210">
+        <Association Name="FK__PartidoRe__IdPar__6D0D32F4">
           <End Type="PadelAppModel.Parejas" Role="Parejas" Multiplicity="0..1" />
           <End Type="PadelAppModel.PartidoResultado" Role="PartidoResultado" Multiplicity="*" />
           <ReferentialConstraint>

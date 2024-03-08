@@ -70,6 +70,7 @@
             const set2Pareja2 = parseInt($("#set2Pareja2").val()) || 0;
             const set3Pareja1 = parseInt($("#set3Pareja1").val()) || 0;
             const set3Pareja2 = parseInt($("#set3Pareja2").val()) || 0;
+            const idPareja = @Model.Id;
 
             const resultadoDTO = {
                 set1Pareja1: set1Pareja1,
@@ -80,12 +81,18 @@
                 set3Pareja2: set3Pareja2
             };
 
-            console.log(JSON.stringify(resultadoDTO));
+            const jsonResultado = JSON.stringify(resultadoDTO);
+
+            console.log(jsonResultado);
+            console.log(idPareja)
             enEspera();
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("GrabarResultado", "Partido")",
-                data: JSON.stringify(resultadoDTO),
+                data: JSON.stringify({
+                    idPareja: idPareja,
+                    resultado: resultadoDTO
+                }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {

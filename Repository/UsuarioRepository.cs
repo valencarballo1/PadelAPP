@@ -81,5 +81,13 @@ namespace Repository
                 return perfil;
             }
         }
+
+        public Perfil GetPerfilById(int id)
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+                return db.Perfil.Where(p => p.IdUsuario == id).SingleOrDefault();
+            }
+        }
     }
 }

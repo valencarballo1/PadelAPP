@@ -299,9 +299,10 @@ namespace ReservaPadel.Controllers
             return Json(partidos, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GrabarResultado(ResultadoDTO resultado)
+        public JsonResult GrabarResultado(int idPareja, ResultadoDTO resultado)
         {
-            bool grabo = true;
+            bool grabo = _PartidoBusiness.GrabarResultado(idPareja, resultado);
+
             return Json(grabo);
         }
     }   
