@@ -99,5 +99,13 @@ namespace Data
             public int set3Pareja1 { get; set; }
             public int set3Pareja2 { get; set; }
         }
+
+        public class RankingDTO
+        {
+            public int Posicion { get; set; }
+            public string Usuario { get; set; }
+            public string FotoPerfil { get; set; }
+            public decimal Puntuacion { get; set; }
+        }
     }
 }

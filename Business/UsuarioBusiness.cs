@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Data.DTO;
 
 namespace Business
 {
@@ -64,6 +65,11 @@ namespace Business
         public bool EsAdmin(int idUsuario)
         {
             return _CategoriaRepository.EsAdmin(idUsuario);
+        }
+
+        public List<RankingDTO> GetRanking()
+        {
+            return _UsuarioRepository.GetRanking();
         }
     }
 }

@@ -153,8 +153,6 @@
     <Content Include="Content\CSSADMIN\sb-admin-2.css" />
     <Content Include="Content\CSSADMIN\sb-admin-2.min.css" />
     <Content Include="Content\CssHome\StyleHome.css" />
-    <Content Include="Content\fondoImagen.jpg" />
-    <Content Include="Content\fondoPadel.jpeg" />
     <Content Include="Content\fontawesome-free\attribution.js" />
     <Content Include="Content\fontawesome-free\css\all.css" />
     <Content Include="Content\fontawesome-free\css\all.min.css" />
@@ -193,7 +191,6 @@
     <Content Include="Content\fontawesome-free\webfonts\fa-solid-900.svg" />
     <Content Include="Content\js\sb-admin-2.js" />
     <Content Include="Content\js\sb-admin-2.min.js" />
-    <Content Include="Content\PruebaFondo.jpeg" />
     <Content Include="Content\slick-1.8.1\.gitignore" />
     <Content Include="Content\slick-1.8.1\index.html" />
     <Content Include="Content\slick-1.8.1\slick\ajax-loader.gif" />
@@ -208,7 +205,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="imgPerfiles\AgregarAPartido.png" />
     <Content Include="imgPerfiles\agustin.tapia.jpeg" />
-    <Content Include="imgPerfiles\fondoCancha.jpg" />
     <Content Include="imgPerfiles\LogoPadel.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -323,6 +319,7 @@
     <Content Include="Views\Administracion\Reservas.cshtml" />
     <Content Include="Views\Shared\LayoutAdmin.cshtml" />
     <Content Include="Views\Partido\Resultado.cshtml" />
+    <Content Include="Views\Home\Ranking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

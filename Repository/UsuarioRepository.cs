@@ -89,5 +89,25 @@ namespace Repository
                 return db.Perfil.Where(p => p.IdUsuario == id).SingleOrDefault();
             }
         }
+
+        public List<RankingDTO> GetRanking()
+        {
+            using(PadelAppEntities db = new PadelAppEntities())
+            {
+                List<RankingDTO> ranking = new List<RankingDTO>();
+                int posicion = 0;
+                List<Perfil> listaPerfil = db.Perfil.Include("Usuario").OrderByDescending(o => o.Puntuacion).ToList();
+
+                listaPerfil.ForEach(l =>
+                {
+                    RankingDTO player = new RankingDTO();
+                    player.Usuario = l.Usuario.NombreUsuario;
+                    player.Posicion = ++posicion;
+                    player.Puntuacion = l.Puntuacion.Value;
+                });
+
+                return ranking;
+            }
+        }
     }
 }

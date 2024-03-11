@@ -162,5 +162,18 @@ namespace ReservaPadel.Controllers
             return Json(new { estaActivo, usuarioNombre, usuarioImg }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetRanking()
+        {
+            List<RankingDTO> lista = _UsuarioBusiness.GetRanking();
+
+            lista.ForEach(l =>
+            {
+                string rutaDirectorio = Url.Content("~/" + "imgPerfiles/");
+                string nombreArchivo = l.;
+                string rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                l.FotoPerfil = rutaCompleta;
+            });
+            return Json(lista);
+        }
     }
 }

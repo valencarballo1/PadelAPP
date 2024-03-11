@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Ranking";
+}
+<style>
+    #padelTable thead th {
+        background-color: #3498db;
+        color: #fff;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="card border-left-primary shadow py-2 col-md-12 col-lg-12 col-sm-12">
+        <div class="table-responsive">
+            <table id="padelTable" class="display responsive">
+                <thead>
+                    <tr>
+                        <th class="text-center">POSICION</th>
+                        <th class="text-center">JUGADOR</th>
+                        <th class="text-center">PUNTOS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">
+                            <img src="https://www.padelfip.com/wp-content/uploads/2023/02/17-Garrido-2.png" alt="Imagen Jugador 1" class="ultimos-img mx-auto"> Javier Garrido
+                        </td>
+                        <td class="text-center">1000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Inicializa DataTable en la tabla con el id "padelTable"
+    $(document).ready(function () {
+        $('#padelTable').DataTable();
+    });
+</script>
