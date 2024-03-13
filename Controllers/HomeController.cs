@@ -21,7 +21,7 @@ namespace ReservaPadel.Controllers
         {
             return View();
         }
-        
+
         public ActionResult Reserva()
         {
             return View();
@@ -36,5 +36,11 @@ namespace ReservaPadel.Controllers
         {
             return View();
         }
+
+        public ActionResult Ranking()
+        {
+            return View();
+        }
+
     }
 }

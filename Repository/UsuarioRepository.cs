@@ -59,9 +59,10 @@ namespace Repository
             {
                 UsuarioDTO perfil;
                 string usuNombre = usuarioNombre.ToLower();
-                Usuario usuario = db.Usuario.Include("Perfil").Where(u => u.NombreUsuario == usuNombre && u.Contrasena == contrasena).SingleOrDefault();
+                Usuario usuario = db.Usuario.Include("Perfil").Where(u => u.NombreUsuario == usuNombre).SingleOrDefault();
+                bool contraTrue = BCrypt.Net.BCrypt.Verify(contrasena, usuario.Contrasena);
 
-                if (usuario != null)
+                if (usuario != null && contraTrue)
                 {
                     perfil = new UsuarioDTO
                     {
@@ -79,6 +80,36 @@ namespace Repository
                 }
 
                 return perfil;
+            }
+        }
+
+        public Perfil GetPerfilById(int id)
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+                return db.Perfil.Where(p => p.IdUsuario == id).SingleOrDefault();
+            }
+        }
+
+        public List<RankingDTO> GetRanking()
+        {
+            using(PadelAppEntities db = new PadelAppEntities())
+            {
+                List<RankingDTO> ranking = new List<RankingDTO>();
+                int posicion = 0;
+                List<Perfil> listaPerfil = db.Perfil.Include("Usuario").OrderByDescending(o => o.Puntuacion).ToList();
+
+                listaPerfil.ForEach(l =>
+                {
+                    RankingDTO player = new RankingDTO();
+                    player.Usuario = l.Usuario.NombreUsuario;
+                    player.Posicion = ++posicion;
+                    player.Puntuacion = l.Puntuacion.Value;
+                    player.FotoPerfil = l.FotoPerfil;
+                    ranking.Add(player);
+                });
+
+                return ranking;
             }
         }
     }

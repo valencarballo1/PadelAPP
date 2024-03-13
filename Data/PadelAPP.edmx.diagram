@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cd605728fa074bf4a932f498ec0eaa50" Name="Diagram1">
+      <Diagram DiagramId="cd605728fa074bf4a932f498ec0eaa50" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="PadelAppModel.Canchas" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PadelAppModel.CanchasReservadas" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PadelAppModel.Horarios" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PadelAppModel.PartidosCreadosUsuarios" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PadelAppModel.Perfil" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PadelAppModel.PartidosCreadosUsuarios" Width="1.5" PointX="14.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PadelAppModel.Perfil" Width="1.5" PointX="2.125" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="PadelAppModel.Usuario" Width="1.5" PointX="10.25" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="PadelAppModel.FK__CanchasRe__IdCan__403A8C7D" ManuallyRouted="false" />
         <AssociationConnector Association="PadelAppModel.FK__CanchasRe__IdHor__412EB0B6" ManuallyRouted="false" />
@@ -20,18 +20,19 @@
         <AssociationConnector Association="PadelAppModel.FK__PartidosC__IdJug__47DBAE45" ManuallyRouted="false" />
         <AssociationConnector Association="PadelAppModel.FK__PartidosC__IdJug__48CFD27E" ManuallyRouted="false" />
         <AssociationConnector Association="PadelAppModel.FK__Perfil__IdUsuari__3D5E1FD2" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="PadelAppModel.Categorias" Width="1.5" PointX="7.375" PointY="5.875" />
+        <EntityTypeShape EntityType="PadelAppModel.Categorias" Width="1.5" PointX="8.125" PointY="9.5" />
         <AssociationConnector Association="PadelAppModel.FK__Perfil__Categori__4BAC3F29" />
         <EntityTypeShape EntityType="PadelAppModel.PrecioCancha" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="PadelAppModel.RecaudacionCancha" Width="1.5" PointX="5.25" PointY="9" />
         <AssociationConnector Association="PadelAppModel.FK__Recaudaci__Canch__52593CB8" />
-        <EntityTypeShape EntityType="PadelAppModel.Parejas" Width="1.5" PointX="5.25" PointY="12.625" />
-        <EntityTypeShape EntityType="PadelAppModel.PartidoResultado" Width="1.5" PointX="7.5" PointY="9.5" />
-        <AssociationConnector Association="PadelAppModel.FK__PartidoRe__IdCan__5BE2A6F2" />
-        <AssociationConnector Association="PadelAppModel.FK__Parejas__IdJugad__5535A963" />
-        <AssociationConnector Association="PadelAppModel.FK__Parejas__IdJugad__5629CD9C" />
-        <AssociationConnector Association="PadelAppModel.FK__PartidoRe__IdPar__5CD6CB2B" />
-        <AssociationConnector Association="PadelAppModel.FK__PartidoRe__IdPar__5DCAEF64" />
+        <EntityTypeShape EntityType="PadelAppModel.Parejas" Width="2" PointX="10.75" PointY="11.125" />
+        <AssociationConnector Association="PadelAppModel.FK__Parejas__IdJugad__628FA481" />
+        <AssociationConnector Association="PadelAppModel.FK__Parejas__IdJugad__6383C8BA" />
+        <AssociationConnector Association="PadelAppModel.FK__Parejas__IdJugad__6477ECF3" />
+        <AssociationConnector Association="PadelAppModel.FK__Parejas__IdJugad__656C112C" />
+        <AssociationConnector Association="PadelAppModel.FK__Parejas__IdParti__66603565" />
+        <EntityTypeShape EntityType="PadelAppModel.PartidoResultado" Width="1.5" PointX="13.5" PointY="11.375" />
+        <AssociationConnector Association="PadelAppModel.FK__PartidoRe__IdPar__6D0D32F4" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

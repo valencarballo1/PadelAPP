@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Ranking";
+}
+<style>
+    #padelTable thead th {
+        background-color: #3498db;
+        color: #fff;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="card border-left-primary shadow py-2 col-md-12 col-lg-12 col-sm-12">
+        <div class="table-responsive">
+            <table id="padelTable" class="display responsive">
+                <thead>
+                    <tr>
+                        <th class="text-center">POSICION</th>
+                        <th class="text-center">JUGADOR</th>
+                        <th class="text-center">PUNTOS</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const padelTable = $('#padelTable').DataTable({
+            responsive: true,
+        });
+
+        $.ajax({
+            url: "@Url.Action("GetRanking", "Usuario")",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                padelTable.clear();
+
+                $.each(data, function (index, jugador) {
+                    const rowData = [
+                        `<div class='text-center'>${jugador.Posicion}</div>`,
+                        `<div class='text-center'><img src='${jugador.FotoPerfil}' alt='Imagen Jugador ${jugador.Usuario}' class='ultimos-img mx-auto'>${jugador.Usuario}</div>`,
+                        `<div class='text-center'>${jugador.Puntuacion}</div>`
+                    ];
+                    padelTable.row.add(rowData);
+                });
+                padelTable.draw();
+            }
+        });
+    });
+</script>

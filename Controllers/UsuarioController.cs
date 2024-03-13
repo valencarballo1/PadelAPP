@@ -49,6 +49,7 @@ namespace ReservaPadel.Controllers
             }
             else
             {
+
                 id = _UsuarioBusiness.Registrarme(nombre, apellido, celular, usuario, contrasena, categoriaId);
             }
 
@@ -162,5 +163,18 @@ namespace ReservaPadel.Controllers
             return Json(new { estaActivo, usuarioNombre, usuarioImg }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetRanking()
+        {
+            List<RankingDTO> lista = _UsuarioBusiness.GetRanking();
+
+            lista.ForEach(l =>
+            {
+                string rutaDirectorio = Url.Content("~/" + "imgPerfiles/");
+                string nombreArchivo = l.FotoPerfil;
+                string rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                l.FotoPerfil = rutaCompleta;
+            });
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
     }
 }

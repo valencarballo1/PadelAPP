@@ -199,6 +199,12 @@ namespace ReservaPadel.Controllers
             return PartialView(reserva);
         }
 
+        public ActionResult Resultado(int idPartido)
+        {
+            ParejaDTO parejas = _PartidoBusiness.GetParejasDTOByPartido(idPartido);
+            return View(parejas);
+        }
+
         public JsonResult Unirse(int idPartido, int idUsuario, int posicionJugador)
         {
             bool seUnio = _PartidoBusiness.Unirse(idPartido, idUsuario, posicionJugador);
@@ -292,5 +298,12 @@ namespace ReservaPadel.Controllers
             });
             return Json(partidos, JsonRequestBehavior.AllowGet);
         }
-    }
+
+        public JsonResult GrabarResultado(int idPareja, ResultadoDTO resultado)
+        {
+            bool grabo = _PartidoBusiness.GrabarResultado(idPareja, resultado);
+
+            return Json(grabo);
+        }
+    }   
 }

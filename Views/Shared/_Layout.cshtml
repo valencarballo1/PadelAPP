@@ -86,8 +86,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Usuarios:</h6>
                         <a class="collapse-item" href="@Url.Action("Perfil", "Usuario")">Mi perfil</a>
-                        <a class="collapse-item" href="@Url.Action("Index", "Home")">Ver partidos creados</a>
-                        <a class="collapse-item" href="@Url.Action("Index", "Home")">Ver ranking</a>
+                        <a class="collapse-item" href="@Url.Action("Disponibles", "Partido")">Ver partidos creados</a>
+                        <a class="collapse-item" href="@Url.Action("Ranking", "Home")">Ver ranking</a>
                     </div>
                 </div>
             </li>
@@ -285,7 +285,7 @@
 
                 </nav>
 
-                <div class="mi-container">
+                <div class="container">
                     @RenderBody()
                 </div>
             </div>
