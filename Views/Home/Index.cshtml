@@ -2,55 +2,51 @@
     ViewBag.Title = "Padel APP";
 }
 
-<div class="align-items-center">
-    <div class="row col-md-12 d-flex justify-content-lg-between justify-content-md-between justify-content-center p-5">
-        <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-lg-5 col-sm-12 mt-2">
-            <div class="card-header text-center">
-                <h3>RESERVA TU CANCHA</h3>
-            </div>
-            <div class="card-body row align-items-center no-gutters align-items-center">
-                <div class="col-md-12">
-                    <p class="lead text-center">Reserva tus horarios y disfruta de nuestros servicios.</p>
-                </div>
-                <div class="col-md-12 d-flex justify-content-center">
-                    <div>
-                        <a class="btn btn-success" href="@Url.Action("Reserva", "Home")"><i class="bi bi-calendar-plus">Reservar</i></a>
-                    </div>
-                </div>
-            </div>
+<div class="row d-flex justify-content-lg-between justify-content-md-between justify-content-center">
+    <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-lg-5 col-sm-12 mt-2">
+        <div class="card-header text-center">
+            <h3>RESERVA TU CANCHA</h3>
         </div>
-
-        <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-sm-12 col-lg-5 mt-2">
-            <div class="card-header text-center">
-                <h3>CREA TU PARTIDO</h3>
+        <div class="card-body row align-items-center no-gutters align-items-center">
+            <div class="col-md-12">
+                <p class="lead text-center">Reserva tus horarios y disfruta de nuestros servicios.</p>
             </div>
-            <div class="card-body">
-                <div class="col-md-12 text-center">
-                    <p class="lead text-center">Reserva tu cancha y ¡arma tu partido! 🎾 Si faltan jugadores, otros podrán unirse a tu reserva para disfrutar juntos del juego. 🤝</p>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <a class="btn btn-success" href="@Url.Action("Disponibles", "Partido")"><i class="bi bi-joystick">Unirse</i></a>
-                    <a class="btn btn-success" href="@Url.Action("Crear", "Partido")"><i class="bi bi-calendar-plus">Crear</i></a>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="col-md-12 row m-2">
-        <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-12">
-            <div class="card-header text-center">
-                <h3>Partidos disponibles</h3>
-            </div>
-            <div class="card-body">
-                <div id="partidosContainer" class="slider responsive">
-                    <!-- Se generará dinámicamente aquí -->
+            <div class="col-md-12 d-flex justify-content-center">
+                <div>
+                    <a class="btn btn-success" href="@Url.Action("Reserva", "Home")"><i class="bi bi-calendar-plus">Reservar</i></a>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-sm-12 col-lg-5 mt-2">
+        <div class="card-header text-center">
+            <h3>CREA TU PARTIDO</h3>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12 text-center">
+                <p class="lead text-center">Reserva tu cancha y ¡arma tu partido! 🎾 Si faltan jugadores, otros podrán unirse a tu reserva para disfrutar juntos del juego. 🤝</p>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a class="btn btn-success" href="@Url.Action("Disponibles", "Partido")"><i class="bi bi-joystick">Unirse</i></a>
+                <a class="btn btn-success" href="@Url.Action("Crear", "Partido")"><i class="bi bi-calendar-plus">Crear</i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-12 mt-2">
+        <div class="card-header text-center">
+            <h3>Partidos disponibles</h3>
+        </div>
+        <div class="card-body">
+            <div id="partidosContainer" class="slider responsive">
+                <!-- Se generará dinámicamente aquí -->
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 <script>
     $(document).ready(function () {

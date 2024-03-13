@@ -59,9 +59,10 @@ namespace Repository
             {
                 UsuarioDTO perfil;
                 string usuNombre = usuarioNombre.ToLower();
-                Usuario usuario = db.Usuario.Include("Perfil").Where(u => u.NombreUsuario == usuNombre && u.Contrasena == contrasena).SingleOrDefault();
+                Usuario usuario = db.Usuario.Include("Perfil").Where(u => u.NombreUsuario == usuNombre).SingleOrDefault();
+                bool contraTrue = BCrypt.Net.BCrypt.Verify(contrasena, usuario.Contrasena);
 
-                if (usuario != null)
+                if (usuario != null && contraTrue)
                 {
                     perfil = new UsuarioDTO
                     {
@@ -104,6 +105,8 @@ namespace Repository
                     player.Usuario = l.Usuario.NombreUsuario;
                     player.Posicion = ++posicion;
                     player.Puntuacion = l.Puntuacion.Value;
+                    player.FotoPerfil = l.FotoPerfil;
+                    ranking.Add(player);
                 });
 
                 return ranking;

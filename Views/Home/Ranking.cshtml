@@ -20,24 +20,36 @@
                         <th class="text-center">PUNTOS</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-center">1</td>
-                        <td class="text-center">
-                            <img src="https://www.padelfip.com/wp-content/uploads/2023/02/17-Garrido-2.png" alt="Imagen Jugador 1" class="ultimos-img mx-auto"> Javier Garrido
-                        </td>
-                        <td class="text-center">1000</td>
-                    </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
     </div>
 </div>
 
-
 <script>
-    // Inicializa DataTable en la tabla con el id "padelTable"
     $(document).ready(function () {
-        $('#padelTable').DataTable();
+        const padelTable = $('#padelTable').DataTable({
+            responsive: true,
+        });
+
+        $.ajax({
+            url: "@Url.Action("GetRanking", "Usuario")",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                padelTable.clear();
+
+                $.each(data, function (index, jugador) {
+                    const rowData = [
+                        `<div class='text-center'>${jugador.Posicion}</div>`,
+                        `<div class='text-center'><img src='${jugador.FotoPerfil}' alt='Imagen Jugador ${jugador.Usuario}' class='ultimos-img mx-auto'>${jugador.Usuario}</div>`,
+                        `<div class='text-center'>${jugador.Puntuacion}</div>`
+                    ];
+                    padelTable.row.add(rowData);
+                });
+                padelTable.draw();
+            }
+        });
     });
 </script>

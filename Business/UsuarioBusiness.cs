@@ -21,30 +21,41 @@ namespace Business
         }
         public int Registrarme(string nombre, string apellido, string celular, string usuario, string contrasena, int categoriaID, string extension = "")
         {
-            double categoriaPuntuacion = _CategoriaRepository.GetPuntuacionById(categoriaID);
-            Usuario nuevoUsuario = new Usuario();
-            nuevoUsuario.EsAdmin = false;
-            Perfil usuarioPerfil = new Perfil();
+            Usuario usuarioExiste = _UsuarioRepository.GetByUsuarioNombre(usuario.ToLower());
 
-            nuevoUsuario.NombreUsuario = usuario.ToLower();
-            nuevoUsuario.Contrasena = contrasena;
-
-            usuarioPerfil.Nombre = nombre;
-            usuarioPerfil.Apellido = apellido;
-            usuarioPerfil.Celular = celular;
-            usuarioPerfil.CategoriaID = categoriaID;
-            usuarioPerfil.Puntuacion = Convert.ToDecimal(categoriaPuntuacion);
-            if (extension == "")
+            if (usuarioExiste == null)
             {
-                usuarioPerfil.FotoPerfil = nuevoUsuario.NombreUsuario;
+                double categoriaPuntuacion = _CategoriaRepository.GetPuntuacionById(categoriaID);
+                string contrasenaHash = BCrypt.Net.BCrypt.HashPassword(contrasena);
+                Usuario nuevoUsuario = new Usuario();
+                nuevoUsuario.EsAdmin = false;
+                Perfil usuarioPerfil = new Perfil();
+
+                nuevoUsuario.NombreUsuario = usuario.ToLower();
+                nuevoUsuario.Contrasena = contrasenaHash;
+
+                usuarioPerfil.Nombre = nombre;
+                usuarioPerfil.Apellido = apellido;
+                usuarioPerfil.Celular = celular;
+                usuarioPerfil.CategoriaID = categoriaID;
+                usuarioPerfil.Puntuacion = Convert.ToDecimal(categoriaPuntuacion);
+                if (extension == "")
+                {
+                    usuarioPerfil.FotoPerfil = "LogoPadel.jpg";
+                }
+                else
+                {
+                    usuarioPerfil.FotoPerfil = nuevoUsuario.NombreUsuario + extension;
+                }
+                nuevoUsuario.Perfil.Add(usuarioPerfil);
+
+                return _UsuarioRepository.Save(nuevoUsuario);
             }
             else
             {
-                usuarioPerfil.FotoPerfil = nuevoUsuario.NombreUsuario + extension;
+                throw new Exception("Usuario ya existe");
             }
-            nuevoUsuario.Perfil.Add(usuarioPerfil);
 
-            return _UsuarioRepository.Save(nuevoUsuario);
         }
 
         public Usuario GetByUsuarioNombre(string usuarioNombre)
