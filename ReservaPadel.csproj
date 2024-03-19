@@ -141,6 +141,7 @@
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
+    <Compile Include="Controllers\NotificacionController.cs" />
     <Compile Include="Controllers\PartidoController.cs" />
     <Compile Include="Controllers\ReservasController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -342,6 +343,7 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Categoria\" />
     <Folder Include="Views\Horario\" />
+    <Folder Include="Views\Notificacion\" />
     <Folder Include="Views\Reservas\" />
     <Folder Include="Views\Usuarios\" />
   </ItemGroup>

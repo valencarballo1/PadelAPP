@@ -23,6 +23,7 @@ namespace Data
             this.PartidosCreadosUsuarios2 = new HashSet<PartidosCreadosUsuarios>();
             this.PartidosCreadosUsuarios3 = new HashSet<PartidosCreadosUsuarios>();
             this.Perfil = new HashSet<Perfil>();
+            this.LecturasNotificaciones = new HashSet<LecturasNotificaciones>();
         }
     
         public int Id { get; set; }
@@ -42,5 +43,7 @@ namespace Data
         public virtual ICollection<PartidosCreadosUsuarios> PartidosCreadosUsuarios3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Perfil> Perfil { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LecturasNotificaciones> LecturasNotificaciones { get; set; }
     }
 }
