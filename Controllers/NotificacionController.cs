@@ -35,5 +35,17 @@ namespace ReservaPadel.Controllers
         {
             return _NotificacionBusiness.CrearNotificacion(tipoNotificacion, detalle);
         }
+
+        public JsonResult LeerNotifiaciones()
+        {
+            bool notificacionLeida = false;
+            HttpCookie cookie = Request.Cookies["UsuarioSesion"];
+            if (cookie != null)
+            {
+                string idUsuario = cookie["Id"];
+                notificacionLeida = _NotificacionBusiness.LeerNotificaciones(int.Parse(idUsuario));
+            }
+            return Json(notificacionLeida, JsonRequestBehavior.AllowGet);
+        }
     }
 }

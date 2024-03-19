@@ -59,6 +59,7 @@
           <Property Name="Detalle" Type="nvarchar" MaxLength="80" />
           <Property Name="FechaAlta" Type="datetime" />
           <Property Name="Estado" Type="bit" />
+          <Property Name="idCanchaReservada" Type="int" />
         </EntityType>
         <EntityType Name="Parejas">
           <Key>
@@ -739,13 +740,13 @@
             <End Role="PartidoResultado" EntitySet="PartidoResultado" />
           </AssociationSet>
           <EntitySet Name="LecturasNotificaciones" EntityType="PadelAppModel.LecturasNotificaciones" />
+          <AssociationSet Name="FK_LecturasNotificaciones_Usuarios" Association="PadelAppModel.FK_LecturasNotificaciones_Usuarios">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="LecturasNotificaciones" EntitySet="LecturasNotificaciones" />
+          </AssociationSet>
           <EntitySet Name="Notificaciones" EntityType="PadelAppModel.Notificaciones" />
           <AssociationSet Name="FK_LecturasNotificaciones_Notificaciones" Association="PadelAppModel.FK_LecturasNotificaciones_Notificaciones">
             <End Role="Notificaciones" EntitySet="Notificaciones" />
-            <End Role="LecturasNotificaciones" EntitySet="LecturasNotificaciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LecturasNotificaciones_Usuarios" Association="PadelAppModel.FK_LecturasNotificaciones_Usuarios">
-            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="LecturasNotificaciones" EntitySet="LecturasNotificaciones" />
           </AssociationSet>
           </EntityContainer>
@@ -919,9 +920,21 @@
           <Property Name="IdNotificacion" Type="Int32" />
           <Property Name="IdUsuario" Type="Int32" />
           <Property Name="FechaLectura" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Notificaciones" Relationship="PadelAppModel.FK_LecturasNotificaciones_Notificaciones" FromRole="LecturasNotificaciones" ToRole="Notificaciones" />
           <NavigationProperty Name="Usuario" Relationship="PadelAppModel.FK_LecturasNotificaciones_Usuarios" FromRole="LecturasNotificaciones" ToRole="Usuario" />
+          <NavigationProperty Name="Notificaciones" Relationship="PadelAppModel.FK_LecturasNotificaciones_Notificaciones" FromRole="LecturasNotificaciones" ToRole="Notificaciones" />
         </EntityType>
+        <Association Name="FK_LecturasNotificaciones_Usuarios">
+          <End Type="PadelAppModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="PadelAppModel.LecturasNotificaciones" Role="LecturasNotificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LecturasNotificaciones">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="Notificaciones">
           <Key>
             <PropertyRef Name="IdNotificacion" />
@@ -931,6 +944,7 @@
           <Property Name="Detalle" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="FechaAlta" Type="DateTime" Precision="3" />
           <Property Name="Estado" Type="Boolean" />
+          <Property Name="idCanchaReservada" Type="Int32" />
           <NavigationProperty Name="LecturasNotificaciones" Relationship="PadelAppModel.FK_LecturasNotificaciones_Notificaciones" FromRole="Notificaciones" ToRole="LecturasNotificaciones" />
         </EntityType>
         <Association Name="FK_LecturasNotificaciones_Notificaciones">
@@ -942,18 +956,6 @@
             </Principal>
             <Dependent Role="LecturasNotificaciones">
               <PropertyRef Name="IdNotificacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LecturasNotificaciones_Usuarios">
-          <End Type="PadelAppModel.Usuario" Role="Usuario" Multiplicity="0..1" />
-          <End Type="PadelAppModel.LecturasNotificaciones" Role="LecturasNotificaciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LecturasNotificaciones">
-              <PropertyRef Name="IdUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1104,6 +1106,7 @@
           <EntitySetMapping Name="Notificaciones">
             <EntityTypeMapping TypeName="PadelAppModel.Notificaciones">
               <MappingFragment StoreEntitySet="Notificaciones">
+                <ScalarProperty Name="idCanchaReservada" ColumnName="idCanchaReservada" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
                 <ScalarProperty Name="Detalle" ColumnName="Detalle" />

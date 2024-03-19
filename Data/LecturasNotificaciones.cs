@@ -19,7 +19,7 @@ namespace Data
         public Nullable<int> IdUsuario { get; set; }
         public Nullable<System.DateTime> FechaLectura { get; set; }
     
-        public virtual Notificaciones Notificaciones { get; set; }
         public virtual Usuario Usuario { get; set; }
+        public virtual Notificaciones Notificaciones { get; set; }
     }
 }

@@ -21,12 +21,30 @@ namespace Data
             }
         }
 
+        public bool LeerNotificaciones(List<LecturasNotificaciones> notificacionesLeidas)
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+                bool notiLeida = false;
+                if (notificacionesLeidas.Count > 0)
+                {
+                    notificacionesLeidas.ForEach(n =>
+                    {
+                        db.LecturasNotificaciones.AddOrUpdate(n);
+                    });
+                    db.SaveChanges();
+                    notiLeida = true;
+                }
+                return notiLeida;
+            }
+        }
+
         public bool SaveNotificacion(Notificaciones notificacion)
         {
-            using(PadelAppEntities db = new PadelAppEntities())
+            using (PadelAppEntities db = new PadelAppEntities())
             {
-                bool grabo = false; ;
-                if(notificacion != null)
+                bool grabo = false;
+                if (notificacion != null)
                 {
                     db.Notificaciones.AddOrUpdate(notificacion);
                     db.SaveChanges();

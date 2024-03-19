@@ -85,7 +85,9 @@
                 <div class="collapse" id="collapsePages" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Usuarios:</h6>
-                        <a class="collapse-item" href="@Url.Action("Perfil", "Usuario")">Mi perfil</a>
+                        <div class="hidden" id="miPerfilPaginas">
+                            <a class="collapse-item" href="@Url.Action("Perfil", "Usuario")">Mi perfil</a>
+                        </div>
                         <a class="collapse-item" href="@Url.Action("Disponibles", "Partido")">Ver partidos creados</a>
                         <a class="collapse-item" href="@Url.Action("Ranking", "Home")">Ver ranking</a>
                     </div>
@@ -241,6 +243,7 @@
                         $('#liPerfil').removeClass('hidden');
                         $('#btnInicioSesion').addClass('hidden');
                         $('#notificacion').removeClass('hidden');
+                        $('#miPerfilPaginas').removeClass('hidden');
                         llenarNotificaciones();
 
                     } else {
@@ -280,19 +283,33 @@
         }
 
         $('#alertDropdownIcon').click(function (event) {
-            // Evitar que el enlace predeterminado se ejecute
             event.preventDefault();
-            // Mostrar el menú desplegable
             $('#notificacion .dropdown-menu').toggleClass('show');
+
+            $.ajax({
+                url: "@Url.Action("LeerNotifiaciones", "Notificacion")",
+                type: 'GET',
+                success: function (data) {
+                    if (data == true) {
+                        console.log("Notificaciones leidas");
+                        $('#contadorNotificaciones').text('');
+
+                    } else {
+                        console.log("No existen notificaciones");
+                    }
+                },
+                errror: function () {
+                    console.log("Error server");
+                }
+            });
         });
 
-        // Ocultar el menú desplegable cuando se haga clic fuera de él
         $(document).click(function (event) {
             var target = $(event.target);
             if (!target.closest('#notificacion').length && $('.dropdown-menu').hasClass('show')) {
                 $('.dropdown-menu').removeClass('show');
             }
-        }); 
+        });
 
         function llenarNotificaciones() {
             $.ajax({
@@ -302,21 +319,24 @@
                     if (data.length > 0) {
                         $('#contadorNotificaciones').text(data.length);
                         const notificacionesDiv = $('<div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="alertsDropdown"></div>');
+                        let detalleNotificacion;
                         data.forEach(function (notificacion) {
                             let icono;
                             if (notificacion.TipoNotificacion === 1) {
+                                const verPartido = "@Url.Action("Ver", "Partido")?idPartido=" + data.idCanchaReservada;
                                 icono = '<i class="fa-solid fa-table-tennis-paddle-ball fa-lg" style="color: #63E6BE;"><circle cx="8" cy="8" r="8"/></i>';
-                            } else {
-                                icono = '<i class="fas fa-info-circle"></i>';
+                                detalleNotificacion = $('<a href="verPartido" class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3">' + icono + '</div><div>' + notificacion.Detalle + '</div></a>');
+                            } else if (notificacion.TipoNotificacion === 2) {
+                                icono = '<i class="fas fa-exclamation fa-lg" style="color: #74C0FC;"></i>';
+                                detalleNotificacion = $('<div class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3">' + icono + '</div><div>' + notificacion.Detalle + '</div></div>');
                             }
-                            const detalleNotificacion = $('<div class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3">' + icono + '</div><div>' + notificacion.Detalle + '</div></div>');
                             notificacionesDiv.append(detalleNotificacion);
                         });
                         $('#notificacion').append(notificacionesDiv);
 
-                         
+
                     } else {
-                        
+
                     }
                 },
                 error: function () {

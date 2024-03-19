@@ -34,9 +34,9 @@
         <EntityTypeShape EntityType="PadelAppModel.PartidoResultado" Width="1.5" PointX="13.5" PointY="11.375" />
         <AssociationConnector Association="PadelAppModel.FK__PartidoRe__IdPar__6D0D32F4" />
         <EntityTypeShape EntityType="PadelAppModel.LecturasNotificaciones" Width="1.5" PointX="12.5" PointY="0.75" />
-        <EntityTypeShape EntityType="PadelAppModel.Notificaciones" Width="1.5" PointX="10.25" PointY="6" />
-        <AssociationConnector Association="PadelAppModel.FK_LecturasNotificaciones_Notificaciones" />
         <AssociationConnector Association="PadelAppModel.FK_LecturasNotificaciones_Usuarios" />
+        <EntityTypeShape EntityType="PadelAppModel.Notificaciones" Width="1.5" PointX="5.375" PointY="1" />
+        <AssociationConnector Association="PadelAppModel.FK_LecturasNotificaciones_Notificaciones" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

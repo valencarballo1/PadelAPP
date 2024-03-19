@@ -25,6 +25,7 @@ namespace Data
         public string Detalle { get; set; }
         public Nullable<System.DateTime> FechaAlta { get; set; }
         public Nullable<bool> Estado { get; set; }
+        public Nullable<int> idCanchaReservada { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LecturasNotificaciones> LecturasNotificaciones { get; set; }
