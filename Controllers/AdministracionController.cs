@@ -23,49 +23,46 @@ namespace ReservaPadel.Controllers
         }
         public ActionResult Index()
         {
-            //HttpCookie cookie = Request.Cookies["UsuarioSesion"];
-            //if (cookie != null)
-            //{
-            //    string idUsuario = cookie["Id"];
-            //    bool esAdmin = _UsuarioBusiness.EsAdmin(int.Parse(idUsuario));
-            //    if (esAdmin)
-            //    {
-            //        return View();
-            //    }
-            //    else
-            //    {
-            //        return RedirectToAction("Index", "Home");
-            //    }
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-            return View();
+            HttpCookie cookie = Request.Cookies["UsuarioSesion"];
+            if (cookie != null)
+            {
+                string idUsuario = cookie["Id"];
+                bool esAdmin = _UsuarioBusiness.EsAdmin(int.Parse(idUsuario));
+                if (esAdmin)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult Reservas()
         {
-            //HttpCookie cookie = Request.Cookies["UsuarioSesion"];
-            //if (cookie != null)
-            //{
-            //    string idUsuario = cookie["Id"];
-            //    bool esAdmin = _UsuarioBusiness.EsAdmin(int.Parse(idUsuario));
-            //    if (esAdmin)
-            //    {
-            //        return View();
-            //    }
-            //    else
-            //    {
-            //        return RedirectToAction("Index", "Home");
-            //    }
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-            return View();
-
+            HttpCookie cookie = Request.Cookies["UsuarioSesion"];
+            if (cookie != null)
+            {
+                string idUsuario = cookie["Id"];
+                bool esAdmin = _UsuarioBusiness.EsAdmin(int.Parse(idUsuario));
+                if (esAdmin)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public JsonResult GetReservasAdmin(DateTime fecha)
@@ -99,6 +96,12 @@ namespace ReservaPadel.Controllers
         {
             List<decimal> recaudaciones = _AdministracionBusiness.GetRecaAllMeses();
             return Json(recaudaciones, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RecaudacionCanchaYExtras()
+        {
+            ReservasYExtras reservaYExtra = _AdministracionBusiness.RecaudacionCanchaYExtras();
+            return Json(reservaYExtra, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -82,5 +82,12 @@ namespace Business
         {
             return _UsuarioRepository.GetRanking();
         }
+
+        public bool UpdateCelular(string nuevoCelular, int idUsuario)
+        {
+            Perfil perfilActualiza = _UsuarioRepository.GetPerfilById(idUsuario);
+            perfilActualiza.Celular = nuevoCelular;
+            return _UsuarioRepository.SavePerfil(perfilActualiza);
+        }
     }
 }

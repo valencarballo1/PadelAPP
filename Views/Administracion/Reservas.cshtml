@@ -1,6 +1,7 @@
 ﻿
 @{
-    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+    ViewBag.Title = "Panel Reservas";
+
 }
 <div class="container-fluid">
     <div id="fechaSelector" class="d-flex justify-content-center">
@@ -174,6 +175,7 @@
         });
 
         finalizarTunro.addEventListener("click", function () {
+            enEspera();
             $.ajax({
                 url: '@Url.Action("FinalizarTurno", "Administracion")',
                 type: 'GET',
@@ -185,6 +187,7 @@
                 dataType: 'json',
 
                 success: function (data) {
+                    enEspera("chau");
                     if (data == true) {
                         Swal.fire({
                             title: "Turno finalizado!",
@@ -210,6 +213,7 @@
                     }
                 },
                 error: function (error) {
+                    enEspera("chau");
                     console.log(error);
                 }
             });
@@ -218,7 +222,7 @@
     }
 
     function darDeBaja(id) {
-
+        enEspera()
         $.ajax({
             url: '@Url.Action("DarDeBaja", "Administracion")',
             type: 'GET',
@@ -227,6 +231,7 @@
             },
             dataType: 'json',
             success: function (data) {
+                enEspera("chau");
                 if (data == true) {
                     Swal.fire({
                         title: "El turno se dio de baja!",
@@ -253,6 +258,7 @@
                 }
             },
             error: function (error) {
+                enEspera("chau");
                 console.log(error);
             }
         });

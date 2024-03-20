@@ -73,6 +73,7 @@
     <Compile Include="AdministracionBusiness.cs" />
     <Compile Include="CategoriaBusiness.cs" />
     <Compile Include="HorarioBusiness.cs" />
+    <Compile Include="NotificacionBusiness.cs" />
     <Compile Include="PartidoBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReservasBusiness.cs" />

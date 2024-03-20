@@ -36,5 +36,7 @@ namespace Data
         public virtual DbSet<RecaudacionCancha> RecaudacionCancha { get; set; }
         public virtual DbSet<Parejas> Parejas { get; set; }
         public virtual DbSet<PartidoResultado> PartidoResultado { get; set; }
+        public virtual DbSet<LecturasNotificaciones> LecturasNotificaciones { get; set; }
+        public virtual DbSet<Notificaciones> Notificaciones { get; set; }
     }
 }

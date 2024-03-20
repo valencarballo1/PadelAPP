@@ -1,6 +1,7 @@
 ﻿
 @{
-    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+    ViewBag.Title = "Administracion";
+
 }
 
 <body>
@@ -59,7 +60,7 @@
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Notificaciones
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="notificacionesCantidad"></div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -89,7 +90,7 @@
             <div class="col-xl-4 col-lg-5">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Tipo de recaudacion</h6>
                     </div>
                     <div class="card-body">
                         <div class="chart-pie pt-4 pb-2">
@@ -97,13 +98,10 @@
                         </div>
                         <div class="mt-4 text-center small">
                             <span class="mr-2">
-                                <i class="fas fa-circle text-primary"></i> Direct
+                                <i class="fas fa-circle text-primary"></i> Turno Cancha
                             </span>
                             <span class="mr-2">
-                                <i class="fas fa-circle text-success"></i> Social
-                            </span>
-                            <span class="mr-2">
-                                <i class="fas fa-circle text-info"></i> Referral
+                                <i class="fas fa-circle text-success"></i> Extras
                             </span>
                         </div>
                     </div>
@@ -122,6 +120,17 @@
         recaudacionMensual();
         recaudacionAnual();
         cargarDatosRecaudaciones();
+    });
+
+    $.ajax({
+        url: '@Url.Action("RecaudacionCanchaYExtras", "Administracion")',
+        type: 'GET',
+        success: function (data) {
+            configurarGraficoCanchaYExtra(data);
+        },
+        error: function () {
+            console.log('Error al obtener los datos de recaudación mensuales.');
+        }
     });
 
 
@@ -295,5 +304,56 @@
             }
         });
     }
+
+    function configurarGraficoCanchaYExtra(data) {
+        var ctx = document.getElementById("myPieChart").getContext('2d');
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ["Monto Cancha", "Monto Adicional"],
+                datasets: [{
+                    data: [data.TotalMontoCancha, data.TotalMontoAdicional],
+                    backgroundColor: ['#4e73df', '#1cc88a'],
+                    hoverBackgroundColor: ['#2e59d9', '#17a673'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                },
+                legend: {
+                    display: true
+                },
+                cutoutPercentage: 80,
+            },
+        });
+    }
+
+    function llenarNotificaciones() {
+    $.ajax({
+        url: "@Url.Action("Notificaciones", "Notificacion")",
+        type: 'GET',
+        success: function (data) {
+            if (data.length > 0) {
+                $('#notificacionesCantidad').text(data.length);
+            } else {
+
+            }
+        },
+        error: function () {
+            console.error('Error al verificar la sesión del usuario.');
+        }
+
+    });
+}
 
 </script>

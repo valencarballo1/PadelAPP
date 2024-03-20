@@ -86,6 +86,14 @@
     <Compile Include="Horarios.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>
+    <Compile Include="LecturasNotificaciones.cs">
+      <DependentUpon>PadelAPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notificaciones.cs">
+      <DependentUpon>PadelAPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificacionRepository.cs" />
+    <Compile Include="NOTIFICACIONTIPO.cs" />
     <Compile Include="PadelAPP.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

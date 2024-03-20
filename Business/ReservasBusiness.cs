@@ -14,11 +14,12 @@ namespace Business
     {
         private ReservasRepository _ReservasRepository;
         private HorariosRepository _HorariosRepository;
-
+        private NotificacionBusiness _NotificacionBusiness;
         public ReservasBusiness()
         {
             this._ReservasRepository = new ReservasRepository();
             this._HorariosRepository = new HorariosRepository();
+            this._NotificacionBusiness = new NotificacionBusiness();
         }
 
         public int CrearPartido(int idUsuario, int idCancha, string fechaSeleccionada, string horarioDeReserva, int duracion, int jugadoresRestantes)
@@ -76,23 +77,49 @@ namespace Business
             partidoCreado.Parejas.Add(pareja);
             canchasReservadas.PartidosCreadosUsuarios.Add(partidoCreado);
             _HorariosRepository.Save(reserva);
-
+            string detalle = "Partido creado " + day + "/" + month + "/" + year + " " + horarioDesde.Hour + ":" + horarioDesde.Minute + " " + horarioHasta.Hour + ":" + horarioHasta.Minute + " faltan " + jugadoresRestantes + " jugadores!";
+            bool notiCreada = _NotificacionBusiness.CrearNotificacion(NOTIFICACIONTIPO.PARTIDO_CREADO, detalle, partidoCreado.Id);
+            if(notiCreada == false)
+            {
+                throw new Exception("Error notificacion");
+            }
             return partidoCreado.Id;
         }
 
         public bool DarDeBaja(int idCancha)
         {
-            bool baja = false;
-
-            CanchasReservadas reserva = _ReservasRepository.GetCanchaReservada(idCancha);
-            if (reserva != null)
+            try
             {
-                reserva.Estado = ESTADO.BAJA;
-                _ReservasRepository.SaveCancha(reserva);
-                baja = true;
-            }
+                bool baja = false;
 
-            return baja;
+                CanchasReservadas reserva = _ReservasRepository.GetCanchaReservada(idCancha);
+                if (reserva != null)
+                {
+                    reserva.Estado = ESTADO.BAJA;
+                    _ReservasRepository.SaveCancha(reserva);
+                    baja = true;
+                }
+
+                string fecha = reserva.Horarios.HorarioDesde.Value.Day.ToString() + "/" + reserva.Horarios.HorarioDesde.Value.Month.ToString() + "/" + reserva.Horarios.HorarioDesde.Value.Year.ToString();
+
+                string horarioDesde = reserva.Horarios.HorarioDesde.Value.Hour.ToString()+ ":" + reserva.Horarios.HorarioDesde.Value.Minute.ToString();
+                string horarioHasta = reserva.Horarios.HorarioHasta.Value.Hour.ToString() + ":" + reserva.Horarios.HorarioHasta.Value.Minute.ToString();
+
+                string detalle = "Se libero el dia: " + fecha + " desde: " + horarioDesde + " hasta: " + horarioHasta;
+
+                bool notiCreada = _NotificacionBusiness.CrearNotificacion(NOTIFICACIONTIPO.HORARIO_BAJA, detalle);
+                if(notiCreada == false)
+                {
+                    throw new Exception("Error notificacion");
+                }
+                return baja;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public bool FinalizarTurno(int idCancha, decimal importeCancha, decimal adicional)

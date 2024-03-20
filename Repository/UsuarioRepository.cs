@@ -46,7 +46,8 @@ namespace Repository
                     Celular = usuario.Perfil.SingleOrDefault().Celular,
                     FotoPerfil = usuario.Perfil.SingleOrDefault().FotoPerfil,
                     Categoria = usuario.Perfil.SingleOrDefault().Categorias.Nombre,
-                    Puntuacion = usuario.Perfil.SingleOrDefault().Puntuacion.Value
+                    Puntuacion = usuario.Perfil.SingleOrDefault().Puntuacion.Value,
+                    EsAdmin = usuario.EsAdmin.Value
                 };
 
                 return perfil;
@@ -110,6 +111,21 @@ namespace Repository
                 });
 
                 return ranking;
+            }
+        }
+
+        public bool SavePerfil(Perfil perfil)
+        {
+            using(PadelAppEntities db = new PadelAppEntities())
+            {
+                bool save = false;
+                if(perfil != null)
+                {
+                    db.Perfil.AddOrUpdate(perfil);
+                    db.SaveChanges();
+                    save = true;
+                }
+                return save;
             }
         }
     }
