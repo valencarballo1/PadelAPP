@@ -130,17 +130,33 @@
 
                 // Deshabilitar los dos horarios anteriores y el primer posterior si la duración es de 90 minutos
                 console.log(horario.Duracion);
-                if (horario.Duracion == 90 && duracion == 90) {
+                if ((horario.Duracion == 90 && duracion == 90) || (horario.Duracion == 60 && duracion == 90)) {
                     const indice = $('#horario option').index(horarioNoDisponible);
 
-                    for (let i = indice - 1; i >= indice - 2 && i >= 0; i--) {
-                        $('#horario option').eq(i).prop('disabled', true)
-                            .removeClass('text-light bg-success').addClass('text-light bg-danger');
+
+                    if (horario.Duracion == 90) {
+
+                        for (let i = indice - 1; i >= indice - 2 && i >= 0; i--) {
+                            $('#horario option').eq(i).prop('disabled', true)
+                                .removeClass('text-light bg-success').addClass('text-light bg-danger');
+                        }
+
+                        for (let i = indice + 1; i <= indice + 2 && i < $('#horario option').length; i++) {
+                            $('#horario option').eq(i).prop('disabled', true)
+                                .removeClass('text-light bg-success').addClass('text-light bg-danger');
+                        }
                     }
 
-                    for (let i = indice + 1; i <= indice + 2 && i < $('#horario option').length; i++) {
-                        $('#horario option').eq(i).prop('disabled', true)
-                            .removeClass('text-light bg-success').addClass('text-light bg-danger');
+                    if (horario.Duracion == 60) {
+                        for (let i = indice - 1; i >= indice - 2 && i >= 0; i--) {
+                            $('#horario option').eq(i).prop('disabled', true)
+                                .removeClass('text-light bg-success').addClass('text-light bg-danger');
+                        }
+
+                        for (let i = indice + 1; i <= indice + 1 && i < $('#horario option').length; i++) {
+                            $('#horario option').eq(i).prop('disabled', true)
+                                .removeClass('text-light bg-success').addClass('text-light bg-danger');
+                        }
                     }
                 } else {
                     const indice = $('#horario option').index(horarioNoDisponible);
