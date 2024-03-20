@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Data.DTO;
 
 namespace Business
 {
@@ -36,7 +37,7 @@ namespace Business
             }
         }
 
-        public List<Notificaciones> GetAll(int idUsuario)
+        public List<NotificacionesDTO> GetAll(int idUsuario)
         {
             return _NotificacionRepository.GetAll(idUsuario);
         }
@@ -45,7 +46,7 @@ namespace Business
         {
             try
             {
-                List<Notificaciones> notificacionesNoLeidas = _NotificacionRepository.GetAll(idUsuario);
+                List<NotificacionesDTO> notificacionesNoLeidas = _NotificacionRepository.GetAll(idUsuario);
                 List<LecturasNotificaciones> notifiacionesLeidas = new List<LecturasNotificaciones>();
 
                 notificacionesNoLeidas.ForEach(n =>

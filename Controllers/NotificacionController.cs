@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static Data.DTO;
 
 namespace ReservaPadel.Controllers
 {
@@ -22,7 +23,7 @@ namespace ReservaPadel.Controllers
             if (cookie != null)
             {
                 string idUsuario = cookie["Id"];
-                List<Notificaciones> lista = _NotificacionBusiness.GetAll(int.Parse(idUsuario));
+                List<NotificacionesDTO> lista = _NotificacionBusiness.GetAll(int.Parse(idUsuario));
                 return Json(lista, JsonRequestBehavior.AllowGet);
             }
             else

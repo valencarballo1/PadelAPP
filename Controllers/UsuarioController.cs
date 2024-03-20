@@ -145,6 +145,7 @@ namespace ReservaPadel.Controllers
             bool estaActivo = false;
             string usuarioNombre = "";
             string usuarioImg = "";
+            bool esAdmin = false;
 
             if (cookie != null)
             {
@@ -158,9 +159,10 @@ namespace ReservaPadel.Controllers
                     string nombreArchivo = usuario.FotoPerfil;
                     string rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
                     usuarioImg = rutaCompleta;
+                    esAdmin = usuario.EsAdmin;
                 }
             }
-            return Json(new { estaActivo, usuarioNombre, usuarioImg }, JsonRequestBehavior.AllowGet);
+            return Json(new { estaActivo, usuarioNombre, usuarioImg, esAdmin }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetRanking()
@@ -175,6 +177,19 @@ namespace ReservaPadel.Controllers
                 l.FotoPerfil = rutaCompleta;
             });
             return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CambioCelular(string nuevoCelular)
+        {
+            bool modifico = false;
+            HttpCookie cookie = Request.Cookies["UsuarioSesion"];
+
+            if (cookie != null)
+            {
+                string idUsuario = cookie["Id"];
+                modifico = _UsuarioBusiness.UpdateCelular(nuevoCelular, int.Parse(idUsuario));
+            }
+            return Json(modifico);
         }
     }
 }

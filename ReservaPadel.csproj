@@ -334,7 +334,6 @@
     <Content Include="Views\Partido\ReservasUsuario.cshtml" />
     <Content Include="Views\Administracion\Index.cshtml" />
     <Content Include="Views\Administracion\Reservas.cshtml" />
-    <Content Include="Views\Shared\LayoutAdmin.cshtml" />
     <Content Include="Views\Partido\Resultado.cshtml" />
     <Content Include="Views\Home\Ranking.cshtml" />
   </ItemGroup>

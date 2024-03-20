@@ -97,5 +97,11 @@ namespace ReservaPadel.Controllers
             List<decimal> recaudaciones = _AdministracionBusiness.GetRecaAllMeses();
             return Json(recaudaciones, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult RecaudacionCanchaYExtras()
+        {
+            ReservasYExtras reservaYExtra = _AdministracionBusiness.RecaudacionCanchaYExtras();
+            return Json(reservaYExtra, JsonRequestBehavior.AllowGet);
+        }
     }
 }

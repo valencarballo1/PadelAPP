@@ -4,20 +4,34 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Data.DTO;
 
 namespace Data
 {
     public class NotificacionRepository
     {
-        public List<Notificaciones> GetAll(int idUsuario)
+        public List<NotificacionesDTO> GetAll(int idUsuario)
         {
             using (PadelAppEntities db = new PadelAppEntities())
             {
+                List<NotificacionesDTO> listaNoti = new List<NotificacionesDTO>();
                 List<Notificaciones> notificacionesNoLeidas = db.Notificaciones.Include("LecturasNotificaciones")
                     .Where(n => !db.LecturasNotificaciones
                     .Any(ln => ln.IdNotificacion == n.IdNotificacion && ln.IdUsuario == idUsuario))
                     .ToList();
-                return notificacionesNoLeidas;
+
+                notificacionesNoLeidas.ForEach(n =>
+                {
+                    NotificacionesDTO nueva = new NotificacionesDTO
+                    {
+                        IdNotificacion = n.IdNotificacion,
+                        Detalle = n.Detalle,
+                        IdCanchaReservada = n.idCanchaReservada.Value,
+                        TipoNotificacion = n.TipoNotificacion.Value
+                    };
+                    listaNoti.Add(nueva);
+                });
+                return listaNoti;
             }
         }
 

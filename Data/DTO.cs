@@ -36,6 +36,7 @@ namespace Data
             public string FotoPerfil { get; set; }
             public string Categoria { get; set; }
             public decimal Puntuacion { get; set; }
+            public bool EsAdmin { get; set; }
         }
 
         public class PartidoDTO
@@ -106,6 +107,20 @@ namespace Data
             public string Usuario { get; set; }
             public string FotoPerfil { get; set; }
             public decimal Puntuacion { get; set; }
+        }
+
+        public class ReservasYExtras
+        {
+            public decimal TotalMontoCancha { get; set; }
+            public decimal TotalMontoAdicional { get; set; }
+        }
+
+        public class NotificacionesDTO
+        {
+            public int IdNotificacion { get; set; }
+            public string Detalle { get; set; }
+            public int IdCanchaReservada { get; set; }
+            public int TipoNotificacion { get; set; }
         }
     }
 }

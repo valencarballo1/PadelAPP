@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Data.DTO;
 
 namespace Repository
 {
@@ -38,8 +39,33 @@ namespace Repository
                 DateTime fechaActual = DateTime.Now;
                 DateTime inicioAnio = new DateTime(fechaActual.Year, 1, 1);
                 DateTime finAnio = new DateTime(fechaActual.Year, 12, 31, 23, 59, 59, 999);
+                decimal? total = db.RecaudacionCancha
+                    .Where(r => r.FechaRecaudacion >= inicioAnio && r.FechaRecaudacion <= finAnio)
+                    .Sum(r => r.MontoFinal) ?? 0;
+                return total.Value;
+            }
+        }
 
-                return db.RecaudacionCancha.Where(r => r.FechaRecaudacion >= inicioAnio && r.FechaRecaudacion <= finAnio).Sum(r => r.MontoFinal).Value;
+        public ReservasYExtras RecaudacionCanchaYExtras()
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+                ReservasYExtras reservasYExtras = new ReservasYExtras();
+                DateTime fechaActual = DateTime.Now;
+                DateTime inicioMes = new DateTime(fechaActual.Year, fechaActual.Month, 1);
+                DateTime finMes = inicioMes.AddMonths(1).AddTicks(-1);
+
+                decimal? totalCancha = db.RecaudacionCancha
+                    .Where(r => r.FechaRecaudacion >= inicioMes && r.FechaRecaudacion <= finMes)
+                    .Sum(r => r.MontoCancha) ?? 0;
+
+                decimal? totalExtra = db.RecaudacionCancha
+                    .Where(r => r.FechaRecaudacion >= inicioMes && r.FechaRecaudacion <= finMes)
+                    .Sum(r => r.MontoAdicional) ?? 0;
+
+                reservasYExtras.TotalMontoCancha = totalCancha.Value;
+                reservasYExtras.TotalMontoAdicional = totalExtra.Value;
+                return reservasYExtras;
             }
         }
 
@@ -50,8 +76,11 @@ namespace Repository
                 DateTime fechaActual = DateTime.Now;
                 DateTime inicioMes = new DateTime(fechaActual.Year, fechaActual.Month, 1);
                 DateTime finMes = inicioMes.AddMonths(1).AddTicks(-1);
-
-                return db.RecaudacionCancha.Where(r => r.FechaRecaudacion >= inicioMes && r.FechaRecaudacion <= finMes).Sum(r => r.MontoFinal).Value;
+                decimal? total = db.RecaudacionCancha
+                    .Where(r => r.FechaRecaudacion >= inicioMes && r.FechaRecaudacion <= finMes)
+                    .Sum(r => r.MontoFinal) ?? 0;
+                
+                return total.Value;
             }
         }
     }

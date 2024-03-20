@@ -36,6 +36,7 @@
     <link href="~/Content/fontawesome-free/css/all.css" rel="stylesheet" />
     <link href="~/Content/CSSADMIN/sb-admin-2.min.css" rel="stylesheet">
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 
@@ -61,7 +62,7 @@
 
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item active">
+            <li class="nav-item active hidden" id="panelAdmin">
                 <a class="nav-link" href="@Url.Action("Index", "Administracion")">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Administracion</span>
@@ -73,7 +74,7 @@
             <hr class="sidebar-divider">
 
             <div class="sidebar-heading">
-                Addons
+                Utilidades
             </div>
 
             <li class="nav-item">
@@ -96,7 +97,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Crear", "Partido")">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fa-solid fa-table-tennis-paddle-ball" style="color: #fafcff;"></i>
                     <span>Crear Partido</span>
                 </a>
             </li>
@@ -108,11 +109,20 @@
                 </a>
             </li>
 
+            <li class="nav-item hidden" id="reservasAdmin">
+                <a class="nav-link" href="@Url.Action("Reservas", "Administracion")">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Panel de reservas</span>
+                </a>
+            </li>
+
             <hr class="sidebar-divider d-none d-md-block">
 
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+
+
 
         </ul>
 
@@ -245,6 +255,10 @@
                         $('#notificacion').removeClass('hidden');
                         $('#miPerfilPaginas').removeClass('hidden');
                         llenarNotificaciones();
+                        if (response.esAdmin) {
+                            $('#reservasAdmin').removeClass('hidden');
+                            $('#panelAdmin').removeClass('hidden');
+                        }
 
                     } else {
                         enEspera("chau");
@@ -311,40 +325,43 @@
             }
         });
 
-        function llenarNotificaciones() {
-            $.ajax({
-                url: "@Url.Action("Notificaciones", "Notificacion")",
-                type: 'GET',
-                success: function (data) {
-                    if (data.length > 0) {
-                        $('#contadorNotificaciones').text(data.length);
-                        const notificacionesDiv = $('<div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="alertsDropdown"></div>');
-                        let detalleNotificacion;
-                        data.forEach(function (notificacion) {
-                            let icono;
-                            if (notificacion.TipoNotificacion === 1) {
-                                const verPartido = "@Url.Action("Ver", "Partido")?idPartido=" + data.idCanchaReservada;
-                                icono = '<i class="fa-solid fa-table-tennis-paddle-ball fa-lg" style="color: #63E6BE;"><circle cx="8" cy="8" r="8"/></i>';
-                                detalleNotificacion = $('<a href="verPartido" class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3">' + icono + '</div><div>' + notificacion.Detalle + '</div></a>');
-                            } else if (notificacion.TipoNotificacion === 2) {
-                                icono = '<i class="fas fa-exclamation fa-lg" style="color: #74C0FC;"></i>';
-                                detalleNotificacion = $('<div class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3">' + icono + '</div><div>' + notificacion.Detalle + '</div></div>');
-                            }
-                            notificacionesDiv.append(detalleNotificacion);
-                        });
-                        $('#notificacion').append(notificacionesDiv);
+       function llenarNotificaciones() {
+     $.ajax({
+         url: "@Url.Action("Notificaciones", "Notificacion")",
+         type: 'GET',
+         success: function (data) {
+             console.log(data);
+             if (data.length > 0) {
+                 $('#contadorNotificaciones').text(data.length);
+                 const notificacionesDiv = $('<div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="alertsDropdown"></div>');
+                 let detalleNotificacion;
+                 data.forEach(function (notificacion) {
+                     let icono;
+                     if (notificacion.TipoNotificacion === 1) {
+                         let idPartido = notificacion.IdCanchaReservada;
+                         let urlVerPartido = "@Url.Action("Ver", "Partido")?idPartido=" + idPartido;
+                         console.log(urlVerPartido);
+                         icono = '<i class="fa-solid fa-table-tennis-paddle-ball fa-lg" style="color: #63E6BE;"><circle cx="8" cy="8" r="8"/></i>';
+                         detalleNotificacion = $('<a href="' + urlVerPartido + '" class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3">' + icono + '</div><div>' + notificacion.Detalle + '</div></a>');
+                     } else if (notificacion.TipoNotificacion === 2) {
+                         icono = '<i class="fas fa-exclamation fa-lg" style="color: #74C0FC;"></i>';
+                         detalleNotificacion = $('<div class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3">' + icono + '</div><div>' + notificacion.Detalle + '</div></div>');
+                     }
+                     notificacionesDiv.append(detalleNotificacion);
+                 });
+                 $('#notificacion').append(notificacionesDiv);
 
 
-                    } else {
+             } else {
 
-                    }
-                },
-                error: function () {
-                    console.error('Error al verificar la sesión del usuario.');
-                }
+             }
+         },
+         error: function () {
+             console.error('Error al verificar la sesión del usuario.');
+         }
 
-            });
-        }
+     });
+}
 
 
     </script>
