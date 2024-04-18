@@ -9,7 +9,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Padel APP</title>
 
     <link href="~/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -37,6 +36,9 @@
     <link href="~/Content/CSSADMIN/sb-admin-2.min.css" rel="stylesheet">
     <link href="~/Content/Site.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="shortcut icon" href="~/Content/CssHome/994003_court_racquet_sport_squash_tennis_icon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/CssHome/994003_court_racquet_sport_squash_tennis_icon.ico">
+    <title>Padel APP</title>
 
 
 
@@ -47,11 +49,11 @@
     </style>
 </head>
 
-<body id="page-top">
+<body id="page-top" class="sidebar-toggled">
 
     <div id="wrapper">
 
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
             <div class="">
                 <a class="sidebar-brand row d-flex align-items-center justify-content-center" href="@Url.Action("Index", "Home")">
                     <div class="sidebar-brand-icon rotate-n-15">
@@ -181,6 +183,10 @@
 
                 <div class="container">
                     @RenderBody()
+                    <hr />
+                    <footer class="pt-5">
+                        <p class="text-light text-center">&copy; @DateTime.Now.Year - Si tenes alguna idea para mejorar el proyecto contactame valentincarballo99@gmail.com</p>
+                    </footer>
                 </div>
             </div>
 
