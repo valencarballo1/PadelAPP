@@ -118,8 +118,8 @@
 
         function agregarFila(reserva) {
             const fila = '<tr class="col-md-12">' +
-                '<td class="text-center align-middle">' + moment(reserva.HorarioDesde).format("HH:mm") + '</td>' +
-                '<td class="text-center align-middle">' + moment(reserva.HorarioHasta).format("HH:mm") + '</td>' +
+                '<td class="text-center align-middle">' + moment(reserva.HorarioDesde).tz('America/Chicago').format("HH:mm") + '</td>' +
+                '<td class="text-center align-middle">' + moment(reserva.HorarioHasta).tz('America/Chicago').format("HH:mm") + '</td>' +
                 '<td class="text-center align-middle">' + reserva.UsuarioNombre + '</td>' +
                 '<td class="d-flex flex-column align-items-center align-middle">' +
                 '<button type="button" class="btn btn-sm btn-primary m-2 col-md-6" onClick="mostrarModal(' + reserva.Id + ')">Finalizar Turno</button>' +

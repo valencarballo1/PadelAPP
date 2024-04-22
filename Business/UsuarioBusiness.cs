@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using static Data.DTO;
 
 namespace Business
@@ -21,41 +22,54 @@ namespace Business
         }
         public int Registrarme(string nombre, string apellido, string celular, string usuario, string contrasena, int categoriaID, string extension = "")
         {
-            Usuario usuarioExiste = _UsuarioRepository.GetByUsuarioNombre(usuario.ToLower());
-
-            if (usuarioExiste == null)
+            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
             {
-                double categoriaPuntuacion = _CategoriaRepository.GetPuntuacionById(categoriaID);
-                string contrasenaHash = BCrypt.Net.BCrypt.HashPassword(contrasena);
-                Usuario nuevoUsuario = new Usuario();
-                nuevoUsuario.EsAdmin = false;
-                Perfil usuarioPerfil = new Perfil();
-
-                nuevoUsuario.NombreUsuario = usuario.ToLower();
-                nuevoUsuario.Contrasena = contrasenaHash;
-
-                usuarioPerfil.Nombre = nombre;
-                usuarioPerfil.Apellido = apellido;
-                usuarioPerfil.Celular = celular;
-                usuarioPerfil.CategoriaID = categoriaID;
-                usuarioPerfil.Puntuacion = Convert.ToDecimal(categoriaPuntuacion);
-                if (extension == "")
+                try
                 {
-                    usuarioPerfil.FotoPerfil = "LogoPadel.jpg";
+                    Usuario usuarioExiste = _UsuarioRepository.GetByUsuarioNombre(usuario.ToLower());
+
+                    if (usuarioExiste == null)
+                    {
+                        double categoriaPuntuacion = _CategoriaRepository.GetPuntuacionById(categoriaID);
+                        string contrasenaHash = BCrypt.Net.BCrypt.HashPassword(contrasena);
+                        Usuario nuevoUsuario = new Usuario();
+                        nuevoUsuario.EsAdmin = false;
+                        Perfil usuarioPerfil = new Perfil();
+
+                        nuevoUsuario.NombreUsuario = usuario.ToLower();
+                        nuevoUsuario.Contrasena = contrasenaHash;
+
+                        usuarioPerfil.Nombre = nombre;
+                        usuarioPerfil.Apellido = apellido;
+                        usuarioPerfil.Celular = celular;
+                        usuarioPerfil.CategoriaID = categoriaID;
+                        usuarioPerfil.Puntuacion = Convert.ToDecimal(categoriaPuntuacion);
+                        if (extension == "")
+                        {
+                            usuarioPerfil.FotoPerfil = "LogoPadel.jpg";
+                        }
+                        else
+                        {
+                            usuarioPerfil.FotoPerfil = nuevoUsuario.NombreUsuario + extension;
+                        }
+                        nuevoUsuario.Perfil.Add(usuarioPerfil);
+
+                        int usuarioId = _UsuarioRepository.Save(nuevoUsuario);
+
+                        transactionScope.Complete();
+
+                        return usuarioId;
+                    }
+                    else
+                    {
+                        throw new Exception("Usuario ya existe");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    usuarioPerfil.FotoPerfil = nuevoUsuario.NombreUsuario + extension;
+                    throw new Exception("Problemas en el servidor!"); 
                 }
-                nuevoUsuario.Perfil.Add(usuarioPerfil);
-
-                return _UsuarioRepository.Save(nuevoUsuario);
             }
-            else
-            {
-                throw new Exception("Usuario ya existe");
-            }
-
         }
 
         public Usuario GetByUsuarioNombre(string usuarioNombre)

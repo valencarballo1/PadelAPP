@@ -237,6 +237,10 @@
                     title: "Error en la reserva!",
                     text: "Error en el servidor. intente nuevamente!",
                     icon: "error"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
                 });
                 console.error('Error al guardar reserva:', error);
             }

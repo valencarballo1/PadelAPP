@@ -1,6 +1,7 @@
 ﻿using Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
@@ -46,6 +47,23 @@ namespace Repository
                 }).ToList();
 
                 return horariosDTO;
+            }
+        }
+
+        public bool ExisteHorarioByDesdeYDuracion(DateTime horarioDesde, int duracion)
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+                // Calcular el horario hasta
+                DateTime horarioHasta = horarioDesde.AddMinutes(duracion);
+
+                // Verificar si existe algún horario dentro del rango de tiempo de la reserva
+                bool existeHorario = db.Horarios.Any(h =>
+                    (h.HorarioDesde >= horarioDesde && h.HorarioDesde < horarioHasta) || // Verificar si el horario desde del horario reservado está dentro de otro horario
+                    (DbFunctions.AddMinutes(h.HorarioDesde, h.Duracion) > horarioDesde && DbFunctions.AddMinutes(h.HorarioDesde, h.Duracion) <= horarioHasta) // Verificar si el horario hasta del horario reservado está dentro de otro horario
+                );
+
+                return existeHorario;
             }
         }
     }
