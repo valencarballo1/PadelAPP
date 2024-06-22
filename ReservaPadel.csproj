@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -49,10 +49,10 @@
       <HintPath>packages\BCrypt.Net-Next.4.0.3\lib\net48\BCrypt.Net-Next.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -167,48 +167,16 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\CSSADMIN\sb-admin-2.css" />
-    <Content Include="Content\CSSADMIN\sb-admin-2.min.css" />
-    <Content Include="Content\CssHome\994003_court_racquet_sport_squash_tennis_icon.ico" />
-    <Content Include="Content\CssHome\StyleHome.css" />
-    <Content Include="Content\fontawesome-free\attribution.js" />
-    <Content Include="Content\fontawesome-free\css\all.css" />
-    <Content Include="Content\fontawesome-free\css\all.min.css" />
-    <Content Include="Content\fontawesome-free\css\brands.css" />
-    <Content Include="Content\fontawesome-free\css\brands.min.css" />
-    <Content Include="Content\fontawesome-free\css\fontawesome.css" />
-    <Content Include="Content\fontawesome-free\css\fontawesome.min.css" />
-    <Content Include="Content\fontawesome-free\css\regular.css" />
-    <Content Include="Content\fontawesome-free\css\regular.min.css" />
-    <Content Include="Content\fontawesome-free\css\solid.css" />
-    <Content Include="Content\fontawesome-free\css\solid.min.css" />
-    <Content Include="Content\fontawesome-free\css\svg-with-js.css" />
-    <Content Include="Content\fontawesome-free\css\svg-with-js.min.css" />
-    <Content Include="Content\fontawesome-free\css\v4-shims.css" />
-    <Content Include="Content\fontawesome-free\css\v4-shims.min.css" />
-    <Content Include="Content\fontawesome-free\js\all.js" />
-    <Content Include="Content\fontawesome-free\js\all.min.js" />
-    <Content Include="Content\fontawesome-free\js\brands.js" />
-    <Content Include="Content\fontawesome-free\js\brands.min.js" />
-    <Content Include="Content\fontawesome-free\js\conflict-detection.js" />
-    <Content Include="Content\fontawesome-free\js\conflict-detection.min.js" />
-    <Content Include="Content\fontawesome-free\js\fontawesome.js" />
-    <Content Include="Content\fontawesome-free\js\fontawesome.min.js" />
-    <Content Include="Content\fontawesome-free\js\regular.js" />
-    <Content Include="Content\fontawesome-free\js\regular.min.js" />
-    <Content Include="Content\fontawesome-free\js\solid.js" />
-    <Content Include="Content\fontawesome-free\js\solid.min.js" />
-    <Content Include="Content\fontawesome-free\js\v4-shims.js" />
-    <Content Include="Content\fontawesome-free\js\v4-shims.min.js" />
-    <Content Include="Content\fontawesome-free\LICENSE.txt" />
-    <Content Include="Content\fontawesome-free\sprites\brands.svg" />
-    <Content Include="Content\fontawesome-free\sprites\regular.svg" />
-    <Content Include="Content\fontawesome-free\sprites\solid.svg" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-brands-400.svg" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-regular-400.svg" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-solid-900.svg" />
-    <Content Include="Content\js\sb-admin-2.js" />
-    <Content Include="Content\js\sb-admin-2.min.js" />
+    <Content Include="Content\fancybox\blank.gif" />
+    <Content Include="Content\fancybox\fancybox_buttons.png" />
+    <Content Include="Content\fancybox\fancybox_loading%402x.gif" />
+    <Content Include="Content\fancybox\fancybox_loading.gif" />
+    <Content Include="Content\fancybox\fancybox_overlay.png" />
+    <Content Include="Content\fancybox\fancybox_sprite%402x.png" />
+    <Content Include="Content\fancybox\fancybox_sprite.png" />
+    <Content Include="Content\jquery.fancybox-buttons.css" />
+    <Content Include="Content\jquery.fancybox-thumbs.css" />
+    <Content Include="Content\jquery.fancybox.css" />
     <Content Include="Content\slick-1.8.1\.gitignore" />
     <Content Include="Content\slick-1.8.1\index.html" />
     <Content Include="Content\slick-1.8.1\slick\ajax-loader.gif" />
@@ -241,59 +209,6 @@
     <Content Include="Content\slick-1.8.1\slick\slick-theme.scss" />
     <Content Include="Content\slick-1.8.1\slick\slick.less" />
     <Content Include="Content\slick-1.8.1\slick\slick.scss" />
-    <Content Include="Content\fontawesome-free\less\brands.less" />
-    <Content Include="Content\fontawesome-free\less\fontawesome.less" />
-    <Content Include="Content\fontawesome-free\less\regular.less" />
-    <Content Include="Content\fontawesome-free\less\solid.less" />
-    <Content Include="Content\fontawesome-free\less\v4-shims.less" />
-    <Content Include="Content\fontawesome-free\less\_animated.less" />
-    <Content Include="Content\fontawesome-free\less\_bordered-pulled.less" />
-    <Content Include="Content\fontawesome-free\less\_core.less" />
-    <Content Include="Content\fontawesome-free\less\_fixed-width.less" />
-    <Content Include="Content\fontawesome-free\less\_icons.less" />
-    <Content Include="Content\fontawesome-free\less\_larger.less" />
-    <Content Include="Content\fontawesome-free\less\_list.less" />
-    <Content Include="Content\fontawesome-free\less\_mixins.less" />
-    <Content Include="Content\fontawesome-free\less\_rotated-flipped.less" />
-    <Content Include="Content\fontawesome-free\less\_screen-reader.less" />
-    <Content Include="Content\fontawesome-free\less\_shims.less" />
-    <Content Include="Content\fontawesome-free\less\_stacked.less" />
-    <Content Include="Content\fontawesome-free\less\_variables.less" />
-    <Content Include="Content\fontawesome-free\metadata\categories.yml" />
-    <Content Include="Content\fontawesome-free\metadata\icons.yml" />
-    <Content Include="Content\fontawesome-free\metadata\shims.yml" />
-    <Content Include="Content\fontawesome-free\metadata\sponsors.yml" />
-    <Content Include="Content\fontawesome-free\package.json" />
-    <Content Include="Content\fontawesome-free\scss\brands.scss" />
-    <Content Include="Content\fontawesome-free\scss\fontawesome.scss" />
-    <Content Include="Content\fontawesome-free\scss\regular.scss" />
-    <Content Include="Content\fontawesome-free\scss\solid.scss" />
-    <Content Include="Content\fontawesome-free\scss\v4-shims.scss" />
-    <Content Include="Content\fontawesome-free\scss\_animated.scss" />
-    <Content Include="Content\fontawesome-free\scss\_bordered-pulled.scss" />
-    <Content Include="Content\fontawesome-free\scss\_core.scss" />
-    <Content Include="Content\fontawesome-free\scss\_fixed-width.scss" />
-    <Content Include="Content\fontawesome-free\scss\_icons.scss" />
-    <Content Include="Content\fontawesome-free\scss\_larger.scss" />
-    <Content Include="Content\fontawesome-free\scss\_list.scss" />
-    <Content Include="Content\fontawesome-free\scss\_mixins.scss" />
-    <Content Include="Content\fontawesome-free\scss\_rotated-flipped.scss" />
-    <Content Include="Content\fontawesome-free\scss\_screen-reader.scss" />
-    <Content Include="Content\fontawesome-free\scss\_shims.scss" />
-    <Content Include="Content\fontawesome-free\scss\_stacked.scss" />
-    <Content Include="Content\fontawesome-free\scss\_variables.scss" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-brands-400.eot" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-brands-400.ttf" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-brands-400.woff" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-brands-400.woff2" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-regular-400.eot" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-regular-400.ttf" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-regular-400.woff" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-regular-400.woff2" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-solid-900.eot" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-solid-900.ttf" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-solid-900.woff" />
-    <Content Include="Content\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -328,6 +243,12 @@
     <Content Include="Scripts\jquery-3.7.1.slim.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.fancybox-buttons.js" />
+    <Content Include="Scripts\jquery.fancybox-media.js" />
+    <Content Include="Scripts\jquery.fancybox-thumbs.js" />
+    <Content Include="Scripts\jquery.fancybox.js" />
+    <Content Include="Scripts\jquery.fancybox.pack.js" />
+    <Content Include="Scripts\jquery.mousewheel-3.0.6.pack.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -384,6 +305,9 @@
       <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -418,10 +342,10 @@
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
-    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
   </Target>
-  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

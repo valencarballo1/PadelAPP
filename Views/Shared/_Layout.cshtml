@@ -10,32 +10,30 @@
     <meta name="author" content="">
 
 
-    <link href="~/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-          rel="stylesheet">
+
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="styxlesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    <link href="https://preview.tabler.io/dist/css/tabler.min.css?1695847769" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data-10-year-range.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" />
-    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/slick-1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/slick-1.8.1/slick/slick-theme.css" />
-    <link href="~/Content/fontawesome-free/css/all.css" rel="stylesheet" />
-    <link href="~/Content/CSSADMIN/sb-admin-2.min.css" rel="stylesheet">
     <link href="~/Content/Site.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="shortcut icon" href="~/Content/CssHome/994003_court_racquet_sport_squash_tennis_icon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="~/Content/CssHome/994003_court_racquet_sport_squash_tennis_icon.ico">
     <title>Padel APP</title>
@@ -49,160 +47,120 @@
     </style>
 </head>
 
-<body id="page-top" class="sidebar-toggled">
-
-    <div id="wrapper">
-
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
-            <div class="">
-                <a class="sidebar-brand row d-flex align-items-center justify-content-center" href="@Url.Action("Index", "Home")">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-baseball-ball"></i>
-                    </div>
+<body data-bs-theme="dark" id="page-top">
+    <header class="navbar navbar-expand-md d-print-none">
+        <div class="container-xl">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+                <a href="@Url.Action("Index", "Home")">
+                    <img src="~/imgPerfiles/AgregarAPartido.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
                 </a>
-            </div>
+            </h1>
+            <div class="navbar-nav flex-row">
+                <div class="nav-item d-none d-md-flex me-3">
+                    <div class="btn-list">
+                        <a class="nav-link" href="@Url.Action("Crear", "Partido")">
+                            <i class="fa-solid fa-table-tennis-paddle-ball"></i>
+                            <span>Crear Partido</span>
+                        </a>
 
-            <hr class="sidebar-divider my-0">
+                        <a class="nav-link" href="@Url.Action("Reserva", "Home")">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            <span>Reservar</span>
+                        </a>
 
-            <li class="nav-item active hidden" id="panelAdmin">
-                <a class="nav-link" href="@Url.Action("Index", "Administracion")">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Administracion</span>
-                </a>
-            </li>
-
-            <hr class="sidebar-divider">
-
-            <hr class="sidebar-divider">
-
-            <div class="sidebar-heading">
-                Utilidades
-            </div>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#collapsePages" data-bs-toggle="collapse" data-target="#collapsePages"
-                   aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Paginas</span>
-                </a>
-                <div class="collapse" id="collapsePages" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Usuarios:</h6>
-                        <div class="hidden" id="miPerfilPaginas">
-                            <a class="collapse-item" href="@Url.Action("Perfil", "Usuario")">Mi perfil</a>
-                        </div>
-                        <a class="collapse-item" href="@Url.Action("Disponibles", "Partido")">Ver partidos creados</a>
-                        <a class="collapse-item" href="@Url.Action("Ranking", "Home")">Ver ranking</a>
+                        <a class="nav-link hidden" href="#" id="notificacion" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-bell fa-fw" id="alertDropdownIcon"></i>
+                            <span class="badge badge-danger badge-counter" id="contadorNotificaciones"></span>
+                        </a>
                     </div>
                 </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Crear", "Partido")">
-                    <i class="fa-solid fa-table-tennis-paddle-ball" style="color: #fafcff;"></i>
-                    <span>Crear Partido</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Reserva", "Home")">
-                    <i class="fa-solid fa-circle-plus"></i>
-                    <span>Reservar</span>
-                </a>
-            </li>
-
-            <li class="nav-item hidden" id="reservasAdmin">
-                <a class="nav-link" href="@Url.Action("Reservas", "Administracion")">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Panel de reservas</span>
-                </a>
-            </li>
-
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-
-
-        </ul>
-
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <div id="content">
-
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-
-                    <ul class="navbar-nav ml-auto">
-
-
-                        <li class="nav-item dropdown no-arrow mx-1 hidden" id="notificacion">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw" id="alertDropdownIcon"></i>
-                                <span class="badge badge-danger badge-counter" id="contadorNotificaciones"></span>
-                            </a>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <div class="d-flex align-items-center">
-                            <a type="button" class="btn btn-primary btn-sm" id="btnInicioSesion" href="@Url.Action("InicioSesion", "Usuario")">Iniciar Sesion</a>
-                        </div>
-                        <li class="nav-item dropdown no-arrow hidden" id="liPerfil">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="usuarioNombre"></span>
-                                <img class="img-profile rounded-circle" id="usuarioImg"
-                                     src="img/undraw_profile.svg">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-
-                <div class="container">
-                    @RenderBody()
-                    <hr />
-                    <footer class="pt-5">
-                        <p class="text-light text-center">&copy; @DateTime.Now.Year - Si tenes alguna idea para mejorar el proyecto contactame valentincarballo99@gmail.com</p>
-                    </footer>
+            <div class="row">
+                <div class="d-flex align-items-center">
+                    <a href="@Url.Action("InicioSesion", "Usuario")" class="btn btn-primary btn-sm" id="btnInicioSesion">Iniciar Sesión</a>
                 </div>
+                <a href="@Url.Action("Perfil", "Usuario")" class="nav-link d-flex lh-1 text-reset p-0" id="menuUserMiniatura">
+                    <span class="avatar avatar-sm" style="background-image: url('../../imgperfiles/AgregarAPartido.png');" id="usuarioImg"></span>
+                    <div class="d-none d-xl-block ps-2" id="usuarioNombre"></div>
+                </a>
             </div>
-
         </div>
+    </header>
 
+
+    <header class="navbar-expand-md">
+        <div class="collapse navbar-collapse" id="navbar-menu">
+            <div class="navbar">
+                <div class="container-xl">
+                    <div class="row flex-fill align-items-center">
+                        <div class="col">
+                            <ul class="navbar-nav">
+
+                                <li class="nav-item">
+                                    <a class="nav-link hidden" id="panelAdmin">
+                                        href="@Url.Action("Index", "Administracion")">
+                                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                                        <span>Administracion</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Ranking", "Home")">
+                                        <i class="fa-solid fa-ranking-star"></i>
+                                        <span>Ver ranking</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Crear", "Partido")">
+                                        <i class="fa-solid fa-table-tennis-paddle-ball"></i>
+                                        <span>Crear Partido</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Reserva", "Home")">
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                        <span>Reservar</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link hidden" id="reservasAdmin" href="@Url.Action("Reservas", "Administracion")">
+                                        <i class="fas fa-fw fa-table"></i>
+                                        <span>Panel de reservas</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-wrapper container-fluid">
+        @RenderBody()
+        <hr />
+        <footer class="pt-5">
+            <p class="text-light text-center">&copy; @DateTime.Now.Year - Si tenes alguna idea para mejorar el proyecto contactame valentincarballo99@gmail.com</p>
+        </footer>
     </div>
 
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery.fancybox.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="~/Content/slick-1.8.1/slick/slick.min.js"></script>
-    <script src="~/Content/js/sb-admin-2.min.js"></script>
 
     <script>
         let usuarioId;
@@ -254,12 +212,13 @@
                     enEspera("chau");
                     if (response.estaActivo) {
                         $('#usuarioNombre').text(response.usuarioNombre);
-                        $('#usuarioImg').attr('src', response.usuarioImg);
+                        $('#usuarioImg').css('background-image', 'url(' + response.usuarioImg + ')');
                         $('#usuarioImg').removeClass('hidden');
                         $('#liPerfil').removeClass('hidden');
                         $('#btnInicioSesion').addClass('hidden');
                         $('#notificacion').removeClass('hidden');
                         $('#miPerfilPaginas').removeClass('hidden');
+                        $('#menuUserMiniatura').removeClass('hidden');
                         llenarNotificaciones();
                         if (response.esAdmin) {
                             $('#reservasAdmin').removeClass('hidden');
