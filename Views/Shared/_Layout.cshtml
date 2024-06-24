@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/slick-1.8.1/slick/slick.css" />
@@ -37,17 +37,9 @@
     <link rel="shortcut icon" href="~/Content/CssHome/994003_court_racquet_sport_squash_tennis_icon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="~/Content/CssHome/994003_court_racquet_sport_squash_tennis_icon.ico">
     <title>Padel APP</title>
-
-
-
-    <style>
-        .hidden {
-            display: none
-        }
-    </style>
 </head>
 
-<body data-bs-theme="dark" id="page-top">
+<body id="page-top">
     <header class="navbar navbar-expand-md d-print-none">
         <div class="container-xl">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +47,7 @@
             </button>
             <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                 <a href="@Url.Action("Index", "Home")">
-                    <img src="~/imgPerfiles/AgregarAPartido.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+                    <img src="~/imgPerfiles/AgregarAPartido.png" alt="Tabler" class="navbar-brand-image">
                 </a>
             </h1>
             <div class="navbar-nav flex-row">
@@ -145,7 +137,7 @@
         </div>
     </header>
 
-    <div class="page-wrapper container-fluid">
+    <div class="page-wrapper">
         @RenderBody()
         <hr />
         <footer class="pt-5">

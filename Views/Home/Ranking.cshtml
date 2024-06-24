@@ -2,24 +2,20 @@
 @{
     ViewBag.Title = "Ranking";
 }
-<style>
-    #padelTable{
-        background-color: #3498db;
-        color: #ffff;
-    }
-</style>
 
-<div class="table-responsive">
-    <table id="padelTable" class="display responsive">
-        <thead>
-            <tr>
-                <th class="text-center">POSICION</th>
-                <th class="text-center">JUGADOR</th>
-                <th class="text-center">PUNTOS</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+<div class="container mt-4">
+    <div class="table-responsive">
+        <table id="padelTable" class="table table-bordered" style="width:100%">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center">Posición</th>
+                    <th class="text-center">Nombre del Jugador</th>
+                    <th class="text-center">Puntos</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>
 
 <script>
@@ -38,9 +34,12 @@
 
                 $.each(data, function (index, jugador) {
                     const rowData = [
-                        `<div class='text-center text-white'>${jugador.Posicion}</div>`,
-                        `<div class='text-center text-white d-flex'><img src='${jugador.FotoPerfil}' alt='Imagen Jugador ${jugador.Usuario}' class='ultimos-img mx-auto'></div>` + `<div class="text-center"> ${jugador.Usuario} </div>`,
-                        `<div class='text-center text-white'>${jugador.Puntuacion}</div>`
+                        `<div class='text-center'>${jugador.Posicion}</div>`,
+                        `<div class='text-center d-flex justify-content-center align-items-center'>
+                        <img src='${jugador.FotoPerfil}' alt='Imagen Jugador ${jugador.Usuario}' class='ultimos-img me-5'>
+                        <div>${jugador.Usuario}</div>
+                        </div>`,
+                        `<div class='text-center'>${jugador.Puntuacion}</div>`
                     ];
                     padelTable.row.add(rowData);
                 });
