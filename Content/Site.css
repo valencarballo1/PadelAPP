@@ -1,21 +1,23 @@
 ﻿body {
     font-family: "Oswald", sans-serif;
-    background-color: #1d3056;
+    margin: 0;
+    padding: 0;
 }
 
 .navbar {
     background-color: #17253f;
 }
 
-.navbar-nav a{
+.navbar-nav a {
     color: #fff;
 }
 
-.navbar-brand img{
+.navbar-brand img {
     height: 50px;
     width: 50px;
     background-color: #fff;
 }
+
 .hidden {
     display: none
 }
@@ -71,7 +73,7 @@
     width: 70px; /* Ajusta según sea necesario */
     height: 70px; /* Ajusta según sea necesario */
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: 70%;
     border: 2px solid #fff;
 }
 
@@ -144,7 +146,7 @@
         font-weight: bold;
         margin-bottom: 0;
         font-family: "Oswald", sans-serif;
-        color: #fff;
+        color: #17253f;
     }
 
     .overlay .iconos-contenedor {
@@ -156,6 +158,7 @@
         color: white;
         font-size: 35px;
         margin: 10px;
+        color: #17253f;
     }
 
 .thumb-group {
@@ -167,7 +170,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #fff;
+        color: #17253f;
     }
 
         .thumb-group li img {
@@ -176,7 +179,7 @@
         }
 
 #padelTable {
-    background-color: #fff; /* Fondo oscuro de la tabla */
+    background-color: #E2DEDE; /* Fondo oscuro de la tabla */
     color: #404040; /* Color del texto de la tabla */
     font-size: 1.3rem;
 }
@@ -201,7 +204,30 @@
     padding: 1.25rem; /* Añade un padding para separación interna entre el card-header y el card-body */
 }
 
-.navbar-toggler{
+.navbar-toggler {
     color: #fff;
 }
 
+.seccion-oscura {
+    background-color: #1d3056;
+}
+
+.seccion-clara {
+    background-color: #E2DEDE;
+}
+
+.seccion-logos {
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
+    .seccion-logos img {
+        max-width: 100px; /* Ajusta el tamaño de los logos según tus necesidades */
+        /*border-radius: 30%;*/
+    }
+
+footer {
+    padding: 20px 0;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
