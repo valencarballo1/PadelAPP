@@ -39,7 +39,7 @@ namespace ReservaPadel.Controllers
 
                 if (!Directory.Exists(rutaDirectorio))
                 {
-                    Directory.CreateDirectory(rutaDirectorio);
+                    Directory.CreateDirectory(rutaDirectorio);  
                 }
 
                 string nombreArchivo = usuario + Path.GetExtension(fotoPerfil.FileName);

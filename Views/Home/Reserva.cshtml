@@ -2,40 +2,42 @@
 @{
     ViewBag.Title = "ReservaPrueba";
 }
-<div class="card">
+<div class="container-fluid seccion-clara pt-5">
+    <h2 class="text-center">
+        RESERVA TU CANCHA
+    </h2>
+        <div class="card-body row d-flex justify-content-around align-items-center">
+            <div class="col-md-6 col-sm-12 col-12 d-flex justify-content-center align-items-center">
+                <div class="p-1">
+                    <div class="card-title text-center">
+                        CANCHA 1
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Selecciona una fecha:</label>
+                        <input type="text" class="form-control" id="fecha" name="fecha" readonly data-id="1">
+                    </div>
+                    <div>
+                        <label for="duracion">Duración de la reserva:</label>
+                        <label class="form-check">
+                            <input class="form-check-input duracionCheckbox" type="radio" name="radios" id="duracion60" value="60">
+                            <span class="form-check-label">60 Minutos</span>
+                        </label>
 
-    <div class="card-body row d-flex justify-content-around align-items-center">
-        <div class="col-md-6 col-sm-12 col-12 d-flex justify-content-center align-items-center">
-            <div class="p-1">
-                <div class="card-title text-center">
-                    CANCHA 1
-                </div>
-                <div class="form-group">
-                    <label for="fecha">Selecciona una fecha:</label>
-                    <input type="text" class="form-control" id="fecha" name="fecha" readonly data-id="1">
-                </div>
-                <div>
-                    <label for="duracion">Duración de la reserva:</label>
-                    <label class="form-check">
-                        <input class="form-check-input duracionCheckbox" type="radio" name="radios" id="duracion60" value="60">
-                        <span class="form-check-label">60 Minutos</span>
-                    </label>
-
-                    <label class="form-check">
-                        <input class="form-check-input duracionCheckbox" type="radio" name="radios" id="duracion90" value="90">
-                        <span class="form-check-label">90 Minutos</span>
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label for="horario">Selecciona un horario:</label>
-                    <select class="form-control" id="horario" name="horario"></select>
-                </div>
-                <div class="d-flex justify-content-center m-2">
-                    <button class="btn btn-success" id="btnReserva">RESERVAR</button>
+                        <label class="form-check">
+                            <input class="form-check-input duracionCheckbox" type="radio" name="radios" id="duracion90" value="90">
+                            <span class="form-check-label">90 Minutos</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="horario">Selecciona un horario:</label>
+                        <select class="form-control" id="horario" name="horario"></select>
+                    </div>
+                    <div class="d-flex justify-content-center m-2">
+                        <button class="btn btn-success" id="btnReserva">RESERVAR</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </div>
 
 
@@ -237,6 +239,10 @@
                     title: "Error en la reserva!",
                     text: "Error en el servidor. intente nuevamente!",
                     icon: "error"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
                 });
                 console.error('Error al guardar reserva:', error);
             }

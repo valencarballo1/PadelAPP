@@ -223,7 +223,7 @@ namespace Repository
                 List<PartidoDTO> partidosLista = new List<PartidoDTO>();
                 List<PartidosCreadosUsuarios> partidosEncontrado = db.PartidosCreadosUsuarios.Include("CanchasReservadas")
                     .Where(p => p.CanchasReservadas.Horarios.HorarioDesde >= fechaHoy)
-                    .OrderByDescending(p => p.Id)
+                    .OrderBy(p => p.Id)
                     .ToList();
 
                 partidosEncontrado.ForEach(partidoEncontrado =>

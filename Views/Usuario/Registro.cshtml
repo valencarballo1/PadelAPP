@@ -3,22 +3,10 @@
     ViewBag.Title = "Registro";
 }
 
-<style>
-    .perfil-img {
-        width: 200px; /* Ajusta según sea necesario */
-        height: 200px; /* Ajusta según sea necesario */
-        object-fit: cover;
-        border-radius: 50%;
-        border: 2px solid #fff; /* Ajusta según sea necesario */
-    }
-</style>
+<div class="container-fluid seccion-clara pt-5">
+    <h2 class="text-center">REGISTRO</h2>
 
-<div class="card row d-flex">
-    <div class="card-header">
-        <h5 class="text-center">REGISTRO</h5>
-    </div>
-
-    <form class="card-body row" id="formularioRegistro" enctype="multipart/form-data" action="@Url.Action("Registrarme", "Usuario")" method="POST">
+    <form class="card-body row"  id="formularioRegistro" enctype="multipart/form-data" action="@Url.Action("Registrarme", "Usuario")" method="POST">
         <div class="col-md-6 g-3 align-items-center">
             <div class="col-auto">
                 <label for="nombre" class="col-form-label">Nombre</label>

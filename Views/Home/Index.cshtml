@@ -2,54 +2,160 @@
     ViewBag.Title = "Padel APP";
 }
 
-<div class="row d-flex justify-content-lg-between justify-content-md-between justify-content-center">
-    <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-lg-5 col-sm-12 mt-2">
-        <div class="card-header text-center">
-            <h3>RESERVA TU CANCHA</h3>
-        </div>
-        <div class="card-body row align-items-center no-gutters align-items-center">
-            <div class="col-md-12">
-                <p class="lead text-center">Reserva tus horarios y disfruta de nuestros servicios.</p>
+<div class="container-fluid d-flex justify-content-center seccion-clara">
+    <div class="row mt-5 mb-3">
+        <div class="col-md-7 p-3">
+            <div id="carouselExampleIndicators" class="carousel-index carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://www.clubconecta.cl/images.ashx?id=27bcd0895e711972beeae3163687f7da" alt="Slide 1">
+                        <div class="overlay">
+                            <p>
+                                Nuestras canchas de padel
+                            </p>
+                            <div class="iconos-contenedor">
+                                <a href="@Url.Action("Index", "Home")" target="_blank">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQwY-8_YSkAVtblYkDdF1Q_6QBIq6sHnjk8Q&s" alt="Slide 2">
+                        <div class="overlay">
+                            <p>
+                                Torneo Americano
+                            </p>
+                            <div class="iconos-contenedor">
+                                <a href="@Url.Action("Index", "Home")" target="_blank">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://www.villadeajalvir.es/media/k2/items/cache/87c7d648151f5cd3be35a0e8c0f9fae0_M.jpg" alt="Slide 3">
+                        <div class="overlay">
+                            <p>
+                                Clases de padel
+                            </p>
+                            <div class="iconos-contenedor">
+                                <a href="@Url.Action("Index", "Home")" target="_blank">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-12 d-flex justify-content-center">
-                <div>
-                    <a class="btn btn-success" href="@Url.Action("Reserva", "Home")"><i class="bi bi-calendar-plus">Reservar</i></a>
+        </div>
+        <div class="col-md-5">
+            <ul class="list-group thumb-group">
+                <li class="list-group-item">
+                    <div class="d-flex align-items-center">
+                        <img src="https://www.clubconecta.cl/images.ashx?id=27bcd0895e711972beeae3163687f7da" class="me-3" alt="Thumbnail 1">
+                        <div>
+                            <h6 class="mb-1">22/06/2024</h6>
+                            <h5 class="mb-1">Nuestras canchas de padel</h5>
+                            <p class="mb-0">Conoce más sobre nuestro predio de padel.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="d-flex align-items-center">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQwY-8_YSkAVtblYkDdF1Q_6QBIq6sHnjk8Q&s" class="me-3" alt="Thumbnail 2">
+                        <div>
+                            <h6 class="mb-1">22/06/2024</h6>
+                            <h5 class="mb-1">Torneo americano</h5>
+                            <p class="mb-0">Inscríbete en nuestro torneo americano este fin de semana.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="list-group-item">
+                    <div class="d-flex align-items-center">
+                        <img src="https://www.villadeajalvir.es/media/k2/items/cache/87c7d648151f5cd3be35a0e8c0f9fae0_M.jpg" class="me-3" alt="Thumbnail 2">
+                        <div>
+                            <h6 class="mb-1">01/07/2024</h6>
+                            <h5 class="mb-1">Clases de padel</h5>
+                            <p class="mb-0">Contactanos y arranca con tus clases de padel.</p>
+                        </div>
+                    </div>
+                </li>
+                <!-- Agrega más elementos según sea necesario -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid seccion-oscura">
+
+    <div class="row d-flex justify-content-center align-items-stretch">
+
+        <div class="card col-xl-5 col-md-5 m-3">
+            <div class="card-header d-flex justify-content-center align-items-center">
+                <h3 class="text-center">RESERVA TU CANCHA</h3>
+            </div>
+            <div class="card-body row align-items-center no-gutters align-items-center">
+                <div class="col-md-12">
+                    <p class="lead text-center">Reserva tus horarios y disfruta de nuestros servicios.</p>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div>
+                        <a class="btn btn-success" href="@Url.Action("Reserva", "Home")"><i class="bi bi-calendar-plus">Reservar</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-xl-5 col-md-5 m-3">
+            <div class="card-header d-flex justify-content-center align-items-center">
+                <h3>CREA TU PARTIDO</h3>
+            </div>
+            <div class="card-body">
+                <div class="col-md-12 text-center">
+                    <p class="lead text-center">Reserva tu cancha y ¡arma tu partido! 🎾 Si faltan jugadores, otros podrán unirse a tu reserva para disfrutar juntos del juego. 🤝</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-success" href="@Url.Action("Disponibles", "Partido")"><i class="bi bi-joystick">Unirse</i></a>
+                    <a class="btn btn-success" href="@Url.Action("Crear", "Partido")"><i class="bi bi-calendar-plus">Crear</i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-12 mt-2 mb-2">
+            <div class="card-header text-center">
+                <h3>Partidos disponibles</h3>
+            </div>
+            <div class="card-body">
+                <div id="partidosContainer" class="slider responsive">
+                    <!-- Se generará dinámicamente aquí -->
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-sm-12 col-lg-5 mt-2">
-        <div class="card-header text-center">
-            <h3>CREA TU PARTIDO</h3>
-        </div>
-        <div class="card-body">
-            <div class="col-md-12 text-center">
-                <p class="lead text-center">Reserva tu cancha y ¡arma tu partido! 🎾 Si faltan jugadores, otros podrán unirse a tu reserva para disfrutar juntos del juego. 🤝</p>
-            </div>
-            <div class="d-flex justify-content-between">
-                <a class="btn btn-success" href="@Url.Action("Disponibles", "Partido")"><i class="bi bi-joystick">Unirse</i></a>
-                <a class="btn btn-success" href="@Url.Action("Crear", "Partido")"><i class="bi bi-calendar-plus">Crear</i></a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card border-left-primary shadow h-100 py-2 col-md-12 col-12 mt-2 mb-2">
-        <div class="card-header text-center">
-            <h3>Partidos disponibles</h3>
-        </div>
-        <div class="card-body">
-            <div id="partidosContainer" class="slider responsive">
-                <!-- Se generará dinámicamente aquí -->
-            </div>
-        </div>
-    </div>
 </div>
-
-
 
 <script>
     $(document).ready(function () {
+        $(".carousel a").fancybox({
+            thumbs: {
+                autoStart: true,  // Iniciar la funcionalidad de thumbnails automáticamente
+                axis: "x"         // Colocar las miniaturas en una fila horizontal
+            },
+            buttons: [
+                "zoom",
+                "slideShow",
+                "thumbs",
+                "close"
+            ],
+            animationEffect: "zoom-in-out",
+            transitionEffect: "tube",
+        });
+
+
+
         $.ajax({
             url: '@Url.Action("PartidosDisponibles", "Partido")', // Reemplaza con la URL correcta
             type: 'GET',
@@ -65,18 +171,21 @@
                     urlVerPartido = "@Url.Action("Ver", "Partido")?idPartido=" + idPartido;
                     console.log(urlVerPartido);
 
-                    const card = $('<div class="card col-sm-12 border-left-primary shadow m-3">');
-                    const cardBody = $('<div class="row g-0 d-flex justify-content-center">');
+                    const card = $('<div class="card col-sm-12 border-left-primary shadow m-3 seccion-clara text-black">');
+                    const cardBody = $('<div class="card-body row g-0 d-flex justify-content-center">');
 
                     const colJugadores1y2 = $('<div class="d-flex text-center justify-content-center">');
 
-                    const colJugador1 = $('<div class="col-md-6 col-sm-6 text-center">');
+                    const colJugador1 = $('<div class="col-md-6 col-sm-6 text-center p-5">');
                     colJugador1.append('<img src="' + partido.FotoPerfil1 + '" alt="Foto Jugador 1" class="ultimos-img mx-auto" />');
-                    colJugador1.append('<div class="col-md-12 d-flex">' + partido.Categoria1 ?? '' + '</div>');
+                    colJugador1.append('<div class="col-md-12 d-flex justify-content-center text-center">' + partido.Categoria1 ?? '' + '</div>');
+                    colJugador1.append('<div class="col-md-12 d-flex justify-content-center text-center">' + partido.UsuarioJ1 ?? '' + '</div>');
 
-                    const colJugador2 = $('<div class="col-md-6 col-sm-6 text-center">');
+                    const colJugador2 = $('<div class="col-md-6 col-sm-6 text-center p-5">');
                     colJugador2.append('<img src="' + partido.FotoPerfil2 + '" alt="Foto Jugador 2" class="ultimos-img mx-auto" />');
-                    colJugador2.append('<div class="col-md-12 d-flex">' + partido.Categoria2 ?? '' + '</div>');
+                    colJugador2.append('<div class="col-md-12 d-flex justify-content-center text-center">' + partido.Categoria2 ?? '' + '</div>');
+                    colJugador2.append('<div class="col-md-12 d-flex justify-content-center text-center">' + partido.UsuarioJ2 ?? '' + '</div>');
+
 
                     colJugadores1y2.append(colJugador1);
                     colJugadores1y2.append(colJugador2);
@@ -86,13 +195,17 @@
 
                     const colJugadores3y4 = $('<div class="d-flex text-center justify-content-center">');
 
-                    const colJugador3 = $('<div class="col-md-6 col-sm-6 text-center">');
+                    const colJugador3 = $('<div class="col-md-6 col-sm-6 text-center p-5">');
                     colJugador3.append('<img src="' + partido.FotoPerfil3 + '" alt="Foto Jugador 1" class="ultimos-img mx-auto" />');
-                    colJugador3.append('<div class="col-md-12 d-flex">' + partido.Categoria3 ?? '' + '</div>');
+                    colJugador3.append('<div class="col-md-12 d-flex justify-content-center text-center">' + partido.Categoria3 ?? '' + '</div>');
+                    colJugador3.append('<div class="col-md-12 d-flex justify-content-center text-center">' + partido.UsuarioJ3 ?? '' + '</div>');
 
-                    const colJugador4 = $('<div class="col-md-6 col-sm-6 text-center">');
+
+                    const colJugador4 = $('<div class="col-md-6 col-sm-6 text-center p-5">');
                     colJugador4.append('<img src="' + partido.FotoPerfil4 + '" alt="Foto Jugador 2" class="ultimos-img mx-auto" />');
-                    colJugador4.append('<div class="col-md-12 d-flex">' + partido.Categoria4 ?? '' + '</div>');
+                    colJugador4.append('<div class="col-md-12 d-flex justify-content-center text-center">' + partido.Categoria4 ?? '' + '</div>');
+                    colJugador4.append('<div class="col-md-12 d-flex justify-content-center text-center">' + partido.UsuarioJ4 ?? '' + '</div>');
+
 
                     colJugadores3y4.append(colJugador3);
                     colJugadores3y4.append(colJugador4);
