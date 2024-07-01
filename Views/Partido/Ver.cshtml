@@ -2,98 +2,100 @@
 @{
     ViewBag.Title = "Ver";
 }
-<div class="row align-items-center card border-left-primary shadow h-100 py-2">
-    <div class="card-header  h-100 py-2 m-3 d-flex justify-content-center row">
-        <div class="col-md-12 text-center">
-            <h4 id="titulo">
-            </h4>
-        </div>
-
-        <div class="col-md-12 text-center">
-            <h5 id="tituloHora">
-            </h5>
-        </div>
-    </div>
-
-    <div class="card-body">
-        <div class="row">
-            <!-- Jugador 1 -->
-            <div class="col-md-6 col-6 p-2">
-                <div class="text-center">
-                    <img src="@Model.FotoPerfil1" alt="Imagen Jugador 1" class="img-fluid rounded-circle" style="width: 100px; height: 100px;">
-                    <h6 class="text-dark text-sm-center">@Model.UsuarioJ1</h6>
-                    @Model.Categoria1 - PTOS. @Model.Puntuacion1
-                </div>
+<div class="container-fluid seccion-clara">
+    <div class="row align-items-center shadow py-2">
+        <div class="card-header  h-100 py-2 m-3 d-flex justify-content-center row">
+            <div class="col-md-12 text-center">
+                <h4 id="titulo">
+                </h4>
             </div>
-            <!-- Jugador 2 -->
-            <div class="col-md-6 col-6 p-2">
-                <div class="text-center">
-                    <img src="@Model.FotoPerfil2" alt="Imagen Jugador 2" class="img-fluid rounded-circle" style="width: 100px; height: 100px;">
-                    @if (Model.UsuarioJ2 == "")
-                    {
-                        <div class="m-2">
-                            <button class="btn btn-success" onclick="unirse(2)">Unirse</button>
-                        </div>
-                    }
-                    else
-                    {
-                        <div>
-                            <h6 class="text-dark">@Model.UsuarioJ2</h6>
-                        </div>
-                        <div class="col-12">
-                            @Model.Categoria2 - PTOS. @Model.Puntuacion2
-                        </div>
-                    }
-                </div>
+
+            <div class="col-md-12 text-center">
+                <h5 id="tituloHora">
+                </h5>
             </div>
         </div>
 
-        <div class="col-md-12 text-center mt-4" id="contenedorVS">
-            <h2>VS</h2>
-        </div>
-
-        <div class="row mt-4">
-            <!-- Jugador 3 -->
-            <div class="col-md-6 col-6 p-2">
-                <div class="text-center">
-                    <img src="@Model.FotoPerfil3" alt="Imagen Jugador 3" class="img-fluid rounded-circle" style="width: 100px; height: 100px;">
-                    @if (Model.UsuarioJ3 == "")
-                    {
-                        <div class="m-2">
-                            <button class="btn btn-success" onclick="unirse(3)">Unirse</button>
-                        </div>
-                    }
-                    else
-                    {
-                        <div>
-                            <h6 class="text-dark">@Model.UsuarioJ3</h6>
-                        </div>
-                        <div class="col-12">
-                            @Model.Categoria3 - PTOS. @Model.Puntuacion3
-                        </div>
-                    }
+        <div class="card-body">
+            <div class="row">
+                <!-- Jugador 1 -->
+                <div class="col-md-6 col-6 p-2">
+                    <div class="text-center">
+                        <img src="@Model.FotoPerfil1" alt="Imagen Jugador 1" class="img-fluid rounded-circle" style="width: 100px; height: 100px;">
+                        <h4 class="text-dark text-center">@Model.UsuarioJ1</h4>
+                        @Model.Categoria1 - PTOS. @Model.Puntuacion1
+                    </div>
+                </div>
+                <!-- Jugador 2 -->
+                <div class="col-md-6 col-6 p-2">
+                    <div class="text-center">
+                        <img src="@Model.FotoPerfil2" alt="Imagen Jugador 2" class="img-fluid rounded-circle" style="width: 100px; height: 100px;">
+                        @if (Model.UsuarioJ2 == "")
+                        {
+                            <div class="m-2">
+                                <button class="btn btn-success" onclick="unirse(2)">Unirse</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <h4 class="text-dark text-center">@Model.UsuarioJ2</h4>
+                            </div>
+                            <div class="col-12">
+                                @Model.Categoria2 - PTOS. @Model.Puntuacion2
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
 
-            <!-- Jugador 4 -->
-            <div class="col-md-6 col-6 p-2">
-                <div class="text-center">
-                    <img src="@Model.FotoPerfil4" alt="Imagen Jugador 4" class="img-fluid rounded-circle" style="width: 100px; height: 100px;">
-                    @if (Model.UsuarioJ4 == "")
-                    {
-                        <div class="m-2">
-                            <button class="btn btn-success" onclick="unirse(4)">Unirse</button>
-                        </div>
-                    }
-                    else
-                    {
-                        <div>
-                            <h6 class="text-dark">@Model.UsuarioJ4</h6>
-                        </div>
-                        <div class="col-12">
-                            @Model.Categoria4 - PTOS. @Model.Puntuacion4
-                        </div>
-                    }
+            <div class="col-md-12 text-center mt-4" id="contenedorVS">
+                <h2>VS</h2>
+            </div>
+
+            <div class="row mt-4">
+                <!-- Jugador 3 -->
+                <div class="col-md-6 col-6 p-2">
+                    <div class="text-center">
+                        <img src="@Model.FotoPerfil3" alt="Imagen Jugador 3" class="img-fluid rounded-circle" style="width: 100px; height: 100px;">
+                        @if (Model.UsuarioJ3 == "")
+                        {
+                            <div class="m-2">
+                                <button class="btn btn-success" onclick="unirse(3)">Unirse</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <h4 class="text-dark text-center">@Model.UsuarioJ3</h4>
+                            </div>
+                            <div class="col-12">
+                                @Model.Categoria3 - PTOS. @Model.Puntuacion3
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Jugador 4 -->
+                <div class="col-md-6 col-6 p-2">
+                    <div class="text-center">
+                        <img src="@Model.FotoPerfil4" alt="Imagen Jugador 4" class="img-fluid rounded-circle" style="width: 100px; height: 100px;">
+                        @if (Model.UsuarioJ4 == "")
+                        {
+                            <div class="m-2">
+                                <button class="btn btn-success" onclick="unirse(4)">Unirse</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <h4 class="text-dark text-center">@Model.UsuarioJ4</h4>
+                            </div>
+                            <div class="col-12">
+                                @Model.Categoria4 - PTOS. @Model.Puntuacion4
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
@@ -114,7 +116,7 @@
     $(document).ready(function () {
         if (formatearFecha(fechaActual) >= fechaTitulo) {
             const idUsuario = obtenerUsuarioId();
-            
+
 
             if (usuarioOrganiza == idUsuario) {
                 contenedorVS.innerHTML = '<button class="btn btn-success" id="btnFinalizar"">Finalizar Partido</button>';

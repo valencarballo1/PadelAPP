@@ -86,7 +86,7 @@ namespace ReservaPadel.Controllers
             }
 
 
-            if (!partido.UsuarioJ4.IsEmpty())
+            if (!partido.UsuarioJ4.IsEmpty() && partido.UsuarioJ4 != partido.UsuarioJ1 && partido.UsuarioJ4 != partido.UsuarioJ2 && partido.UsuarioJ4 != partido.UsuarioJ3)
             {
                 nombreArchivo = partido.FotoPerfil4;
                 rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
@@ -98,7 +98,30 @@ namespace ReservaPadel.Controllers
                 rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
                 partido.FotoPerfil4 = rutaCompleta;
             }
+            else if (partido.UsuarioJ4 == partido.UsuarioJ1)
+            {
+                partido.UsuarioJ4 = "Invitado de: " + partido.UsuarioJ1;
+                nombreArchivo = partido.FotoPerfil1;
+                rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                partido.FotoPerfil4 = rutaCompleta;
 
+            }
+            else if (partido.UsuarioJ4 == partido.UsuarioJ2)
+            {
+                partido.UsuarioJ4 = "Invitado de: " + partido.UsuarioJ2;
+                nombreArchivo = partido.FotoPerfil2;
+                rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                partido.FotoPerfil4 = rutaCompleta;
+
+            }
+            else
+            {
+                partido.UsuarioJ4 = "Invitado de: " + partido.UsuarioJ3;
+                nombreArchivo = partido.FotoPerfil3;
+                rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                partido.FotoPerfil4 = rutaCompleta;
+
+            }
             return View(partido);
         }
 
@@ -121,7 +144,8 @@ namespace ReservaPadel.Controllers
 
             List<PartidoDTO> partidos = _PartidoBusiness.GetUltimos(idUsuario);
 
-            partidos.ForEach(partido => {
+            partidos.ForEach(partido =>
+            {
                 if (partido.UsuarioJ1 != null)
                 {
                     nombreArchivo = partido.FotoPerfil1;
@@ -227,7 +251,8 @@ namespace ReservaPadel.Controllers
 
             List<PartidoDTO> partidos = _PartidoBusiness.GetPartidosDisponibles();
 
-            partidos.ForEach(partido => {
+            partidos.ForEach(partido =>
+            {
                 if (partido.UsuarioJ1 != null)
                 {
                     nombreArchivo = partido.FotoPerfil1;
@@ -283,7 +308,7 @@ namespace ReservaPadel.Controllers
                 }
 
 
-                if (!partido.UsuarioJ4.IsEmpty())
+                if (!partido.UsuarioJ4.IsEmpty() && partido.UsuarioJ4 != partido.UsuarioJ1 && partido.UsuarioJ4 != partido.UsuarioJ2 && partido.UsuarioJ4 != partido.UsuarioJ3)
                 {
                     nombreArchivo = partido.FotoPerfil4;
                     rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
@@ -295,6 +320,30 @@ namespace ReservaPadel.Controllers
                     rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
                     partido.FotoPerfil4 = rutaCompleta;
                 }
+                else if (partido.UsuarioJ4 == partido.UsuarioJ1)
+                {
+                    partido.UsuarioJ4 = "Invitado de: " + partido.UsuarioJ1;
+                    nombreArchivo = partido.FotoPerfil1;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil4 = rutaCompleta;
+
+                }
+                else if (partido.UsuarioJ4 == partido.UsuarioJ2)
+                {
+                    partido.UsuarioJ4 = "Invitado de: " + partido.UsuarioJ2;
+                    nombreArchivo = partido.FotoPerfil2;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil4 = rutaCompleta;
+
+                }
+                else
+                {
+                    partido.UsuarioJ4 = "Invitado de: " + partido.UsuarioJ3;
+                    nombreArchivo = partido.FotoPerfil3;
+                    rutaCompleta = Path.Combine(rutaDirectorio, nombreArchivo);
+                    partido.FotoPerfil4 = rutaCompleta;
+
+                }
             });
             return Json(partidos, JsonRequestBehavior.AllowGet);
         }
@@ -305,5 +354,5 @@ namespace ReservaPadel.Controllers
 
             return Json(grabo);
         }
-    }   
+    }
 }

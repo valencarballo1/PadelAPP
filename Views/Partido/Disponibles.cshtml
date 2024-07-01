@@ -2,24 +2,21 @@
 @{
     ViewBag.Title = "Disponibles";
 }
-
-<div class="row col-md-12 d-flex justify-content-center p-5">
-    <div class="card border-left-primary shadow h-100 py-2">
-        <div class="card-header">
+<div class="container seccion-clara">
+    <div class="row d-flex">
+        <div class="col-12 border-left-primary shadow col-md-12 d-flex justify-content-center p-5">
             <h2 class="text-center">Partidos disponibles para unirse</h2>
         </div>
+            <div id="partidos-container" class="row d-flex justify-content-center">
 
-        <div class="card-body">
-            <div class="container">
-                <div id="partidos-container" class="row justify-content-center"></div>
             </div>
-        </div>
-
     </div>
 </div>
 
 <script>
     let partidosDisponibles;
+    const partidosContainer = document.getElementById('partidos-container');
+
 
     $(document).ready(function () {
                    enEspera();
@@ -42,12 +39,11 @@
            });
     });
 
-    const partidosContainer = document.getElementById('partidos-container');
 
     // Función para crear una tarjeta
     function crearTarjeta(partido) {
         const card = document.createElement('div');
-        card.classList.add('card', 'col-md-12', 'col-12' ,'m-2',);
+        card.classList.add('card', 'col-md-5', 'col-5', 'col-xl-4', 'm-2');
 
         const fechaPartido = formatearFecha(partido.HorarioDesde);
         const fechaDesde = formatearHora(partido.HorarioDesde);
@@ -59,7 +55,7 @@
         <h5 class="card-title text-center col-md-12">Horario: ${fechaDesde} - ${fechaHasta}</h5>
         <p class="card-text text-center col-md-6">Jugadores: ${partido.CantidadJugadores}</p>
         <p class="card-text text-center col-md-6">Organizador: ${partido.UsuarioOrganizador}</p>
-        <a href="@Url.Action("Ver", "Partido")?idPartido=${partido.Id}" class="btn btn-primary col-md-4">Unirme al Partido</a>
+        <a href="@Url.Action("Ver", "Partido")?idPartido=${partido.Id}" class="btn btn-primary col-md-6">Unirme al Partido</a>
       </div>
     `;
 

@@ -167,9 +167,6 @@
 }
 
     .thumb-group li {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         color: #17253f;
     }
 
@@ -223,7 +220,7 @@
 
     .seccion-logos img {
         max-width: 100px; /* Ajusta el tamaño de los logos según tus necesidades */
-        /*border-radius: 30%;*/
+        border-radius: 10%;
     }
 
 footer {

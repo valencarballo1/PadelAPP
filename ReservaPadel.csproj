@@ -191,6 +191,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="imgPerfiles\AgregarAPartido.png" />
     <Content Include="imgPerfiles\agustin.tapia.jpeg" />
+    <Content Include="imgPerfiles\avatar.jpg" />
     <Content Include="imgPerfiles\LogoPadel.jpg" />
     <Content Include="Content\slick-1.8.1\bower.json" />
     <Content Include="Content\slick-1.8.1\component.json" />
