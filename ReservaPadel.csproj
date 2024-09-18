@@ -139,6 +139,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdministracionController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
+    <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
     <Compile Include="Controllers\NotificacionController.cs" />
@@ -177,6 +178,7 @@
     <Content Include="Content\jquery.fancybox-buttons.css" />
     <Content Include="Content\jquery.fancybox-thumbs.css" />
     <Content Include="Content\jquery.fancybox.css" />
+    <Content Include="Content\navbarside.css" />
     <Content Include="Content\slick-1.8.1\.gitignore" />
     <Content Include="Content\slick-1.8.1\index.html" />
     <Content Include="Content\slick-1.8.1\slick\ajax-loader.gif" />
@@ -264,7 +266,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\BackupCopia.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Reserva.cshtml" />
@@ -281,11 +283,13 @@
     <Content Include="Views\Administracion\Reservas.cshtml" />
     <Content Include="Views\Partido\Resultado.cshtml" />
     <Content Include="Views\Home\Ranking.cshtml" />
+    <Content Include="Views\Home\BackupIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Categoria\" />
+    <Folder Include="Views\Club\" />
     <Folder Include="Views\Horario\" />
     <Folder Include="Views\Notificacion\" />
     <Folder Include="Views\Reservas\" />

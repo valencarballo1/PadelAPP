@@ -12,27 +12,21 @@ namespace Data
     using System;
     using System.Collections.Generic;
     
-    public partial class PartidosCreadosUsuarios
+    public partial class Cancha
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PartidosCreadosUsuarios()
+        public Cancha()
         {
-            this.Parejas = new HashSet<Parejas>();
+            this.CanchasReservadas = new HashSet<CanchasReservadas>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> IdCanchaReservada { get; set; }
-        public Nullable<int> IdJugador1 { get; set; }
-        public Nullable<int> IdJugador2 { get; set; }
-        public Nullable<int> IdJugador3 { get; set; }
-        public Nullable<int> IdJugador4 { get; set; }
+        public Nullable<int> IdCLub { get; set; }
+        public Nullable<bool> Indoor { get; set; }
+        public int Numero { get; set; }
     
-        public virtual Usuario Usuario { get; set; }
-        public virtual Usuario Usuario1 { get; set; }
-        public virtual Usuario Usuario2 { get; set; }
-        public virtual Usuario Usuario3 { get; set; }
+        public virtual Club Club { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Parejas> Parejas { get; set; }
-        public virtual CanchasReservadas CanchasReservadas { get; set; }
+        public virtual ICollection<CanchasReservadas> CanchasReservadas { get; set; }
     }
 }

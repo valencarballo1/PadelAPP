@@ -25,8 +25,6 @@ namespace Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Canchas> Canchas { get; set; }
-        public virtual DbSet<CanchasReservadas> CanchasReservadas { get; set; }
         public virtual DbSet<Horarios> Horarios { get; set; }
         public virtual DbSet<PartidosCreadosUsuarios> PartidosCreadosUsuarios { get; set; }
         public virtual DbSet<Perfil> Perfil { get; set; }
@@ -38,5 +36,9 @@ namespace Data
         public virtual DbSet<PartidoResultado> PartidoResultado { get; set; }
         public virtual DbSet<LecturasNotificaciones> LecturasNotificaciones { get; set; }
         public virtual DbSet<Notificaciones> Notificaciones { get; set; }
+        public virtual DbSet<Cancha> Cancha { get; set; }
+        public virtual DbSet<Club> Club { get; set; }
+        public virtual DbSet<ClubDetalle> ClubDetalle { get; set; }
+        public virtual DbSet<CanchasReservadas> CanchasReservadas { get; set; }
     }
 }

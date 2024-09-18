@@ -1,230 +1,152 @@
 ﻿body {
-    font-family: "Oswald", sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar {
-    background-color: #17253f;
-}
-
-.navbar-nav a {
-    color: #fff;
-}
-
-.navbar-brand img {
-    height: 50px;
-    width: 50px;
-    background-color: #fff;
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F5F5;
+    color: #333333;
 }
 
 .hidden {
-    display: none
+    display: none !important;
 }
 
-#espera_contenedor {
-    visibility: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0,0,0,0.8);
-    width: 100%;
-    height: 100%;
-    z-index: 1059;
-    position: absolute;
-    top: 0;
-    left: 0;
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
 }
 
-
-
-#espera_spin {
-    align-content: center;
-}
-
-#fullscreenDiv {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-
-
-    #fullscreenDiv.show {
-        display: flex;
-    }
-
-
-
-#centerButton {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.logo {
-    width: 70px; /* Ajusta según sea necesario */
-    height: 70px; /* Ajusta según sea necesario */
-    object-fit: cover;
-    border-radius: 70%;
-    border: 2px solid #fff;
-}
-
-.perfil-img {
-    width: 150px; /* Ajusta según sea necesario */
-    height: 150px; /* Ajusta según sea necesario */
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #fff; /* Ajusta según sea necesario */
-}
-
-.ultimos-img {
+.navbar-brand img.logo {
     width: 50px;
     height: 50px;
     object-fit: cover;
-    border-radius: 20%;
-    border: 2px solid #fff;
+    border-radius: 50%;
+    border: 2px solid #FFC107;
 }
 
-
-.carousel-indicators button.thumbnail {
-    max-width: 70%;
+.btn-outline-light:hover {
+    background-color: #FFC107;
+    border-color: #FFC107;
+    color: #333333;
 }
 
-    .carousel-indicators button.thumbnail:not(.active) {
-        opacity: 0.7;
-    }
-
-.carousel-indicators {
-    position: static;
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
 }
 
-.carousel-index {
-    max-width: 70%;
-    margin: 0 auto;
-    max-height: 300px;
-    position: relative;
+.nav-link {
+    color: #333333;
+    transition: color 0.3s ease;
 }
 
-    .carousel-index img {
-        width: 300px;
-        height: 300px;
-        object-fit: cover;
-        border-radius: 10%;
-        display: block;
-        transition: all 0.2s ease;
-    }
-
-    .carousel-index:hover img {
-        opacity: 0.2;
-    }
-
-    .carousel-index:hover .overlay {
-        opacity: 1;
-    }
-
-.overlay {
-    transition: all 0.2s ease;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    font-family: "Oswald", sans-serif;
-}
-
-    .overlay p {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 0;
-        font-family: "Oswald", sans-serif;
-        color: #17253f;
-    }
-
-    .overlay .iconos-contenedor {
-        /*display: flex;*/
-        text-align: center;
-    }
-
-    .overlay i {
-        color: white;
-        font-size: 35px;
-        margin: 10px;
-        color: #17253f;
-    }
-
-.thumb-group {
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-    .thumb-group li {
-        color: #17253f;
-    }
-
-        .thumb-group li img {
-            height: 80px;
-            width: 80px;
-        }
-
-#padelTable {
-    background-color: #E2DEDE; /* Fondo oscuro de la tabla */
-    color: #404040; /* Color del texto de la tabla */
-    font-size: 1.3rem;
-}
-
-    #padelTable th, #padelTable td {
-        border-color: #fff; /* Color del borde de la tabla */
-        background-color: #fff; /* Fondo oscuro de la tabla */
-        color: #404040; /* Color del texto de la tabla */
+    .nav-link:hover {
+        color: #4CAF50;
     }
 
 .card {
-    background-color: #17253f;
-    color: #fff;
+    background-color: #FFFFFF;
     border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,.1);
+    transition: transform 0.3s ease;
 }
 
-.card-header {
-    border-bottom: 1px solid #fff; /* Borde blanco en la parte inferior del card-header */
-}
-
-.card-body {
-    padding: 1.25rem; /* Añade un padding para separación interna entre el card-header y el card-body */
-}
-
-.navbar-toggler {
-    color: #fff;
-}
-
-.seccion-oscura {
-    background-color: #1d3056;
-}
-
-.seccion-clara {
-    background-color: #E2DEDE;
-}
-
-.seccion-logos {
-    padding: 20px 0;
-    margin-top: 20px;
-}
-
-    .seccion-logos img {
-        max-width: 100px; /* Ajusta el tamaño de los logos según tus necesidades */
-        border-radius: 10%;
+    .card:hover {
+        transform: translateY(-5px);
     }
 
-footer {
-    padding: 20px 0;
-    margin-top: 20px;
-    margin-bottom: 0;
+.card-header {
+    background-color: #4CAF50;
+    color: #FFFFFF;
+    border-bottom: none;
+}
+
+#padelTable {
+    background-color: #FFFFFF;
+    color: #333333;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,.1);
+}
+
+    #padelTable th {
+        background-color: #4CAF50;
+        color: #FFFFFF;
+    }
+
+    #padelTable td {
+        border-color: #E0E0E0;
+    }
+
+.seccion-logos img {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+    .seccion-logos img:hover {
+        transform: scale(1.1);
+    }
+
+.scroll-to-top {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+    background: rgba(76, 175, 80, 0.5);
+    line-height: 50px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+    .scroll-to-top:hover {
+        background: #4CAF50;
+    }
+
+    .scroll-to-top i {
+        font-weight: 800;
+    }
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #4CAF50;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+    .btn-primary:hover {
+        background-color: #45a049;
+        border-color: #45a049;
+    }
+
+.btn-danger {
+    background-color: #f44336;
+    border-color: #f44336;
+}
+
+    .btn-danger:hover {
+        background-color: #d32f2f;
+        border-color: #d32f2f;
+    }
+
+@media (max-width: 768px) {
+    .navbar-brand img.logo {
+        width: 40px;
+        height: 40px;
+    }
 }

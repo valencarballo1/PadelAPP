@@ -17,13 +17,13 @@ namespace Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
-            this.CanchasReservadas = new HashSet<CanchasReservadas>();
             this.PartidosCreadosUsuarios = new HashSet<PartidosCreadosUsuarios>();
             this.PartidosCreadosUsuarios1 = new HashSet<PartidosCreadosUsuarios>();
             this.PartidosCreadosUsuarios2 = new HashSet<PartidosCreadosUsuarios>();
             this.PartidosCreadosUsuarios3 = new HashSet<PartidosCreadosUsuarios>();
             this.Perfil = new HashSet<Perfil>();
             this.LecturasNotificaciones = new HashSet<LecturasNotificaciones>();
+            this.CanchasReservadas = new HashSet<CanchasReservadas>();
         }
     
         public int Id { get; set; }
@@ -31,8 +31,6 @@ namespace Data
         public string Contrasena { get; set; }
         public Nullable<bool> EsAdmin { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CanchasReservadas> CanchasReservadas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartidosCreadosUsuarios> PartidosCreadosUsuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -45,5 +43,7 @@ namespace Data
         public virtual ICollection<Perfil> Perfil { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LecturasNotificaciones> LecturasNotificaciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CanchasReservadas> CanchasReservadas { get; set; }
     }
 }

@@ -1,81 +1,97 @@
-﻿
-@{
-    ViewBag.Title = "Disponibles";
+﻿@{
+    ViewBag.Title = "Partidos Disponibles";
 }
-<div class="container seccion-clara">
-    <div class="row d-flex">
-        <div class="col-12 border-left-primary shadow col-md-12 d-flex justify-content-center p-5">
-            <h2 class="text-center">Partidos disponibles para unirse</h2>
-        </div>
-            <div id="partidos-container" class="row d-flex justify-content-center">
 
-            </div>
+<div class="container-fluid py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5 text-primary">Partidos disponibles para unirse</h2>
+        <div id="partidos-container" class="row justify-content-center">
+            <!-- Las tarjetas de partidos se generarán aquí dinámicamente -->
+        </div>
     </div>
 </div>
 
+<template id="partido-template">
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm hover-card">
+            <div class="card-header bg-primary text-white text-center py-3">
+                <h5 class="card-title mb-0">Fecha: <span class="fecha"></span></h5>
+            </div>
+            <div class="card-body d-flex flex-column">
+                <p class="card-text text-center mb-3">
+                    <i class="bi bi-clock me-2"></i>
+                    <span class="horario"></span>
+                </p>
+                <div class="row mb-3">
+                    <div class="col-6 text-center">
+                        <p class="mb-1"><strong>Jugadores</strong></p>
+                        <p class="cantidad-jugadores mb-0"></p>
+                    </div>
+                    <div class="col-6 text-center">
+                        <p class="mb-1"><strong>Organizador</strong></p>
+                        <p class="organizador mb-0"></p>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-primary mt-auto align-self-center unirse-btn">
+                    <i class="bi bi-person-plus-fill me-2"></i>Unirme al Partido
+                </a>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
+
 <script>
-    let partidosDisponibles;
-    const partidosContainer = document.getElementById('partidos-container');
-
-
     $(document).ready(function () {
-                   enEspera();
-           $.ajax({
-               url: '@Url.Action("GetDetallesPartidos", "Partido")',
-               type: 'GET',
-               data: {},
-               success: function (data) {
-                   partidosDisponibles = data;
-                   console.log(partidosDisponibles);
-                   partidosDisponibles.forEach(partido => {
-                       const card = crearTarjeta(partido);
-                       partidosContainer.appendChild(card);
-                   });
-                   enEspera("chau");
-               },
-               error: function (error) {
-                   console.error('Error al obtener horarios:', error);
-               }
-           });
+        const partidosContainer = document.getElementById('partidos-container');
+        const template = document.getElementById('partido-template');
+
+        function cargarPartidos() {
+            enEspera();
+            $.ajax({
+                url: '@Url.Action("GetDetallesPartidos", "Partido")',
+                type: 'GET',
+                success: function (data) {
+                    partidosContainer.innerHTML = '';
+                    data.forEach(partido => {
+                        const card = crearTarjeta(partido);
+                        partidosContainer.appendChild(card);
+                    });
+                    enEspera("chau");
+                },
+                error: function (error) {
+                    console.error('Error al obtener partidos:', error);
+                    enEspera("chau");
+                }
+            });
+        }
+
+        function crearTarjeta(partido) {
+            const clone = document.importNode(template.content, true);
+
+            clone.querySelector('.fecha').textContent = formatearFecha(partido.HorarioDesde);
+            clone.querySelector('.horario').textContent = `${formatearHora(partido.HorarioDesde)} - ${formatearHora(partido.HorarioHasta)}`;
+            clone.querySelector('.cantidad-jugadores').textContent = partido.CantidadJugadores;
+            clone.querySelector('.organizador').textContent = partido.UsuarioOrganizador;
+
+            const unirseBtn = clone.querySelector('.unirse-btn');
+            unirseBtn.href = `@Url.Action("Ver", "Partido")?idPartido=${partido.Id}`;
+
+            return clone;
+        }
+
+        function formatearFecha(fechaString) {
+            const fecha = new Date(parseInt(fechaString.substr(6)));
+            return fecha.toLocaleDateString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit' });
+        }
+
+        function formatearHora(fechaString) {
+            const fechaMilisegundos = parseInt(fechaString.substr(6));
+            return moment(fechaMilisegundos).tz('America/Chicago').format('HH:mm');
+        }
+
+        cargarPartidos();
     });
-
-
-    // Función para crear una tarjeta
-    function crearTarjeta(partido) {
-        const card = document.createElement('div');
-        card.classList.add('card', 'col-md-5', 'col-5', 'col-xl-4', 'm-2');
-
-        const fechaPartido = formatearFecha(partido.HorarioDesde);
-        const fechaDesde = formatearHora(partido.HorarioDesde);
-        const fechaHasta = formatearHora(partido.HorarioHasta);
-
-        card.innerHTML = `
-      <div class="card-body row d-flex justify-content-center">
-        <h3 class="card-title text-center col-md-12">Fecha: ${fechaPartido}</h3>
-        <h5 class="card-title text-center col-md-12">Horario: ${fechaDesde} - ${fechaHasta}</h5>
-        <p class="card-text text-center col-md-6">Jugadores: ${partido.CantidadJugadores}</p>
-        <p class="card-text text-center col-md-6">Organizador: ${partido.UsuarioOrganizador}</p>
-        <a href="@Url.Action("Ver", "Partido")?idPartido=${partido.Id}" class="btn btn-primary col-md-6">Unirme al Partido</a>
-      </div>
-    `;
-
-        return card;
-    }
-
-    function formatearFecha(fechaString) {
-        var fecha = new Date(parseInt(fechaString.substr(6)));
-        var opciones = { year: 'numeric', month: '2-digit', day: '2-digit'};
-        return fecha.toLocaleString('es-ES', opciones);
-    }
-
-    function formatearHora(fechaString) {
-        const fechaMilisegundos = parseInt(fechaString.substr(6));
-        const fechaDesde = moment(fechaMilisegundos).tz('America/Chicago');
-        const horaYMinutos = fechaDesde.format('HH:mm');
-        console.log("Esto es de la configuración: " + horaYMinutos);
-
-        return horaYMinutos;
-    }
-
 </script>
-

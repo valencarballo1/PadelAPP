@@ -74,14 +74,14 @@ namespace Repository
             using (PadelAppEntities db = new PadelAppEntities())
             {
                 List<ReservaDTO> reservasDTO = db.CanchasReservadas
-                    .Include("Canchas")
+                    .Include("Cancha")
                     .Include("Horarios")
                     .Where(c => c.IdUsuario == idUsuario && c.Estado != ESTADO.BAJA)
                     .OrderByDescending(r => r.Horarios.HorarioDesde) // Asumiendo que tienes una propiedad FechaDeCreacion en CanchasReservadas
                     .Take(3)
                     .Select(r => new ReservaDTO
                     {
-                        CanchaNumero = r.Canchas.NumeroCancha.Value,
+                        CanchaNumero = r.Cancha.Numero,
                         HorarioDesde = r.Horarios.HorarioDesde.Value,
                         HorarioHasta = r.Horarios.HorarioHasta.Value,
                         Duracion = r.Horarios.Duracion.Value,

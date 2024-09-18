@@ -5,13 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PadelAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Canchas">
+        <EntityType Name="Cancha">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NumeroCancha" Type="int" />
-          <Property Name="Estado" Type="bit" />
+          <Property Name="IdCLub" Type="int" />
+          <Property Name="Indoor" Type="bit" />
+          <Property Name="Numero" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CanchasReservadas">
           <Key>
@@ -31,6 +32,23 @@
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
           <Property Name="PuntuacionMin" Type="float" />
           <Property Name="PuntuacionMax" Type="float" />
+        </EntityType>
+        <EntityType Name="Club">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="IdDetalle" Type="int" />
+        </EntityType>
+        <EntityType Name="ClubDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Imagen" Type="varchar" MaxLength="200" />
+          <Property Name="Direccion" Type="varchar" MaxLength="200" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Horarios">
           <Key>
@@ -142,15 +160,15 @@
           <Property Name="Contrasena" Type="varchar" MaxLength="150" />
           <Property Name="EsAdmin" Type="bit" />
         </EntityType>
-        <Association Name="FK__CanchasRe__IdCan__403A8C7D">
-          <End Role="Canchas" Type="Self.Canchas" Multiplicity="0..1" />
-          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
+        <Association Name="FK__Cancha__IdCLub__07C12930">
+          <End Role="Club" Type="Self.Club" Multiplicity="0..1" />
+          <End Role="Cancha" Type="Self.Cancha" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Canchas">
+            <Principal Role="Club">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CanchasReservadas">
-              <PropertyRef Name="IdCancha" />
+            <Dependent Role="Cancha">
+              <PropertyRef Name="IdCLub" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -175,6 +193,18 @@
             </Principal>
             <Dependent Role="CanchasReservadas">
               <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Club__IdDetalle__04E4BC85">
+          <End Role="ClubDetalle" Type="Self.ClubDetalle" Multiplicity="0..1" />
+          <End Role="Club" Type="Self.Club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClubDetalle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Club">
+              <PropertyRef Name="IdDetalle" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -346,6 +376,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Cancha_CanchasReservadas">
+          <End Role="Cancha" Type="Self.Cancha" Multiplicity="0..1" />
+          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cancha">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CanchasReservadas">
+              <PropertyRef Name="IdCancha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LecturasNotificaciones_Notificaciones">
           <End Role="Notificaciones" Type="Self.Notificaciones" Multiplicity="0..1" />
           <End Role="LecturasNotificaciones" Type="Self.LecturasNotificaciones" Multiplicity="*" />
@@ -371,9 +413,11 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PadelAppModelStoreContainer">
-          <EntitySet Name="Canchas" EntityType="Self.Canchas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cancha" EntityType="Self.Cancha" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CanchasReservadas" EntityType="Self.CanchasReservadas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Club" EntityType="Self.Club" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClubDetalle" EntityType="Self.ClubDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Horarios" EntityType="Self.Horarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LecturasNotificaciones" EntityType="Self.LecturasNotificaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notificaciones" EntityType="Self.Notificaciones" Schema="dbo" store:Type="Tables" />
@@ -384,9 +428,9 @@
           <EntitySet Name="PrecioCancha" EntityType="Self.PrecioCancha" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecaudacionCancha" EntityType="Self.RecaudacionCancha" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CanchasRe__IdCan__403A8C7D" Association="Self.FK__CanchasRe__IdCan__403A8C7D">
-            <End Role="Canchas" EntitySet="Canchas" />
-            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          <AssociationSet Name="FK__Cancha__IdCLub__07C12930" Association="Self.FK__Cancha__IdCLub__07C12930">
+            <End Role="Club" EntitySet="Club" />
+            <End Role="Cancha" EntitySet="Cancha" />
           </AssociationSet>
           <AssociationSet Name="FK__CanchasRe__IdHor__412EB0B6" Association="Self.FK__CanchasRe__IdHor__412EB0B6">
             <End Role="Horarios" EntitySet="Horarios" />
@@ -395,6 +439,10 @@
           <AssociationSet Name="FK__CanchasRe__IdUsu__4222D4EF" Association="Self.FK__CanchasRe__IdUsu__4222D4EF">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Club__IdDetalle__04E4BC85" Association="Self.FK__Club__IdDetalle__04E4BC85">
+            <End Role="ClubDetalle" EntitySet="ClubDetalle" />
+            <End Role="Club" EntitySet="Club" />
           </AssociationSet>
           <AssociationSet Name="FK__Parejas__IdJugad__628FA481" Association="Self.FK__Parejas__IdJugad__628FA481">
             <End Role="Perfil" EntitySet="Perfil" />
@@ -452,6 +500,10 @@
             <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
             <End Role="RecaudacionCancha" EntitySet="RecaudacionCancha" />
           </AssociationSet>
+          <AssociationSet Name="FK_Cancha_CanchasReservadas" Association="Self.FK_Cancha_CanchasReservadas">
+            <End Role="Cancha" EntitySet="Cancha" />
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          </AssociationSet>
           <AssociationSet Name="FK_LecturasNotificaciones_Notificaciones" Association="Self.FK_LecturasNotificaciones_Notificaciones">
             <End Role="Notificaciones" EntitySet="Notificaciones" />
             <End Role="LecturasNotificaciones" EntitySet="LecturasNotificaciones" />
@@ -465,30 +517,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PadelAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Canchas">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NumeroCancha" Type="Int32" />
-          <Property Name="Estado" Type="Boolean" />
-          <NavigationProperty Name="CanchasReservadas" Relationship="Self.FK__CanchasRe__IdCan__403A8C7D" FromRole="Canchas" ToRole="CanchasReservadas" />
-        </EntityType>
-        <EntityType Name="CanchasReservadas">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdCancha" Type="Int32" />
-          <Property Name="IdHorario" Type="Int32" />
-          <Property Name="IdUsuario" Type="Int32" />
-          <NavigationProperty Name="Canchas" Relationship="Self.FK__CanchasRe__IdCan__403A8C7D" FromRole="CanchasReservadas" ToRole="Canchas" />
-          <NavigationProperty Name="Horarios" Relationship="Self.FK__CanchasRe__IdHor__412EB0B6" FromRole="CanchasReservadas" ToRole="Horarios" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__CanchasRe__IdUsu__4222D4EF" FromRole="CanchasReservadas" ToRole="Usuario" />
-          <NavigationProperty Name="PartidosCreadosUsuarios" Relationship="Self.FK__PartidosC__IdCan__44FF419A" FromRole="CanchasReservadas" ToRole="PartidosCreadosUsuarios" />
-          <Property Name="Estado" Type="Int32" />
-          <NavigationProperty Name="RecaudacionCancha" Relationship="PadelAppModel.FK__Recaudaci__Canch__52593CB8" FromRole="CanchasReservadas" ToRole="RecaudacionCancha" />
-        </EntityType>
         <EntityType Name="Horarios">
           <Key>
             <PropertyRef Name="Id" />
@@ -497,7 +525,7 @@
           <Property Name="HorarioDesde" Type="DateTime" Precision="3" />
           <Property Name="HorarioHasta" Type="DateTime" Precision="3" />
           <Property Name="Duracion" Type="Int32" />
-          <NavigationProperty Name="CanchasReservadas" Relationship="Self.FK__CanchasRe__IdHor__412EB0B6" FromRole="Horarios" ToRole="CanchasReservadas" />
+          <NavigationProperty Name="CanchasReservadas" Relationship="PadelAppModel.FK__CanchasRe__IdHor__412EB0B6" FromRole="Horarios" ToRole="CanchasReservadas" />
         </EntityType>
         <EntityType Name="PartidosCreadosUsuarios">
           <Key>
@@ -509,12 +537,12 @@
           <Property Name="IdJugador2" Type="Int32" />
           <Property Name="IdJugador3" Type="Int32" />
           <Property Name="IdJugador4" Type="Int32" />
-          <NavigationProperty Name="CanchasReservadas" Relationship="Self.FK__PartidosC__IdCan__44FF419A" FromRole="PartidosCreadosUsuarios" ToRole="CanchasReservadas" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__PartidosC__IdJug__45F365D3" FromRole="PartidosCreadosUsuarios" ToRole="Usuario" />
           <NavigationProperty Name="Usuario1" Relationship="Self.FK__PartidosC__IdJug__46E78A0C" FromRole="PartidosCreadosUsuarios" ToRole="Usuario" />
           <NavigationProperty Name="Usuario2" Relationship="Self.FK__PartidosC__IdJug__47DBAE45" FromRole="PartidosCreadosUsuarios" ToRole="Usuario" />
           <NavigationProperty Name="Usuario3" Relationship="Self.FK__PartidosC__IdJug__48CFD27E" FromRole="PartidosCreadosUsuarios" ToRole="Usuario" />
           <NavigationProperty Name="Parejas" Relationship="PadelAppModel.FK__Parejas__IdParti__66603565" FromRole="PartidosCreadosUsuarios" ToRole="Parejas" />
+          <NavigationProperty Name="CanchasReservadas" Relationship="PadelAppModel.FK__PartidosC__IdCan__44FF419A" FromRole="PartidosCreadosUsuarios" ToRole="CanchasReservadas" />
         </EntityType>
         <EntityType Name="Perfil">
           <Key>
@@ -542,7 +570,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NombreUsuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Contrasena" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CanchasReservadas" Relationship="Self.FK__CanchasRe__IdUsu__4222D4EF" FromRole="Usuario" ToRole="CanchasReservadas" />
           <NavigationProperty Name="PartidosCreadosUsuarios" Relationship="Self.FK__PartidosC__IdJug__45F365D3" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
           <NavigationProperty Name="PartidosCreadosUsuarios1" Relationship="Self.FK__PartidosC__IdJug__46E78A0C" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
           <NavigationProperty Name="PartidosCreadosUsuarios2" Relationship="Self.FK__PartidosC__IdJug__47DBAE45" FromRole="Usuario" ToRole="PartidosCreadosUsuarios" />
@@ -550,55 +577,8 @@
           <NavigationProperty Name="Perfil" Relationship="Self.FK__Perfil__IdUsuari__3D5E1FD2" FromRole="Usuario" ToRole="Perfil" />
           <Property Name="EsAdmin" Type="Boolean" />
           <NavigationProperty Name="LecturasNotificaciones" Relationship="PadelAppModel.FK_LecturasNotificaciones_Usuarios" FromRole="Usuario" ToRole="LecturasNotificaciones" />
+          <NavigationProperty Name="CanchasReservadas" Relationship="PadelAppModel.FK__CanchasRe__IdUsu__4222D4EF" FromRole="Usuario" ToRole="CanchasReservadas" />
         </EntityType>
-        <Association Name="FK__CanchasRe__IdCan__403A8C7D">
-          <End Role="Canchas" Type="Self.Canchas" Multiplicity="0..1" />
-          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Canchas">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CanchasReservadas">
-              <PropertyRef Name="IdCancha" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__CanchasRe__IdHor__412EB0B6">
-          <End Role="Horarios" Type="Self.Horarios" Multiplicity="0..1" />
-          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Horarios">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CanchasReservadas">
-              <PropertyRef Name="IdHorario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__CanchasRe__IdUsu__4222D4EF">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CanchasReservadas">
-              <PropertyRef Name="IdUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__PartidosC__IdCan__44FF419A">
-          <End Role="CanchasReservadas" Type="Self.CanchasReservadas" Multiplicity="0..1" />
-          <End Role="PartidosCreadosUsuarios" Type="Self.PartidosCreadosUsuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CanchasReservadas">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PartidosCreadosUsuarios">
-              <PropertyRef Name="IdCanchaReservada" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__PartidosC__IdJug__45F365D3">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="PartidosCreadosUsuarios" Type="Self.PartidosCreadosUsuarios" Multiplicity="*" />
@@ -660,28 +640,10 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PadelAppEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Canchas" EntityType="Self.Canchas" />
-          <EntitySet Name="CanchasReservadas" EntityType="Self.CanchasReservadas" />
           <EntitySet Name="Horarios" EntityType="Self.Horarios" />
           <EntitySet Name="PartidosCreadosUsuarios" EntityType="Self.PartidosCreadosUsuarios" />
           <EntitySet Name="Perfil" EntityType="Self.Perfil" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
-          <AssociationSet Name="FK__CanchasRe__IdCan__403A8C7D" Association="Self.FK__CanchasRe__IdCan__403A8C7D">
-            <End Role="Canchas" EntitySet="Canchas" />
-            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CanchasRe__IdHor__412EB0B6" Association="Self.FK__CanchasRe__IdHor__412EB0B6">
-            <End Role="Horarios" EntitySet="Horarios" />
-            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CanchasRe__IdUsu__4222D4EF" Association="Self.FK__CanchasRe__IdUsu__4222D4EF">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
-          </AssociationSet>
-          <AssociationSet Name="FK__PartidosC__IdCan__44FF419A" Association="Self.FK__PartidosC__IdCan__44FF419A">
-            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
-            <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
-          </AssociationSet>
           <AssociationSet Name="FK__PartidosC__IdJug__45F365D3" Association="Self.FK__PartidosC__IdJug__45F365D3">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
@@ -709,10 +671,6 @@
           </AssociationSet>
           <EntitySet Name="PrecioCancha" EntityType="PadelAppModel.PrecioCancha" />
           <EntitySet Name="RecaudacionCancha" EntityType="PadelAppModel.RecaudacionCancha" />
-          <AssociationSet Name="FK__Recaudaci__Canch__52593CB8" Association="PadelAppModel.FK__Recaudaci__Canch__52593CB8">
-            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
-            <End Role="RecaudacionCancha" EntitySet="RecaudacionCancha" />
-          </AssociationSet>
           <EntitySet Name="Parejas" EntityType="PadelAppModel.Parejas" />
           <AssociationSet Name="FK__Parejas__IdJugad__628FA481" Association="PadelAppModel.FK__Parejas__IdJugad__628FA481">
             <End Role="Perfil" EntitySet="Perfil" />
@@ -748,6 +706,38 @@
           <AssociationSet Name="FK_LecturasNotificaciones_Notificaciones" Association="PadelAppModel.FK_LecturasNotificaciones_Notificaciones">
             <End Role="Notificaciones" EntitySet="Notificaciones" />
             <End Role="LecturasNotificaciones" EntitySet="LecturasNotificaciones" />
+          </AssociationSet>
+          <EntitySet Name="Cancha" EntityType="PadelAppModel.Cancha" />
+          <EntitySet Name="Club" EntityType="PadelAppModel.Club" />
+          <EntitySet Name="ClubDetalle" EntityType="PadelAppModel.ClubDetalle" />
+          <AssociationSet Name="FK__Cancha__IdCLub__07C12930" Association="PadelAppModel.FK__Cancha__IdCLub__07C12930">
+            <End Role="Club" EntitySet="Club" />
+            <End Role="Cancha" EntitySet="Cancha" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Club__IdDetalle__04E4BC85" Association="PadelAppModel.FK__Club__IdDetalle__04E4BC85">
+            <End Role="ClubDetalle" EntitySet="ClubDetalle" />
+            <End Role="Club" EntitySet="Club" />
+          </AssociationSet>
+          <EntitySet Name="CanchasReservadas" EntityType="PadelAppModel.CanchasReservadas" />
+          <AssociationSet Name="FK_Cancha_CanchasReservadas" Association="PadelAppModel.FK_Cancha_CanchasReservadas">
+            <End Role="Cancha" EntitySet="Cancha" />
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CanchasRe__IdHor__412EB0B6" Association="PadelAppModel.FK__CanchasRe__IdHor__412EB0B6">
+            <End Role="Horarios" EntitySet="Horarios" />
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CanchasRe__IdUsu__4222D4EF" Association="PadelAppModel.FK__CanchasRe__IdUsu__4222D4EF">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartidosC__IdCan__44FF419A" Association="PadelAppModel.FK__PartidosC__IdCan__44FF419A">
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+            <End Role="PartidosCreadosUsuarios" EntitySet="PartidosCreadosUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recaudaci__Canch__52593CB8" Association="PadelAppModel.FK__Recaudaci__Canch__52593CB8">
+            <End Role="CanchasReservadas" EntitySet="CanchasReservadas" />
+            <End Role="RecaudacionCancha" EntitySet="RecaudacionCancha" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Categorias">
@@ -793,18 +783,6 @@
           <Property Name="MontoFinal" Type="Decimal" Precision="10" Scale="2" />
           <NavigationProperty Name="CanchasReservadas" Relationship="PadelAppModel.FK__Recaudaci__Canch__52593CB8" FromRole="RecaudacionCancha" ToRole="CanchasReservadas" />
         </EntityType>
-        <Association Name="FK__Recaudaci__Canch__52593CB8">
-          <End Type="PadelAppModel.CanchasReservadas" Role="CanchasReservadas" Multiplicity="0..1" />
-          <End Type="PadelAppModel.RecaudacionCancha" Role="RecaudacionCancha" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CanchasReservadas">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RecaudacionCancha">
-              <PropertyRef Name="CanchaReservadaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Parejas">
           <Key>
             <PropertyRef Name="IdPareja" />
@@ -959,32 +937,142 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Cancha">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCLub" Type="Int32" />
+          <Property Name="Indoor" Type="Boolean" />
+          <NavigationProperty Name="Club" Relationship="PadelAppModel.FK__Cancha__IdCLub__07C12930" FromRole="Cancha" ToRole="Club" />
+          <NavigationProperty Name="CanchasReservadas" Relationship="PadelAppModel.FK_Cancha_CanchasReservadas" FromRole="Cancha" ToRole="CanchasReservadas" />
+          <Property Name="Numero" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Club">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdDetalle" Type="Int32" />
+          <NavigationProperty Name="Cancha" Relationship="PadelAppModel.FK__Cancha__IdCLub__07C12930" FromRole="Club" ToRole="Cancha" />
+          <NavigationProperty Name="ClubDetalle" Relationship="PadelAppModel.FK__Club__IdDetalle__04E4BC85" FromRole="Club" ToRole="ClubDetalle" />
+        </EntityType>
+        <EntityType Name="ClubDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Imagen" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Club" Relationship="PadelAppModel.FK__Club__IdDetalle__04E4BC85" FromRole="ClubDetalle" ToRole="Club" />
+        </EntityType>
+        <Association Name="FK__Cancha__IdCLub__07C12930">
+          <End Type="PadelAppModel.Club" Role="Club" Multiplicity="0..1" />
+          <End Type="PadelAppModel.Cancha" Role="Cancha" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Club">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cancha">
+              <PropertyRef Name="IdCLub" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Club__IdDetalle__04E4BC85">
+          <End Type="PadelAppModel.ClubDetalle" Role="ClubDetalle" Multiplicity="0..1" />
+          <End Type="PadelAppModel.Club" Role="Club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClubDetalle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Club">
+              <PropertyRef Name="IdDetalle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CanchasReservadas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCancha" Type="Int32" />
+          <Property Name="IdHorario" Type="Int32" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="Cancha" Relationship="PadelAppModel.FK_Cancha_CanchasReservadas" FromRole="CanchasReservadas" ToRole="Cancha" />
+          <NavigationProperty Name="Horarios" Relationship="PadelAppModel.FK__CanchasRe__IdHor__412EB0B6" FromRole="CanchasReservadas" ToRole="Horarios" />
+          <NavigationProperty Name="Usuario" Relationship="PadelAppModel.FK__CanchasRe__IdUsu__4222D4EF" FromRole="CanchasReservadas" ToRole="Usuario" />
+          <NavigationProperty Name="PartidosCreadosUsuarios" Relationship="PadelAppModel.FK__PartidosC__IdCan__44FF419A" FromRole="CanchasReservadas" ToRole="PartidosCreadosUsuarios" />
+          <NavigationProperty Name="RecaudacionCancha" Relationship="PadelAppModel.FK__Recaudaci__Canch__52593CB8" FromRole="CanchasReservadas" ToRole="RecaudacionCancha" />
+        </EntityType>
+        <Association Name="FK_Cancha_CanchasReservadas">
+          <End Type="PadelAppModel.Cancha" Role="Cancha" Multiplicity="0..1" />
+          <End Type="PadelAppModel.CanchasReservadas" Role="CanchasReservadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cancha">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CanchasReservadas">
+              <PropertyRef Name="IdCancha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CanchasRe__IdHor__412EB0B6">
+          <End Type="PadelAppModel.Horarios" Role="Horarios" Multiplicity="0..1" />
+          <End Type="PadelAppModel.CanchasReservadas" Role="CanchasReservadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CanchasReservadas">
+              <PropertyRef Name="IdHorario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CanchasRe__IdUsu__4222D4EF">
+          <End Type="PadelAppModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="PadelAppModel.CanchasReservadas" Role="CanchasReservadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CanchasReservadas">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartidosC__IdCan__44FF419A">
+          <End Type="PadelAppModel.CanchasReservadas" Role="CanchasReservadas" Multiplicity="0..1" />
+          <End Type="PadelAppModel.PartidosCreadosUsuarios" Role="PartidosCreadosUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CanchasReservadas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartidosCreadosUsuarios">
+              <PropertyRef Name="IdCanchaReservada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recaudaci__Canch__52593CB8">
+          <End Type="PadelAppModel.CanchasReservadas" Role="CanchasReservadas" Multiplicity="0..1" />
+          <End Type="PadelAppModel.RecaudacionCancha" Role="RecaudacionCancha" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CanchasReservadas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecaudacionCancha">
+              <PropertyRef Name="CanchaReservadaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PadelAppModelStoreContainer" CdmEntityContainer="PadelAppEntities">
-          <EntitySetMapping Name="Canchas">
-            <EntityTypeMapping TypeName="PadelAppModel.Canchas">
-              <MappingFragment StoreEntitySet="Canchas">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="NumeroCancha" ColumnName="NumeroCancha" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CanchasReservadas">
-            <EntityTypeMapping TypeName="PadelAppModel.CanchasReservadas">
-              <MappingFragment StoreEntitySet="CanchasReservadas">
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="IdCancha" ColumnName="IdCancha" />
-                <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
-                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Horarios">
             <EntityTypeMapping TypeName="PadelAppModel.Horarios">
               <MappingFragment StoreEntitySet="Horarios">
@@ -1112,6 +1200,46 @@
                 <ScalarProperty Name="Detalle" ColumnName="Detalle" />
                 <ScalarProperty Name="TipoNotificacion" ColumnName="TipoNotificacion" />
                 <ScalarProperty Name="IdNotificacion" ColumnName="IdNotificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cancha">
+            <EntityTypeMapping TypeName="PadelAppModel.Cancha">
+              <MappingFragment StoreEntitySet="Cancha">
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Indoor" ColumnName="Indoor" />
+                <ScalarProperty Name="IdCLub" ColumnName="IdCLub" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Club">
+            <EntityTypeMapping TypeName="PadelAppModel.Club">
+              <MappingFragment StoreEntitySet="Club">
+                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClubDetalle">
+            <EntityTypeMapping TypeName="PadelAppModel.ClubDetalle">
+              <MappingFragment StoreEntitySet="ClubDetalle">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CanchasReservadas">
+            <EntityTypeMapping TypeName="PadelAppModel.CanchasReservadas">
+              <MappingFragment StoreEntitySet="CanchasReservadas">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
+                <ScalarProperty Name="IdCancha" ColumnName="IdCancha" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

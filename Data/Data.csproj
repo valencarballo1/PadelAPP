@@ -72,13 +72,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Canchas.cs">
+    <Compile Include="Cancha.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>
     <Compile Include="CanchasReservadas.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>
     <Compile Include="Categorias.cs">
+      <DependentUpon>PadelAPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Club.cs">
+      <DependentUpon>PadelAPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClubDetalle.cs">
       <DependentUpon>PadelAPP.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO.cs" />

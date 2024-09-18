@@ -3,56 +3,59 @@
     ViewBag.Title = "Crear";
 }
 
-<div class="container-fluid seccion-clara pt-5">
-    <h2 class="text-center">
-        CREA TU PARTIDO
-    </h2>
-    <div class="card-body row d-flex justify-content-around align-items-center">
-        <div class="col-md-12 col-sm-12 col-12 d-flex justify-content-center align-items-center">
-            <div class="p-1">
-                <div class="card-title text-center">
-                    CANCHA 1
-                </div>
-                <div class="form-group">
-                    <label for="fecha">Selecciona una fecha:</label>
-                    <input type="text" class="form-control" id="fecha" name="fecha" readonly data-id="1">
-                </div>
+<div class="container-fluid py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5 text-primary">CREA TU PARTIDO</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white text-center py-3">
+                        <h3 class="mb-0">CANCHA 1</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="crearPartidoForm">
+                            <div class="mb-4">
+                                <label for="fecha" class="form-label">Selecciona una fecha:</label>
+                                <input type="text" class="form-control" id="fecha" name="fecha" readonly data-id="1">
+                            </div>
 
+                            <div class="mb-4">
+                                <label class="form-label d-block">Duración de la reserva:</label>
+                                <div class="btn-group w-100" role="group" aria-label="Duración de la reserva">
+                                    <input type="radio" class="btn-check duracionCheckbox" name="duracion" id="duracion60" value="60" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="duracion60">60 Minutos</label>
+                                    <input type="radio" class="btn-check duracionCheckbox" name="duracion" id="duracion90" value="90" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="duracion90">90 Minutos</label>
+                                </div>
+                            </div>
 
-                <label for="duracion">Duración de la reserva:</label>
-                <label class="form-check">
-                    <input class="form-check-input duracionCheckbox" type="radio" name="radios" id="duracion60" value="60">
-                    <span class="form-check-label">60 Minutos</span>
-                </label>
+                            <div class="mb-4">
+                                <label for="horario" class="form-label">Selecciona un horario:</label>
+                                <select class="form-select" id="horario" name="horario">
+                                    <option value="" selected disabled>Elige un horario</option>
+                                    <!-- Opciones de horario se agregarán dinámicamente con JavaScript -->
+                                </select>
+                            </div>
 
-                <label class="form-check">
-                    <input class="form-check-input duracionCheckbox" type="radio" name="radios" id="duracion90" value="90">
-                    <span class="form-check-label">90 Minutos</span>
-                </label>
+                            <div class="mb-4">
+                                <label class="form-label d-block">Cantidad de jugadores restantes:</label>
+                                <div class="btn-group w-100" role="group" aria-label="Cantidad de jugadores restantes">
+                                    <input type="radio" class="btn-check" name="jugadoresRestantes" id="jugadores1" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="jugadores1">1</label>
+                                    <input type="radio" class="btn-check" name="jugadoresRestantes" id="jugadores2" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="jugadores2">2</label>
+                                    <input type="radio" class="btn-check" name="jugadoresRestantes" id="jugadores3" value="3" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="jugadores3">3</label>
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="horario">Selecciona un horario:</label>
-                    <select class="form-control" id="horario" name="horario"></select>
-                </div>
-
-                <div class="form-group d-flex justify-content-center row">
-                    <label for="jugadoresRestantes">Cantidad de jugadores restantes:</label>
-                    <label class="form-check col-md-3 col-3">
-                        <input class="form-check-input" type="radio" name="jugadoresRestantes" value="1">
-                        <span class="form-check-label">1</span>
-                    </label>
-                    <label class="form-check col-md-3 col-3">
-                        <input class="form-check-input" type="radio" name="jugadoresRestantes" value="2">
-                        <span class="form-check-label">2</span>
-                    </label>
-                    <label class="form-check col-md-3 col-3">
-                        <input class="form-check-input" type="radio" name="jugadoresRestantes" value="3">
-                        <span class="form-check-label">3</span>
-                    </label>
-                </div>
-
-                <div class="d-flex justify-content-center m-2">
-                    <button class="btn btn-success" onclick="CrearPartido(1)">Crear</button>
+                            <div class="d-grid">
+                                <button type="button" class="btn btn-primary btn-lg" onclick="CrearPartido(1)">
+                                    <i class="bi bi-plus-circle me-2"></i>Crear Partido
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

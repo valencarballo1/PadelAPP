@@ -22,6 +22,11 @@ namespace ReservaPadel.Controllers
             return View();
         }
 
+        public ActionResult BackupIndex()
+        {
+            return View();
+        }
+
         public ActionResult Reserva()
         {
             return View();

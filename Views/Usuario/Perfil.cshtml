@@ -2,67 +2,42 @@
 @{
     ViewBag.Title = "Perfil";
 }
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 col-xl-12">
-            <div class="card d-flex justify-content-center">
-                <div class="card-body d-flex flex-column align-items-center">
-                    <div class="col-md-12 d-flex justify-content-center m-2">
-                        <img src="@Url.Content(Model.FotoPerfil)" class="perfil-img" alt="Foto de perfil">
-                    </div>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <img src="@Url.Content(Model.FotoPerfil)" alt="Foto de perfil" class="profile-img mb-3">
+                            <h2 class="fw-bold">@Model.NombreUsuario</h2>
+                        </div>
 
-                    <div class="col-md-12 d-flex justify-content-center">
-                        @if (Model != null && Model.NombreUsuario != null)
-                        {
-                            <h2>@Model.NombreUsuario</h2>
-                        }
-                        else
-                        {
-                            <p>Usuario no disponible</p>
-                        }
-                    </div>
-
-                    <div class="col-md-12 d-flex justify-content-center">
-                        @if (Model != null && Model.Celular != null)
-                        {
-                            <div class="d-flex justify-content-center align-items-center">
-                                <div class="col-auto m-2 h5">
-                                    <label class="col-form-label">Celular</label>
-                                </div>
-                                <div class="col-auto" id="spanCelular">
-                                    @Model.Celular
-                                </div>
-                                <div class="col-auto m-2">
-                                    <button class="btn btn-info" id="editarNumero"><i class="bi bi-pencil"></i></button>
-                                </div>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <i class="bi bi-telephone-fill me-2 text-primary"></i>
+                                <span class="h5 mb-0 me-2">Celular:</span>
+                                <span id="spanCelular">@Model.Celular</span>
+                                <button class="btn btn-sm btn-outline-primary ms-2" id="editarNumero">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
                             </div>
-                        }
-                        else
-                        {
-                            <p>Celular no disponible</p>
-                        }
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center align-items-center">
-                        <div class="col-auto m-2 h5">
-                            <label class="col-form-label">Categoria</label>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <i class="bi bi-star-fill me-2 text-warning"></i>
+                                <span class="h5 mb-0 me-2">Categoría:</span>
+                                <span>@Model.Categoria - PTOS. @Model.Puntuacion</span>
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            @Model.Categoria - PTOS. @Model.Puntuacion
-                        </div>
-                    </div>
 
-                    <div class="col-md-12 d-flex flex-column align-items-center p-3">
-                        <div class="col-auto p-2">
-                            <button type="button" class="btn btn-primary btn-block" id="btnVerReservas">Ver Mis Reservas</button>
-                        </div>
-                        <div class="col-auto p-2">
-                            <button type="button" class="btn btn-primary btn-block" id="btnVerUltimosPartidos">Ver Mis Últimos Partidos</button>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 d-flex justify-content-center align-items-center">
-                        <div class="col-auto m-2 h5">
-                            <button class="btn btn-danger rounded-1" id="cerrarSesion">Cerrar Sesion</button>
+                        <div class="d-grid gap-2 col-lg-6 mx-auto">
+                            <button type="button" class="btn btn-primary" id="btnVerReservas">
+                                <i class="bi bi-calendar-check me-2"></i>Ver Mis Reservas
+                            </button>
+                            <button type="button" class="btn btn-primary" id="btnVerUltimosPartidos">
+                                <i class="bi bi-trophy me-2"></i>Ver Mis Últimos Partidos
+                            </button>
+                            <button class="btn btn-danger" id="cerrarSesion">
+                                <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -70,43 +45,61 @@
         </div>
     </div>
 
-</div>
-<div class="modal fade" id="modalReservas" tabindex="-1" role="dialog" aria-labelledby="modalReservasLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-body">
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modalUltimosPartidos" tabindex="-1" role="dialog" aria-labelledby="modalUltimosPartidosLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-body">
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="editarNumeroModal" tabindex="-1" role="dialog" aria-labelledby="editarNumeroModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editarNumeroModalLabel">Editar Número de Celular</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <label for="nuevoCelularInput">Nuevo Número de Celular:</label>
-                <input type="text" class="form-control" id="nuevoCelularInput">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="guardarCambiosModal">Guardar Cambios</button>
+    <!-- Modal para editar número de celular -->
+    <div class="modal fade" id="editarNumeroModal" tabindex="-1" aria-labelledby="editarNumeroModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarNumeroModalLabel">Editar Número de Celular</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nuevoCelularInput" class="form-label">Nuevo Número de Celular:</label>
+                        <input type="text" class="form-control" id="nuevoCelularInput">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="guardarCambiosModal">Guardar Cambios</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
+    <!-- Modal para ver reservas -->
+    <div class="modal fade" id="modalReservas" tabindex="-1" aria-labelledby="modalReservasLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalReservasLabel">Mis Reservas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Aquí se cargaría dinámicamente el contenido de las reservas -->
+                    <p>Contenido de las reservas...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver últimos partidos -->
+    <div class="modal fade" id="modalUltimosPartidos" tabindex="-1" aria-labelledby="modalUltimosPartidosLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalUltimosPartidosLabel">Mis Últimos Partidos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Aquí se cargaría dinámicamente el contenido de los últimos partidos -->
+                    <p>Contenido de los últimos partidos...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
     const idUsuario = @Model.Id;
     const cerrarSesion = document.getElementById('cerrarSesion');
     const editarNumero = document.getElementById('editarNumero');
@@ -218,4 +211,4 @@
         });
     }
 
-</script>
+    </script>

@@ -12,19 +12,20 @@ namespace Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Canchas
+    public partial class Club
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Canchas()
+        public Club()
         {
-            this.CanchasReservadas = new HashSet<CanchasReservadas>();
+            this.Cancha = new HashSet<Cancha>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> NumeroCancha { get; set; }
-        public Nullable<bool> Estado { get; set; }
+        public string Nombre { get; set; }
+        public Nullable<int> IdDetalle { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CanchasReservadas> CanchasReservadas { get; set; }
+        public virtual ICollection<Cancha> Cancha { get; set; }
+        public virtual ClubDetalle ClubDetalle { get; set; }
     }
 }
