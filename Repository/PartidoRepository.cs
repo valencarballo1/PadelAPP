@@ -76,6 +76,7 @@ namespace Repository
                     FotoPerfil4 = jugador4?.FotoPerfil ?? string.Empty,
                     Categoria4 = jugador4?.Categoria ?? string.Empty,
                     Puntuacion4 = jugador4?.Puntuacion,
+                    NombreClub = this.GetNombreClub(partidoEncontrado.CanchasReservadas.IdCancha.Value)
 
                 };
 
@@ -110,7 +111,8 @@ namespace Repository
                     HorarioHasta = h.CanchasReservadas.Horarios.HorarioHasta.Value,
                     CanchaNumero = h.CanchasReservadas.IdCancha.Value,
                     CantidadJugadores = this.CantidadJugadores(h.Id),
-                    UsuarioOrganizador = h.Usuario.NombreUsuario
+                    UsuarioOrganizador = h.Usuario.NombreUsuario,
+                    NombreClub = this.GetNombreClub(h.CanchasReservadas.IdCancha.Value)
                 })
                 .OrderBy(r => r.HorarioDesde)
                 .ToList();
@@ -273,6 +275,7 @@ namespace Repository
                         FotoPerfil4 = jugador4?.FotoPerfil ?? string.Empty,
                         Categoria4 = jugador4?.Categoria ?? string.Empty,
                         Puntuacion4 = jugador4?.Puntuacion,
+                        NombreClub = this.GetNombreClub(partidoEncontrado.CanchasReservadas.IdCancha.Value)
 
                     };
 
@@ -366,6 +369,14 @@ namespace Repository
             {
                 db.Perfil.AddOrUpdate(perfil);
                 db.SaveChanges();
+            }
+        }
+
+        public string GetNombreClub(int idCancha)
+        {
+            using (PadelAppEntities db = new PadelAppEntities())
+            {
+               return db.Cancha.Include("Club").SingleOrDefault(c => c.Id == idCancha).Club.Nombre;
             }
         }
     }

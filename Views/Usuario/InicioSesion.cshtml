@@ -3,50 +3,44 @@
     ViewBag.Title = "InicioSesion";
 }
 
-<div class="container">
-
-    <div class="card row border-left-primary shadow py-2 m-2">
-        <div class="card-header py-2 d-flex justify-content-center">
-            <div class="text-center h4">
-                <i class="fa fa-tennis-ball text-success"></i> INICIAR SESION <i class="fa fa-tennis-ball text-success"></i>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="row d-flex justify-content-center align-items-center">
-                <div class="col-md-12 col-12 input-group" style="width:420px;">
-                    <span class="input-group-text">
-                        <i class="bi bi-person"></i>
-                    </span>
-                    <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" placeholder="Nombre de usuario">
-                </div>
-
-            </div>
-
-            <div class="row d-flex justify-content-center align-items-center mt-5">
-                <div class="col-md-12 col-12 input-group" style="width:420px;">
-                    <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Contraseña">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="mostrarContrasena">
-                            <i class="bi bi-eye"></i>
-                        </button>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-body p-5">
+                    <form id="loginForm">
+                        <div class="mb-4">
+                            <label for="nombreUsuario" class="form-label">Nombre de usuario</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-person"></i>
+                                </span>
+                                <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" placeholder="Ingrese su nombre de usuario">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="contrasena" class="form-label">Contraseña</label>
+                            <div class="input-group">
+                                <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Ingrese su contraseña">
+                                <button class="btn btn-outline-secondary" type="button" id="mostrarContrasena">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-success" id="inicioSesion">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <p>¿No tienes cuenta? <a href="@Url.Action("Registro", "Usuario")" class="btn btn-warning btn-sm">Regístrate</a></p>
                     </div>
                 </div>
             </div>
-
-
-            <div class="row">
-
-                <div class="col-md-12 g-3 d-flex justify-content-center align-items-center mt-2">
-                    <button type="button" class="btn btn-success" id="inicioSesion">Iniciar Sesion</button>
-                </div>
-
-                <div class="col-md-12 g-3 d-flex justify-content-center align-items-center mt-3">
-                    <p>¿No tienes cuenta? <a href="@Url.Action("Registro", "Usuario")" class="btn btn-warning">Regístrate</a></p>
-                </div>
-            </div>
         </div>
+    </div>
+</div>
 
-        <script>
+<script>
         const inicioSesion = document.getElementById('inicioSesion');
         const usuarioNombre = document.getElementById('nombreUsuario');
         const contrasena = document.getElementById('contrasena');
@@ -120,8 +114,6 @@
                 });
             }
         });
-        </script>
+</script>
 
-    </div>
-</div>
 

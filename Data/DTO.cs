@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,6 +63,7 @@ namespace Data
             public string Categoria4 { get; set; }
             public decimal? Puntuacion4 { get; set; }
             public int IdUsuarioOrganiza { get; set; }
+            public string NombreClub { get; set; }
         }
 
         public class DetallePartidoDTO
@@ -72,6 +74,8 @@ namespace Data
             public DateTime HorarioHasta { get; set; }
             public int CantidadJugadores { get; set; }
             public string UsuarioOrganizador { get; set; }
+            public string NombreClub { get; set; }
+
         }
 
         public class CategoriaDTO
@@ -121,6 +125,13 @@ namespace Data
             public string Detalle { get; set; }
             public int IdCanchaReservada { get; set; }
             public int TipoNotificacion { get; set; }
+        }
+
+        public class ClubDTO
+        {
+            public int IdClub { get; set; }
+            public string Image { get; set; }
+            public string Nombre { get; set; }
         }
     }
 }

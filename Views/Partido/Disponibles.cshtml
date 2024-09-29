@@ -19,6 +19,10 @@
             </div>
             <div class="card-body d-flex flex-column">
                 <p class="card-text text-center mb-3">
+                    <i class="bi bi-geo-alt me-2"></i>
+                    <span class="ubicacion"></span>
+                </p>
+                <p class="card-text text-center mb-3">
                     <i class="bi bi-clock me-2"></i>
                     <span class="horario"></span>
                 </p>
@@ -73,6 +77,7 @@
 
             clone.querySelector('.fecha').textContent = formatearFecha(partido.HorarioDesde);
             clone.querySelector('.horario').textContent = `${formatearHora(partido.HorarioDesde)} - ${formatearHora(partido.HorarioHasta)}`;
+            clone.querySelector('.ubicacion').textContent = partido.NombreClub;
             clone.querySelector('.cantidad-jugadores').textContent = partido.CantidadJugadores;
             clone.querySelector('.organizador').textContent = partido.UsuarioOrganizador;
 

@@ -1,121 +1,132 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Registro";
 }
 
-<div class="container-fluid seccion-clara pt-5">
-    <h2 class="text-center">REGISTRO</h2>
+<style>
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #4CAF50;
+        box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+    }
 
-    <form class="card-body row"  id="formularioRegistro" enctype="multipart/form-data" action="@Url.Action("Registrarme", "Usuario")" method="POST">
-        <div class="col-md-6 g-3 align-items-center">
-            <div class="col-auto">
-                <label for="nombre" class="col-form-label">Nombre</label>
-            </div>
-            <div class="col-auto input-group">
-                <span class="input-group-text">
-                    <i class="fa fa-tennis-ball"></i>
-                </span>
-                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre">
-            </div>
-        </div>
+    .input-group-text {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+    }
 
-        <div class="col-md-6 g-3 align-items-center">
-            <div class="col-auto">
-                <label for="apellido" class="col-form-label">Apellido</label>
-            </div>
-            <div class="col-auto input-group">
-                <span class="input-group-text">
-                    <i class="fa fa-tennis-ball"></i>
-                </span>
-                <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Apellido">
-            </div>
-        </div>
+</style>
 
-        <div class="col-md-6 g-3 align-items-center">
-            <div class="col-auto">
-                <label for="celular" class="col-form-label">Número celular</label>
-            </div>
-            <div class="col-auto input-group">
-                <span class="input-group-text">
-                    <i class="bi bi-phone"></i>
-                </span>
-                <input type="tel" id="celular" name="celular" class="form-control" placeholder="1199999999">
-                <div class="m-2">
-                    <i id="mensajeError" class="text-danger"></i>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white text-center py-3">
+                    <h2 class="mb-0">REGISTRO</h2>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 g-3 align-items-center">
-            <div class="col-auto">
-                <label for="celular" class="col-form-label">Categoria</label>
-            </div>
-            <div class="col-auto input-group">
-                <select id="selectCategorias" class="form-control" name="categoriaId">
-                    <option value="">Selecciona tu categoría</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row col-md-12 g-3 align-items-center d-flex justify-content-center">
-            <div class="col-md-12">
-                <label for="vistaPrevia">Foto de perfil:</label>
-                <img src="#" alt="Vista Previa" class="perfil-img d-none" id="vistaPrevia">
-            </div>
-            <div class="col-md-12">
-                <input type="file" name="fotoPerfil" class="btn btn-sm btn-success form-control-file" id="fotoPerfil">
-            </div>
-        </div>
-
-        <div class="col-md-6 g-3 align-items-center">
-            <div class="col-auto">
-                <label for="usuario" class="col-form-label">Usuario</label>
-            </div>
-            <div class="col-auto input-group">
-                <span class="input-group-text">
-                    <i class="bi bi-person"></i>
-                </span>
-                <input type="text" id="usuario" name="usuario" class="form-control">
-            </div>
-            <div class="m-2">
-                <i id="mensajeErrorUsuario" class="text-danger"></i>
-            </div>
-        </div>
-
-        <div class="col-md-6 g-3 align-items-center">
-            <div class="col-auto">
-                <label for="contrasena" class="col-form-label">Contraseña</label>
-            </div>
-            <div class="col-auto">
-                <div class="input-group">
-                    <input type="password" id="contrasena" name="contrasena" class="form-control">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="mostrarContrasena">
-                            <i class="bi bi-eye"></i>
-                        </button>
+                <div class="card-body p-4">
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
+                    <form id="formularioRegistro" enctype="multipart/form-data" action="@Url.Action("Registrarme", "Usuario")" method="POST">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-tennis-ball"></i></span>
+                                    <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required>
+                                </div>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="apellido" class="form-label">Apellido</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-tennis-ball"></i></span>
+                                    <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Apellido" required>
+                                </div>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="celular" class="form-label">Número celular</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-phone"></i></span>
+                                    <input type="tel" id="celular" name="celular" class="form-control" placeholder="1199999999" required>
+                                </div>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selectCategorias" class="form-label">Categoria</label>
+                                <select id="selectCategorias" class="form-select" name="categoriaId" required>
+                                    <option value="">Selecciona tu categoría</option>
+                                </select>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-md-12 text-center mb-4">
+                                <label for="fotoPerfil" class="form-label d-block">Foto de perfil</label>
+                                <div class="position-relative d-inline-block">
+                                    <img src="#" alt="Vista Previa" class="profile-img d-none mb-2" id="vistaPrevia">
+                                    <div class="position-absolute bottom-0 end-0">
+                                        <label for="fotoPerfil" class="btn btn-sm btn-success rounded-circle">
+                                            <i class="bi bi-camera"></i>
+                                        </label>
+                                        <input type="file" name="fotoPerfil" id="fotoPerfil" class="d-none" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="usuario" class="form-label">Usuario</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                    <input type="text" id="usuario" name="usuario" class="form-control" required>
+                                </div>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="contrasena" class="form-label">Contraseña</label>
+                                <div class="input-group">
+                                    <input type="password" id="contrasena" name="contrasena" class="form-control" required>
+                                    <button class="btn btn-outline-secondary" type="button" id="mostrarContrasena">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success w-100" id="crearUsuario">Crear Usuario</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-6 g-3 align-items-center">
-            <button type="submit" class="btn btn-success" id="crearUsuario">Crear</button>
-        </div>
-    </form>
+    </div>
 </div>
 
 <script>
-    let nombreInput = document.getElementById('nombre');
-    let apellidoInput = document.getElementById('apellido');
-    let usuarioNombre = document.getElementById('usuario');
-    const crearUsuario = document.getElementById('crearUsuario');
-    const celular = document.getElementById('celular');
-    let fotoAdjunta;
-    let nombreIngresado = false;
-    let apellidoIngresado = false;
-    let usuarioExiste = false;
-
     $(document).ready(function () {
+        let nombreInput = document.getElementById('nombre');
+        let apellidoInput = document.getElementById('apellido');
+        let usuarioNombre = document.getElementById('usuario');
+        const crearUsuario = document.getElementById('crearUsuario');
+        const celular = document.getElementById('celular');
+        let fotoAdjunta;
+        let nombreIngresado = false;
+        let apellidoIngresado = false;
+        let usuarioExiste = false;
+
+        const formInputs = document.querySelectorAll('#formularioRegistro input, #formularioRegistro select');
+        const progressBar = document.querySelector('.progress-bar');
+
+        function updateProgress() {
+            const totalFields = formInputs.length;
+            const filledFields = Array.from(formInputs).filter(input => input.value.trim() !== '').length;
+            const progress = (filledFields / totalFields) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressBar.setAttribute('aria-valuenow', progress);
+        }
+
+        formInputs.forEach(input => input.addEventListener('input', updateProgress));
+
         $.ajax({
             url: "@Url.Action("GetAll", "Categoria")",
             type: 'GET',
@@ -127,186 +138,160 @@
                 console.error('Error al obtener las categorías:', error);
             }
         });
-    });
 
-    document.getElementById('fotoPerfil').addEventListener('change', function (e) {
-        let vistaPrevia = document.getElementById('vistaPrevia');
-        vistaPrevia.classList.remove('d-none');
+        document.getElementById('fotoPerfil').addEventListener('change', function (e) {
+            let vistaPrevia = document.getElementById('vistaPrevia');
+            vistaPrevia.classList.remove('d-none');
 
+            let archivo = e.target.files[0];
+            let lector = new FileReader();
+            fotoAdjunta = archivo;
 
-        let archivo = e.target.files[0];
-        let lector = new FileReader();
-        fotoAdjunta = archivo;
-        console.log(fotoAdjunta);
+            lector.onload = function (e) {
+                vistaPrevia.src = e.target.result;
+            };
 
-        lector.onload = function (e) {
-            vistaPrevia.src = e.target.result;
-        };
-
-        lector.readAsDataURL(archivo);
-    });
-
-
-
-    nombre.addEventListener('blur', () => {
-        if (nombre.value.length > 0) {
-            nombreIngresado = true;
-            nombreInput = nombre.value;
-        }
-    });
-
-    apellido.addEventListener('blur', () => {
-        if (apellido.value.length > 0) {
-            apellidoIngresado = true;
-            apellidoInput = apellido.value;
-        }
-
-
-    });
-
-    apellido.addEventListener('focusout', () => {
-        if (nombreIngresado == true && apellidoIngresado == true) {
-            UsuarioGenerico(nombreInput, apellidoInput);
-        } else {
-            usuarioNombre.value = "";
-        }
-    });
-
-    celular.addEventListener('input', function () {
-        const celularInput = this.value;
-        const mensajeError = document.getElementById('mensajeError');
-
-        // Validar la longitud del número de celular
-        if (celularInput.length !== 10) {
-            mensajeError.classList.remove('text-success');
-            mensajeError.classList.add('text-danger', 'bi', 'bi-x-circle-fill');
-            mensajeError.textContent = 'Num. Invalido'; // Limpiar el mensaje de error si es válido
-
-
-        } else {
-            mensajeError.classList.remove('text-danger');
-            mensajeError.classList.remove('bi', 'bi-x-circle-fill');
-            mensajeError.classList.add('text-success', 'bi', 'bi-check-circle-fill');
-            mensajeError.textContent = 'OK'; // Limpiar el mensaje de error si es válido
-        }
-    });
-
-    const UsuarioGenerico = (nombre, apellido) => {
-        usuarioNombre.value = (nombre + '.' + apellido).replace(/\s/g, '');
-        const inputEvent = new Event('input', { bubbles: true });
-        usuarioNombre.dispatchEvent(inputEvent);
-    }
-
-    usuarioNombre.addEventListener('input', function () {
-    const mensajeError = document.getElementById('mensajeErrorUsuario');
-
-    $.ajax({
-        url: '@Url.Action("GetByUsuarioNombre", "Usuario")',
-        type: 'GET',
-        data: {
-            usuarioNombre: usuarioNombre.value
-        },
-        success: function (data) {
-            if (data == true) {
-                usuarioExiste = true;
-            } else {
-                usuarioExiste = false;
-            }
-
-            console.log("ENTRA + " + usuarioExiste);
-            if (usuarioExiste) {
-                mensajeError.classList.remove('text-success');
-                mensajeError.classList.add('text-danger', 'bi', 'bi-x-circle-fill');
-                mensajeError.textContent = 'Usuario Existente';
-            } else {
-                mensajeError.classList.remove('text-danger');
-                mensajeError.classList.remove('bi', 'bi-x-circle-fill');
-                mensajeError.classList.add('text-success', 'bi', 'bi-check-circle-fill');
-                mensajeError.textContent = 'Disponible';
-            }
-        },
-        error: function (error) {
-            console.error('Error al obtener horarios:', error);
-        }
-    });
-});
-
-    document.getElementById('mostrarContrasena').addEventListener('click', function () {
-        const contrasenaInput = document.getElementById('contrasena');
-        const iconoOjo = this.querySelector('i');
-
-        // Alterna entre tipo 'password' y 'text'
-        if (contrasenaInput.type === 'password') {
-            contrasenaInput.type = 'text';
-            iconoOjo.classList.remove('bi-eye');
-            iconoOjo.classList.add('bi-eye-slash');
-        } else {
-            contrasenaInput.type = 'password';
-            iconoOjo.classList.remove('bi-eye-slash');
-            iconoOjo.classList.add('bi-eye');
-        }
-    });
-
-    function construirOpcionesSelect(categorias) {
-        const select = $('#selectCategorias');
-
-        select.empty();
-        select.append('<option value="">Selecciona tu categoría</option>');
-
-        categorias.forEach(function (categoria) {
-            select.append('<option value="' + categoria.Id + '">' + categoria.Nombre + '</option>');
+            lector.readAsDataURL(archivo);
+            updateProgress();
         });
 
-        select.on('change', function () {
-            const valorSeleccionado = $(this).val();
-            console.log('Valor seleccionado:', valorSeleccionado);
-
-            // Puedes hacer lo que quieras con el valor seleccionado aquí
+        nombre.addEventListener('blur', () => {
+            if (nombre.value.length > 0) {
+                nombreIngresado = true;
+                nombreInput = nombre.value;
+            }
+            updateProgress();
         });
-    }
 
-    $("#formularioRegistro").submit(function (e) {
-        enEspera();
-        e.preventDefault();
-        var formData = new FormData(this);
+        apellido.addEventListener('blur', () => {
+            if (apellido.value.length > 0) {
+                apellidoIngresado = true;
+                apellidoInput = apellido.value;
+            }
+            updateProgress();
+        });
 
-        $.ajax({
-            url: $(this).attr("action"),
-            type: $(this).attr("method"),
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                enEspera("chau");
-                if (response > 0) {
-                    Swal.fire({
-                        title: "Registro confirmado!",
-                        text: "Tu usuario esta activo. Puedes reservar y crear partidos!",
-                        icon: "success",
-                        showConfirmButton: true
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location = "@Url.Action("Index", "Home")";
-                        }
+        apellido.addEventListener('focusout', () => {
+            if (nombreIngresado == true && apellidoIngresado == true) {
+                UsuarioGenerico(nombreInput, apellidoInput);
+            } else {
+                usuarioNombre.value = "";
+            }
+            updateProgress();
+        });
 
-                    });
+        function showFeedback(element, isValid, message) {
+            const inputGroup = element.closest('.input-group') || element.parentElement;
+            const feedbackElement = inputGroup.nextElementSibling;
 
+            if (feedbackElement && feedbackElement.classList.contains('feedback')) {
+                feedbackElement.textContent = message;
+                feedbackElement.className = 'feedback ' + (isValid ? 'text-success' : 'text-danger');
+            }
+
+            element.classList.toggle('is-valid', isValid);
+            element.classList.toggle('is-invalid', !isValid);
+        }
+
+        celular.addEventListener('input', function () {
+            const isValid = this.value.length === 10;
+            showFeedback(this, isValid, isValid ? 'OK' : 'Num. Invalido');
+            updateProgress();
+        });
+
+        const UsuarioGenerico = (nombre, apellido) => {
+            usuarioNombre.value = (nombre + '.' + apellido).replace(/\s/g, '');
+            const inputEvent = new Event('input', { bubbles: true });
+            usuarioNombre.dispatchEvent(inputEvent);
+        }
+
+        usuarioNombre.addEventListener('input', function () {
+            $.ajax({
+                url: '@Url.Action("GetByUsuarioNombre", "Usuario")',
+                type: 'GET',
+                data: {
+                    usuarioNombre: usuarioNombre.value
+                },
+                success: function (data) {
+                    usuarioExiste = data;
+                    const isValid = !usuarioExiste;
+                    showFeedback(usuarioNombre, isValid, isValid ? 'Disponible' : 'Usuario Existente');
+                },
+                error: function (error) {
+                    console.error('Error al verificar usuario:', error);
                 }
+            });
+            updateProgress();
+        });
 
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                enEspera("chau")
-                Swal.fire({
-                    title: "Error!",
-                    text: "Hubo un error en el registo!",
-                    icon: "error",
-                    showConfirmButton: true
-                })
+        document.getElementById('mostrarContrasena').addEventListener('click', function () {
+            const contrasenaInput = document.getElementById('contrasena');
+            const iconoOjo = this.querySelector('i');
+
+            if (contrasenaInput.type === 'password') {
+                contrasenaInput.type = 'text';
+                iconoOjo.classList.remove('bi-eye');
+                iconoOjo.classList.add('bi-eye-slash');
+            } else {
+                contrasenaInput.type = 'password';
+                iconoOjo.classList.remove('bi-eye-slash');
+                iconoOjo.classList.add('bi-eye');
             }
+        });
 
+        function construirOpcionesSelect(categorias) {
+            const select = $('#selectCategorias');
 
+            select.empty();
+            select.append('<option value="">Selecciona tu categoría</option>');
+
+            categorias.forEach(function (categoria) {
+                select.append('<option value="' + categoria.Id + '">' + categoria.Nombre + '</option>');
+            });
+
+            select.on('change', function () {
+                const valorSeleccionado = $(this).val();
+                console.log('Valor seleccionado:', valorSeleccionado);
+                updateProgress();
+            });
+        }
+
+        $("#formularioRegistro").submit(function (e) {
+            e.preventDefault();
+            enEspera();
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: $(this).attr("action"),
+                type: $(this).attr("method"),
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    enEspera("chau");
+                    if (response > 0) {
+                        Swal.fire({
+                            title: "Registro confirmado!",
+                            text: "Tu usuario esta activo. Puedes reservar y crear partidos!",
+                            icon: "success",
+                            showConfirmButton: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location = "@Url.Action("Index", "Home")";
+                            }
+                        });
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    enEspera("chau");
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Hubo un error en el registro!",
+                        icon: "error",
+                        showConfirmButton: true
+                    });
+                }
+            });
         });
     });
 </script>
-
-

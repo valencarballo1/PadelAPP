@@ -91,7 +91,7 @@
 
 <div class="container-fluid py-5 seccion-oscura">
     <div class="row justify-content-center">
-        <div class="col-md-5 mb-4">
+        @*<div class="col-md-5 mb-4">
             <div class="card h-100 border-0 shadow">
                 <div class="card-header bg-primary text-white">
                     <h3 class="text-center mb-0">RESERVA TU CANCHA</h3>
@@ -105,9 +105,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
 
-        <div class="col-md-5 mb-4">
+        <div class="d-flex justify-content-center col-md-6 mb-4">
             <div class="card h-100 border-0 shadow">
                 <div class="card-header bg-primary text-white">
                     <h3 class="text-center mb-0">CREA TU PARTIDO</h3>
@@ -245,8 +245,11 @@
                     const colFecha = $('<div class="col-md-12 col-sm-12 d-flex justify-content-center">');
                     colFecha.append('<h5 class="text-center">Fecha: ' + moment(partido.HorarioDesde).format('DD/MM/YYYY') + '</h5>');
 
+                    const colUbicacion = $('<div class="col-md-12 col-sm-12 d-flex justify-content-center">');
+                    colUbicacion.append('<p class="card-text text-center mb-3"> <i class="bi bi-geo-alt me-2"></i>' + partido.NombreClub + '</p>');
+
                     const colHorario = $('<div class="col-md-12 col-sm-12 d-flex justify-content-center">');
-                    colHorario.append('<h7 class="text-center">Desde: ' + formatearHora(partido.HorarioDesde) + " - " + formatearHora(partido.HorarioHasta) + '</h7>');
+                    colHorario.append('<p class="card-text text-center mb-3"> <i class= "bi bi-clock me-2" ></i > ' + formatearHora(partido.HorarioDesde) + " - " + formatearHora(partido.HorarioHasta) + '</p>');
 
 
                     const colBtn = $('<div class="col-md-4 col-sm-8 d-flex justify-content-center p-1">');
@@ -258,6 +261,7 @@
 
 
                     cardBody.append(colFecha);
+                    cardBody.append(colUbicacion);
                     cardBody.append(colHorario);
                     cardBody.append(colBtn);
                     card.append(cardBody);
